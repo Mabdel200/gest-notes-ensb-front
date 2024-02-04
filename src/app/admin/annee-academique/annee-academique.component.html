@@ -70,15 +70,15 @@
                             <tr>
                                 <th>N°</th>
                                 <th>Année academique</th>
-                                <th>Statut</th>
+                                <th>session</th>
                                 <th>Action(s)</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let a of anneeAcademiques">
-                                <td> {{a.debut}} </td>
-                                <td>1</td>
-                                <td>1</td>
+                            <tr *ngFor="let a of anneeAcademiques;let i =  index">
+                                <td>{{i + 1}} </td>
+                                <td> {{a.debut}}</td>
+                                <td>{{a.code}}</td>
                                 <td class="text-success"></td>
                             </tr>
                         </tbody>
