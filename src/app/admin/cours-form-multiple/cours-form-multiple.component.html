@@ -1,0 +1,104 @@
+<header class="bg-info" style="background-color: #6e83d3;">
+    <div class="container-xl px-5">
+        <h1 class="text-white py-3 mb-0 display-6 text-center">enregisrement multiple</h1>
+    </div>
+</header>
+<div class="row g-0">
+    <div style="margin-left: 15%;" class="col-lg-7 col-md-7">
+        <div class="card-body p-5">
+
+            <!-- Login submission form-->
+            <form class="mb-5" [formGroup]="form">
+                <div class="mb-4">
+                    <div class="form-group">
+                        <label for="type">Departement</label>
+                        <select name="" id="" class="form-control" formControlName="departement">
+                            <option *ngFor="let item of departements" ngValue="{{item.id}}">{{item.code}} </option>
+                        </select>
+                        <div *ngIf="form.get('departement_id')?.invalid && form.get('departement_id')?.touched">
+                            <small class="text-danger" *ngIf="form.get('departement_id')?.hasError('required')"> {{
+                                errorMessages.required }} </small>
+
+                        </div>
+
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <div class="form-group">
+                        <label for="type">Parcours</label>
+                        <select name="" id="" class="form-control" formControlName="parcours">
+                            <option *ngFor="let item of parcours" ngValue="{{item.id}}">{{item.label}} </option>
+                        </select>
+                        <div *ngIf="form.get('parcours_id')?.invalid && form.get('parcours_id')?.touched">
+                            <small class="text-danger" *ngIf="form.get('parcours_id')?.hasError('required')"> {{
+                                errorMessages.required }} </small>
+
+                        </div>
+
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <div class="form-group">
+                        <label for="type">Credit</label>
+                        <select name="" id="" class="form-control" formControlName="credit">
+                            <option *ngFor="let item of credit" ngValue="{{item.id}}">{{item.valeur}} </option>
+                        </select>
+                        <div *ngIf="form.get('credit_id')?.invalid && form.get('credit_id')?.touched">
+                            <small class="text-danger" *ngIf="form.get('credit_id')?.hasError('required')"> {{
+                                errorMessages.required }} </small>
+
+                        </div>
+
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <div class="form-group">
+                        <label for="type">Type cours</label>
+                        <select name="" id="" class="form-control" formControlName="typeCours">
+                            <option *ngFor="let item of typeCours" ngValue="{{item.id}}">{{item.nom}} </option>
+                        </select>
+                        <div *ngIf="form.get('type_cours_id')?.invalid && form.get('type_cours_id')?.touched">
+                            <small class="text-danger" *ngIf="form.get('type_cours_id')?.hasError('required')"> {{
+                                errorMessages.required }} </small>
+
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="mb-4">
+                    <div class="form-group">
+                        <label for="type">Semestre</label>
+                        <select name="" id="" class="form-control" formControlName="semestre">
+                            <option *ngFor="let item of semestre" ngValue="{{item.id}}">{{item.valeur}} </option>
+                        </select>
+                        <div *ngIf="form.get('semestre')?.invalid && form.get('semestre')?.touched">
+                            <small class="text-danger" *ngIf="form.get('semestre')?.hasError('required')"> {{
+                                errorMessages.required }} </small>
+
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="mb-4">
+                    <div class="form-group">
+                        <label>Fichier excel </label>
+                        <input type="file" class="form-control" (change)="onSelectFile($event)">
+                        <!-- @if (name.invalid) {
+                            <mat-error>{{getErrorMessage()}}</mat-error>
+                            }  -->
+                    </div>
+                </div>
+
+                <div class="form-group d-flex align-items-center  mt-4 mb-0">
+                    <button class="btn btn-primary"  routerLink="/administrator/cours/">Annuler</button> &nbsp;
+                    <button class="btn btn-success" type='submit' (click)="uploadFileData($event)">Ajouter</button>
+                </div>
+            </form>
+            <!-- Auth card message-->
+
+        </div>
+
+    </div>
+</div>

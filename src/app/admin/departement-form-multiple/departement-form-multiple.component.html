@@ -1,0 +1,33 @@
+<header class="bg-info" style="background-color: #6e83d3;">
+    <div class="container-xl px-5">
+        <h1 class="text-white py-3 mb-0 display-6 text-center">enregisrement multiple</h1>
+    </div>
+</header>
+<div class="row g-0">
+    <div style="margin-left: 15%;" class="col-lg-7 col-md-7">
+        <div class="card-body p-5">
+
+            <!-- Login submission form-->
+            <form class="mb-5">
+
+                <div class="mb-4">
+                    <div class="form-group">
+                        <label>Fichier excel </label>
+                        <input type="file" class="form-control" (change)="onSelectFile($event)">
+                        <!-- @if (name.invalid) {
+                            <mat-error>{{getErrorMessage()}}</mat-error>
+                            }  -->
+                    </div>
+                </div>
+
+                <div class="form-group d-flex align-items-center  mt-4 mb-0">
+                    <button class="btn btn-primary"  routerLink="/administrator/departement/">Annuler</button> &nbsp;
+                    <button class="btn btn-success" type='submit' (click)="uploadFileData($event)">Ajouter</button>
+                </div>
+            </form>
+            <!-- Auth card message-->
+
+        </div>
+
+    </div>
+</div>

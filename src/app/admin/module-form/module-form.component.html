@@ -1,0 +1,62 @@
+<header class="bg-info" style="background-color: #6e83d3;">
+    <div class="container-xl px-5">
+        <h1 class="text-white py-3 mb-0 display-6 text-center">{{title}}</h1>
+    </div>
+</header>
+<div class="row g-0">
+    <div style="margin-left: 15%;" class="col-lg-7 col-md-7">
+        <div class="card-body p-5">
+
+            <!-- Login submission form-->
+            <form class="mb-5" [formGroup]="form" (ngSubmit)="submit()">
+               
+                <div class="mb-4">
+                    <div class="form-group">
+                        <label>Intitule</label>
+                        <input type="text" class="form-control" formControlName="intitule">
+                        <div *ngIf="form.get('intitule')?.invalid && form.get('intitule')?.touched">
+                            <small class="text-danger" *ngIf="form.get('intitule')?.hasError('required')"> {{
+                                errorMessages.required }} </small>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <div class="form-group">
+                        <label for="type">Cours</label>
+                        <select id="" class="form-control" formControlName="cours">
+                            <option *ngFor="let item of allCours;" [ngValue]="item.coursId"> {{item.intitule}}</option>
+                        </select>
+                    </div>
+                    <div *ngIf="form.get('cours')?.invalid && form.get('cours')?.touched">
+                        <small class="text-danger" *ngIf="form.get('cours')?.hasError('required')"> {{
+                            errorMessages.required }} </small>
+
+                    </div>
+                </div>
+               
+                <div class="mb-4">
+                    <div class="form-group">
+                        <label for="type">Credit</label>
+                        <select id="" class="form-control" formControlName="credit">
+                            <option *ngFor="let item of allCredit" [ngValue]="item.id"> {{item.valeur}}</option>
+
+                        </select>
+                        <div *ngIf="form.get('credit')?.invalid && form.get('credit')?.touched">
+                            <small class="text-danger" *ngIf="form.get('credit')?.hasError('required')"> {{
+                                errorMessages.required }} </small>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group d-flex align-items-center  mt-4 mb-0">
+                    <button class="btn btn-primary"  routerLink="/administrator/module/">Annuler</button> &nbsp;
+                    <button class="btn btn-success" type='submit' [disabled]="form.invalid">{{btnTitle}}</button>
+                </div>
+            </form>
+            <!-- Auth card message-->
+
+        </div>
+
+    </div>
+</div>

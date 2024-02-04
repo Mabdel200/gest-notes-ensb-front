@@ -1,0 +1,207 @@
+<div class="container-xl p-5">
+    <div class="row justify-content-between align-items-center mb-5">
+        <div class="col flex-shrink-0 mb-5 mb-md-0">
+            <h1 class="display-4 mb-0">Etudiant</h1>
+            <div class="text-muted">Liste des étdudiants</div>
+        </div>
+
+    </div>
+
+    <!-- region filtrage du parcours des etudiants a afficher -->
+    <div class="card card-raised">
+        <div class="card-header bg-success text-white px-2">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="me-4">
+                    <h2 class="card-title text-white mb-0">
+                        <button class="btn text-white" type="button" >
+                            <i class="material-icons">group</i> De quel parcours s'agit-il ?
+                        </button> 
+                    </h2>
+                    <div class="card-subtitle"></div>
+                </div>
+            </div>
+        </div>
+        <div class="card-body p-4">
+            <div class="row g-0">
+                <div style="margin-left: 15%;" class="col-lg-7 col-md-7">
+                    <div class="card-body p-5">
+            
+                        <!-- Login submission form-->
+                        <form class="mb-5" [formGroup]="form" (ngSubmit)="submit()" >
+                            <div class="mb-4">
+                                <div class="form-group">
+                                    <label for="type">Département </label>
+                                    <select class="form-control"  name="departement" formControlName="departement">
+                                        <option value="">Sélectionner</option>
+                                        <option *ngFor="let departement of listeDepartements" [value]="departement.code">{{ departement.code }}</option>
+                                    </select>
+                                </div>
+                                <div *ngIf="form.get('departement')?.invalid && form.get('departement')?.touched">
+                                    <small class="text-danger" *ngIf="form.get('departement')?.hasError('required')"> {{ errorMessages.required }} </small>
+                                </div>
+                            </div>
+                        
+                            <div class="mb-4">
+                                <div class="form-group">
+                                    <label for="type">Option</label>
+                                    <select name="" id="" class="form-control" formControlName="option">
+                                        <option value="">Sélectionner</option>
+                                        <option *ngFor="let option of listeOptions" [value]="option.code">{{ option.code }}</option>
+                                    </select>
+                                </div>
+                                <div *ngIf="form.get('option')?.invalid && form.get('option')?.touched">
+                                    <small class="text-danger" *ngIf="form.get('option')?.hasError('required')"> {{ errorMessages.required }} </small>
+                                </div>
+                            </div>
+
+                            <div class="mb-4">
+                                <div class="form-group">
+                                    <label for="type">Niveau</label>
+                                    <select name="" id="" class="form-control" formControlName="niveau">
+                                        <option value="">Sélectionner </option>
+                                        <option *ngFor="let niveau of listeNiveaux" [value]="niveau.id">{{ niveau.valeur }}</option>
+                                    </select>
+                                </div>
+                                <div *ngIf="form.get('niveau')?.invalid && form.get('niveau')?.touched">
+                                    <small class="text-danger" *ngIf="form.get('niveau')?.hasError('required')"> {{ errorMessages.required }} </small>
+            
+                                </div>
+                            </div>
+                          
+                           
+                            <div class="mb-4">
+                                <div class="form-group">
+                                    <label for="type">Année académique</label>
+                                    <select name="" id="" class="form-control" formControlName="annee">
+                                        <option value="">Sélectionner </option>
+                                        <option *ngFor="let annee of listeAnnees" [value]="annee.id">{{ annee.debut}} - {{annee.fin}}</option>
+                                    </select>
+                                    <div *ngIf="form.get('annee')?.invalid && form.get('annee')?.touched">
+                                        <small class="text-danger" *ngIf="form.get('annee')?.hasError('required')"> {{ errorMessages.required }} </small>
+            
+                                    </div>
+                                </div>
+            
+                            </div>
+                            
+            
+            
+                            <div class="form-group d-flex align-items-center justify-content-between mt-4 mb-0">
+                                <button class="btn btn-success" type='submit'>Rechercher</button>
+                            </div>
+                        </form>
+                        <!-- Auth card message-->
+            
+                    </div>
+            
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end region -->
+
+
+    <!-- region exportation -->
+    <div class="card card-raised">
+        <div class="card-header bg-success text-white px-4">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="me-4">
+                    <h2 class="card-title text-white mb-0">
+                        <button class="btn btn-text-white" type="button" routerLink="/administrator/etudiant/nouveau">
+                            <i class="material-icons">add</i> Nouveau
+                        </button> 
+                        &nbsp;&nbsp;
+                        <button class="btn btn-text-white" type="button" routerLink="/administrator/etudiant/enregisrement/multiple">
+                            <i class="material-icons">library_add</i> Ajout multiple
+                        </button>
+                    </h2>
+                    <div class="card-subtitle"></div>
+                </div>
+            </div>
+        </div>
+        <div class="card-body p-4">
+          <div class="datatable-container"> 
+              <button (click)="exportexcel()" class="btn btn-primary mb-3">
+                <i class="material-icons">insert_drive_file</i> Excel
+              </button>
+              <button (click)="captureScreen()" class="btn btn-primary mb-3 ml-3" style="margin-left: 10px;">
+                <i class="material-icons">picture_as_pdf</i> PDF
+              </button>
+
+              <div id="contentToConvert" class="container" >
+                <!-- Table header -->
+
+                <table id="data-header" class="display table" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th class="border-0">
+                                <div class="card p-4 mb-5 text-center" style="margin-top: -10rem;">
+                                    <p class="mb-0"><b>REPUBLIQUE DU CAMEROUN</b></p>
+                                    <p ><b><i>Paix-Travail-Patrie</i></b></p>
+                                    <p><b>UNIVERSITE DE BERTOUA</b></p>
+                                    <p><b>ECOLE NORMALE SUPERIEURE</b></p>
+                                </div>
+                            </th>
+                            <th class="align-middle">
+                                <div class="card-body text-center p-5">
+                                    <img class="img-fluid" src="assets/images/logo_ensb.png" alt="image" style="max-width: 9rem;">
+                                </div>
+                            </th>
+                            <th class="border-0">
+                                <div  class="card p-4 mb-5 text-center" style="margin-top: -10rem;">
+                                    <p class="mb-0"><b>REPUBLIC OF CAMEROON</b></p>
+                                    <p ><b><i>Peace-Work-Fatherland</i></b> </p>
+                                    <p><b>UNIVERSITY OF BERTOUA</b> </p>
+                                    <p><b>HIGHER NORMAL SCHOOL</b></p>
+                                </div>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="align-middle">
+                            <td colspan="3" class="text-info text-center align-middle"><b>LISTE DES ETUDIANTS </b></td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+
+                <!--  Table of Student -->     
+                <table id="table-data" class="table table-striped table-bordered table-sm row-border hover" datatable>
+                    <thead>
+                        <tr>
+                            <th>N°</th>
+                            <th>Matricule</th>
+                            <th>Noms & Prenoms</th>
+                            <th>Email</th>
+                            <th>Genre</th>
+                            <th>Date de naissance</th>
+                            <th>Lieu de naissance</th>
+                            <th>Region</th>
+                            <th>Numero de Téléphone</th>
+                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr  *ngFor="let etudiant of listeEtudiantOfParcours; let i=index">
+                            <td>{{i+1}}</td>
+                            <td>{{etudiant.matricule}} </td>
+                            <td>{{etudiant.nom}} </td>
+                            <td>{{etudiant.email}} </td>
+                            <td>{{etudiant.genre}} </td>
+                            <td>{{etudiant.dateDeNaissance}} </td>
+                            <td>{{etudiant.lieuDeNaissance}} </td>
+                            <td>{{etudiant.region}} </td>
+                            <td>{{etudiant.numeroTelephone}} </td>
+                            
+                        </tr>
+
+                    </tbody>
+                </table>
+              </div>
+             
+            </div>
+
+        </div>
+    </div>
+    <!-- end region -->
+</div>

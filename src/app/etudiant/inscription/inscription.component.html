@@ -1,0 +1,56 @@
+<header class="bg-info" style="background-color: #6e83d3;">
+    <div class="container-xl px-5">
+        <h1 class="text-white py-3 mb-0 display-6 text-center">Inscription</h1>
+    </div>
+</header>
+<div class="row g-0">
+    <div style="margin-left: 15%;" class="col-lg-7 col-md-7">
+        <div class="card-body p-5">
+
+            <!-- Login submission form-->
+            <form class="mb-5" [formGroup]="form">
+                <div class="mb-4">
+                    <div class="form-group">
+                        <label for="type">Annee academique</label>
+                        <select name="" id="" class="form-control" formControlName="annee">
+                            <option *ngFor="let item of annees" ngValue="{{item.id}}">{{item.numeroDebut}} </option>
+                        </select>
+                        <div *ngIf="form.get('annee')?.invalid && form.get('annee')?.touched">
+                            <small class="text-danger" *ngIf="form.get('annee')?.hasError('required')"> {{
+                                errorMessages.required }} </small>
+
+                        </div>
+
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <div class="form-group">
+                        <label for="type">Parcours</label>
+                        <select name="" id="" class="form-control" formControlName="parcours">
+                            <option *ngFor="let item of parcours" ngValue="{{item.id}}">{{item.label}} </option>
+                        </select>
+                        <div *ngIf="form.get('parcours')?.invalid && form.get('parcours')?.touched">
+                            <small class="text-danger" *ngIf="form.get('parcours')?.hasError('required')"> {{
+                                errorMessages.required }} </small>
+
+                        </div>
+
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <div class="form-group">
+                        <label>Fichier excel </label>
+                        <input type="file" class="form-control" (change)="onSelectFile($event)">
+                    </div>
+                </div>
+
+                <div class="form-group d-flex align-items-center  mt-4 mb-0">
+                    <button class="btn btn-success" type='submit' (click)="uploadFileData($event)">Ajouter</button>
+                </div>
+            </form>
+            <!-- Auth card message-->
+
+        </div>
+
+    </div>
+</div>

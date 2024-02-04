@@ -1,0 +1,17 @@
+<div *ngIf="isAdminPage == true; else loginPage">
+
+  <app-header></app-header>
+
+  <div id="layoutDrawer">
+      <app-sidebar></app-sidebar>
+      <div id="layoutDrawer_content">
+          <main>
+              <router-outlet></router-outlet>
+          </main>
+          <app-footer></app-footer>
+      </div>
+  </div>
+</div>
+<ng-template #loginPage>
+  <router-outlet></router-outlet>
+</ng-template>

@@ -1,0 +1,59 @@
+<div id="layoutDrawer_nav">
+    <!-- Drawer navigation-->
+    <nav class="drawer accordion drawer-light bg-white" id="drawerAccordion">
+        <div class="drawer-menu">
+            <div class="nav">
+                <div class="drawer-menu-heading d-sm-none">Compte</div>
+                <a class="nav-link d-sm-none mdc-ripple-upgraded" href="#!">
+                    <div class="nav-link-icon"><i class="material-icons">notifications</i></div>
+                    Notifications
+                </a>
+                <a class="nav-link d-sm-none mdc-ripple-upgraded" href="#!">
+                    <div class="nav-link-icon"><i class="material-icons">mail</i></div>
+                    Messages
+                </a>
+                <div class="drawer-menu-divider d-sm-none"></div>
+
+                <!-- Divider-->
+                <div class="drawer-menu-divider d-sm-none"></div>
+                <!-- Drawer section heading (Interface)-->
+                <div class="drawer-menu-heading">Administration</div>
+                <div *ngFor="let i of adminNavigation" style="cursor: pointer;">
+                    <a class="nav-link collapsed mdc-ripple-upgraded" [routerLink]="i.routerlink"
+                        data-bs-toggle="collapse" [attr.data-bs-target]="'#' + i.label" aria-expanded="false"
+                        [attr.aria-controls]="i.label">
+                        <div class="nav-link-icon"><i class="material-icons">{{i.icon}}</i></div>
+                        {{i.label}}
+                        <div *ngIf="i.expandable" class="drawer-collapse-arrow"><i
+                                class="material-icons">expand_more</i></div>
+                    </a>
+
+                    <div class="collapse" *ngIf="i.subMenu?.length!=0" [id]="i.label" aria-labelledby="headingOne"
+                        data-bs-parent="#drawerAccordion">
+                        <nav class="drawer-menu-nested nav">
+                            <a *ngFor="let j of i.subMenu" class="nav-link mdc-ripple-upgraded"
+                                [routerLink]="j.routerlink">
+                                <div class="nav-link-icon"><i class="material-icons">{{j.icon}}</i></div>
+                                {{j.label}}
+                            </a>
+                        </nav>
+                    </div>
+                </div>
+
+
+
+            </div>
+        </div>
+        <!-- Drawer footer        -->
+        <div class="drawer-footer border-top">
+            <div class="d-flex align-items-center">
+                <i class="material-icons text-muted">account_circle</i>
+                <div class="ms-3">
+                    <div class="caption">Connecté :</div>
+                    <div class="small fw-500">Menu Directeur</div>
+                </div>
+            </div>
+        </div>
+
+    </nav>
+</div>

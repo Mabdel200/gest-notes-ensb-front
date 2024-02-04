@@ -1,0 +1,91 @@
+<div class="container-xl p-5">
+    <div class="row justify-content-between align-items-center mb-5">
+        <div class="col flex-shrink-0 mb-5 mb-md-0">
+            <h1 class="display-4 mb-0">Type cours</h1>
+            <div class="text-muted">Liste des types de cours</div>
+        </div>
+    </div>
+
+
+    <div class="card card-raised">
+        <div class="card-header  bg-success   text-white px-4">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="me-4">
+                    <h2 class="card-title text-white mb-0">
+                        <button class="btn btn-md btn-success btn-text-white" type="button" routerLink="/administrator/typecours/nouveau">Nouveau</button>
+                        <button class="btn btn-md btn-success btn-text-white" type="button" routerLink="/administrator/typecours/enregisrement/multiple">Ajout multiple</button>
+                    </h2>
+                    <div class="card-subtitle"></div>
+                </div>
+               
+            </div>
+        </div>
+        <div class="card-body p-4">
+            <div class="datatable-container"> 
+                <button (click)="captureScreen()" class="btn btn-primary mb-3 " style="margin-left: 1px;">
+                  <i class="material-icons">picture_as_pdf</i> PDF
+                </button>
+  
+                <div id="contentToConvert" class="container" >
+                  <!-- Table header -->
+        <!--           <table id="data-header" class="display table" style="width:100%">
+                      <thead>
+                          <tr>
+                              <th class="border-0">
+                                  <div class="card p-4 mb-5 text-center" style="margin-top: -10rem;">
+                                      <p class="mb-0"><b>REPUBLIQUE DU CAMEROUN</b></p>
+                                      <p ><b><i>Paix-Travail-Patrie</i></b></p>
+                                      <p><b>UNIVERSITE DE BERTOUA</b></p>
+                                      <p><b>ECOLE NORMALE SUPERIEURE</b></p>
+                                  </div>
+                              </th>
+                              <th class="align-middle">
+                                  <div class="card-body text-center p-5">
+                                      <img class="img-fluid" src="assets/images/logo_ensb.png" alt="image" style="max-width: 9rem;">
+                                  </div>
+                              </th>
+                              <th class="border-0">
+                                  <div  class="card p-4 mb-5 text-center" style="margin-top: -10rem;">
+                                      <p class="mb-0"><b>REPUBLIC OF CAMEROON</b></p>
+                                      <p><b><i>Peace-Work-Fatherland</i></b> </p>
+                                      <p><b>UNIVERSITY OF BERTOUA</b> </p>
+                                      <p><b>HIGHER NORMAL SCHOOL</b></p>
+                                  </div>
+                              </th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <tr class="align-middle">
+                              <td colspan="3" class="text-info text-center align-middle"><b>LISTE DES TYPES DE COURS </b></td>
+                          </tr>
+                      </tbody>
+                  </table> -->
+
+                  <table id="table-data" class="display table table-striped datatable" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>N°</th>
+                            <th>Label</th>
+                            <th>Action(s)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of cours; let i = index">
+                            <td>{{i+1}}</td>
+                            <td>{{item.nom}}</td>
+                            <td class="text-success">
+                                <button class="btn btn-primary" (click)="update(item)"> <i class="fa fa-pencil"></i></button> &nbsp;
+                                <button class="btn btn-danger" (click)="remove(item.id)"> <i class="fa fa-trash"></i></button>
+                            </td>
+                        </tr>
+                    </tbody>
+                 </table>
+
+                </div>
+            </div>
+
+          
+
+        </div>
+    </div>
+</div>
