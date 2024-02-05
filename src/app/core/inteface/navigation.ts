@@ -101,19 +101,29 @@ export const navAdmin: Menu[] = [
         ]
     },
     {
-        label: "Note",
+        label: "Notes",
         icon: "assessment",
         expandable: true,
         subMenu: [
             {
-                label: "Avec module",
+                label: "Pour un module",
                 icon: "article",
                 routerlink: "notes/avecmodule/"
             },
             {
-                label: "Sans module",
+                label: "Pour un cours",
                 icon: "description",
                 routerlink: "notes/module/"
+            },
+            {
+                label: "Anonymat",
+                icon: "person_outline",
+                routerlink: "notes/anonymat/"
+            },
+            {
+                label: "Examen",
+                icon: "assignment",
+                routerlink: "notes/examen/"
             },
         ]
     },
@@ -129,14 +139,14 @@ export const navAdmin: Menu[] = [
             },
             {
                 label: "PV(s) Notes",
-                icon: "description",
+                icon: "note",
                 routerlink: "administrator/pv/liste/"
             },
-            {
-                label: "PV(s) Modules",
-                icon: "note",
-                routerlink: "administrator/notes/liste/"
-            },
+            // {
+            //     label: "PV(s) Modules",
+            //     icon: "description",
+            //     routerlink: "administrator/notes/liste/"
+            // },
 
         ]
     },

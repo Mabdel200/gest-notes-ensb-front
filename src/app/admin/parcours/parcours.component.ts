@@ -35,6 +35,7 @@ export class ParcoursComponent implements OnInit {
     this.adminService.getResources(url).subscribe(
       (data) => {
         this.allParcourss = data.body;
+        console.log(this.allParcourss);
       },
       (err) => {
         console.log('erreur', err.error.message);

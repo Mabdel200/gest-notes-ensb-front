@@ -1,6 +1,6 @@
 <header class="bg-info" style="background-color: #6e83d3;">
     <div class="container-xl px-5">
-        <h1 class="text-white py-3 mb-0 display-6 text-center">Note pour un cours</h1>
+        <h1 class="text-white py-3 mb-0 display-6 text-center">Anonymat</h1>
     </div>
 </header>
 <div class="row g-0">
@@ -23,6 +23,21 @@
 
                     </div>
                 </div>
+              
+                <div class="mb-4">
+                    <div class="form-group">
+                        <label for="type">Session</label>
+                        <select  id="" class="form-control" formControlName="session">
+                            <option *ngFor="let item of sessions;let i = index;" ngValue="{{i+1}}">{{item}} </option>
+                        </select>
+                        <div *ngIf="form.get('session')?.invalid && form.get('session')?.touched">
+                            <small class="text-danger" *ngIf="form.get('session')?.hasError('required')"> {{
+                                errorMessages.required }} </small>
+
+                        </div>
+
+                    </div>
+                </div>
                 <div class="mb-4">
                     <div class="form-group">
                         <label for="type">Cours</label>
@@ -36,24 +51,10 @@
                         </div>
 
                     </div>
-                </div>
-                <div class="mb-4">
-                    <!-- <div class="form-group">
-                        <label for="type">Evaluation</label>
-                        <select name="" id="" class="form-control" formControlName="evaluation">
-                            <option *ngFor="let item of evaluations" ngValue="{{item.id}}">{{item.code}} </option>
-                        </select>
-                        <div *ngIf="form.get('evaluation')?.invalid && form.get('evaluation')?.touched">
-                            <small class="text-danger" *ngIf="form.get('evaluation')?.hasError('required')"> {{
-                                errorMessages.required }} </small>
-
-                        </div>
-
-                    </div> -->
-                </div>
+                </div> 
                 <div class="mb-4">
                     <div class="form-group">
-                        <label>Fichier excel </label>
+                        <label>Etudiants </label>
                         <input type="file" class="form-control" (change)="onSelectFile($event)">
                     </div>
                 </div>

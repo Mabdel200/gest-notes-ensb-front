@@ -74,7 +74,7 @@
                                     <label for="type">Année académique</label>
                                     <select name="" id="" class="form-control" formControlName="annee">
                                         <option value="">Sélectionner </option>
-                                        <option *ngFor="let annee of listeAnnees" [value]="annee.id">{{ annee.debut}} - {{annee.fin}}</option>
+                                        <option *ngFor="let annee of listeAnnees" [value]="annee.id">{{ annee.code}}</option>
                                     </select>
                                     <div *ngIf="form.get('annee')?.invalid && form.get('annee')?.touched">
                                         <small class="text-danger" *ngIf="form.get('annee')?.hasError('required')"> {{ errorMessages.required }} </small>

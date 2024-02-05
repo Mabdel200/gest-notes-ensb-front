@@ -68,7 +68,7 @@
                                 </div>
                             </div>    
                             <!-- Types Sstudents  -->
-                            <div class="mb-4">
+                            <!-- <div class="mb-4">
                                 <div class="form-group" >
                                     <label for="type">Type étudiant</label>
                                     <select class="form-control" formControlName="type_etudiant">
@@ -80,7 +80,7 @@
                                 <div *ngIf="form.get('type_etudiant')?.invalid && form.get('type_etudiant')?.touched">
                                     <small class="text-danger" *ngIf="form.get('cours')?.hasError('required')"> {{ errorMessages.required }} </small>
                                 </div>
-                            </div>    
+                            </div>     -->
 
                             <div class="mb-4">
                                 <div class="form-group">
@@ -190,9 +190,8 @@
                             </b></td>
                         </tr>
                         <tr  class="align-middle">
-
                             <td colspan="2" class="text-center align-middle" ><b style="margin-left:-27%;" *ngIf="listeEtudiantOfParcours">Unité : {{listeEtudiantOfParcours[0].code}} {{listeEtudiantOfParcours[0].intitule}}</b></td>
-                            <td colspan="2" class="text-center align-middle"><b *ngIf="listeEtudiantOfParcours">Crédit UE : </b></td>
+                            <td colspan="2" class="text-center align-middle"><b *ngIf="listeEtudiantOfParcours">Crédit UE :  {{listeEtudiantOfParcours[0].credit}}</b></td>
                         </tr>
                         <tr  class="align-middle">
                             <td colspan="1" class=" text-center align-middle"><b *ngIf="listeEtudiantOfParcours">Filière : {{listeEtudiantOfParcours[0].label}}</b></td>
@@ -229,17 +228,17 @@
                           <td>{{ i + 1 }}</td>
                           <td>{{ note.matricule }}</td>
                           <td>{{ note.nom }}</td>
-
-                          <!-- note tpe -->
-                          <td>{{ note.notes[1].valeur }}</td>
-                          <!-- note cc -->
-                          <td>{{ note.notes[0].valeur }}</td>
-                          <!-- note td-tp -->
-                          <td>{{ note.notes[2].valeur }}</td>
-                          <!-- note noyenne /30 -->
-                          <td>{{ note.ccSurTrente }}</td>
-                            <!-- note noyenne /70 -->
-                            <td>{{ note.notes[3].valeur}}</td>
+                           <!-- Note TPE -->
+                           <td>{{ getNoteValue(note, 'TPE') }}</td>
+                           <!-- Note CC -->
+                           <td>{{ getNoteValue(note, 'CC') }}</td> 
+                            <!-- Note TP -->
+                            <td>{{ getNoteValue(note, 'TP') }}</td>
+                            <!-- Moyenne CC/30 -->
+                            <td>{{ note.ccSurTrente }}</td>
+                            <!-- Examen /70 -->
+                            <td>{{ getNoteValue(note, 'EE') }}</td>
+                            <!-- <td>{{ note.notes[3].valeur}}</td> -->
                             <td>{{ note.moyenneSurCent}}</td>
                             <td>{{ note.mgp}}</td>
                             <td>{{ note.decision}}</td>

@@ -13,11 +13,20 @@ export const NatureUe = [
 export const TYPE_EVALUATION = [
   "CC","TPE","TP", "EE"
 ];
+
+export const SESSION = [
+  "Normal", "Rattrapage"
+];
+
 // region abdel
 export const TYPE_ETUDIANT = [
   "Regulier","Libre",
 ];
 //end region
+
+
+
+
 
 
 /**
@@ -46,10 +55,10 @@ export const api = {
       getOneById: (id: number) => `findAnneeAcaById/${id}`,
     },
     anonymat: {
-      create: '/addAnonymat',
-      getOne: '/findAnonymatById/',
-      getAll: '/findAllAnonymat',
-      delete: '/deleteAnonymat/'
+      create: 'addAnonymat/variable/',
+      getOne: 'findAnonymatById/',
+      getAll: 'findAllAnonymat',
+      delete: 'deleteAnonymat/'
     },
     cours: {
       create: 'addCours',
@@ -163,9 +172,12 @@ export const api = {
       delete: 'deleteTypeCours/'
     },
     notes: {
-      getPVCours: (session: number, type: number, annee: number, code : string, label:string) => `findPVCours/session/${session}/annee/${annee}/type/${type}/cours?code=${code}&label=${label}`,
+      getPVCours: (session: number, annee: number, code : string, label:string) => `findPVCours/session/${session}/annee/${annee}/cours?code=${code}&label=${label}`,
+      cours: 'addNoteCours',
+      module: 'addNoteModule',
+      examen: 'addNoteExamen/anonymat/',
     }
-
+  
   },
 
   aci: {

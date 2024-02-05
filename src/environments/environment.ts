@@ -6,10 +6,10 @@ export const environment = {
     production: false,
   
     //=============in development
-    // apiUrl: 'http://localhost:8080/',
+    apiUrl: 'http://localhost:8080/',
 
     //============in production
-    apiUrl: 'https://gestion-note-ensb-production.up.railway.app/',
+    // apiUrl: 'https://gestion-note-ensb-production.up.railway.app/',
 
   };
   

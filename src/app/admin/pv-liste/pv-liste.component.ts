@@ -56,7 +56,7 @@ export class PvListeComponent implements OnInit{
       departement: new FormControl('', [Validators.required]),
       parcours: new FormControl('', [Validators.required]),
       cours: new FormControl('', [Validators.required]),
-      type_etudiant: new FormControl('', [Validators.required]),
+      // type_etudiant: new FormControl('', [Validators.required]),
       annee: new FormControl('', [Validators.required]),
       session: new FormControl('', [Validators.required])
     })
@@ -232,14 +232,13 @@ export class PvListeComponent implements OnInit{
       // variables of forms
      const session: number = formValue['session'].value ? +formValue['session'].value : 0;
      const code: string = formValue['cours'].value || '';
-     const type: any = formValue['type_etudiant'].value || '';
+    //  const type: any = formValue['type_etudiant'].value || '';
      const anneeAca: number = formValue['annee'].value|| '';
      const parcours: string = formValue['parcours'].value || '';
 
       // List PV of student
       const url = apiConfig.admin.notes.getPVCours(
         session, 
-        type,
         anneeAca,
         code,
         parcours
@@ -263,6 +262,11 @@ export class PvListeComponent implements OnInit{
         }
       );
     } 
+  }
+
+  getNoteValue(note: any, code: string): string {
+    const foundNote = note.notes.find((n: { code: string; }) => n.code === code);
+    return foundNote ? foundNote.valeur.toString() : '-';
   }
 
   //================== region exportation =================================

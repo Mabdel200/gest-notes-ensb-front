@@ -46,7 +46,6 @@ export class SansModuleComponent implements OnInit {
     this.form = new FormGroup({
       annee: new FormControl('', [Validators.required]),
       cours: new FormControl('', [Validators.required]),
-      evaluation: new FormControl('', [Validators.required]),
     })
   }
 
@@ -126,9 +125,9 @@ export class SansModuleComponent implements OnInit {
 
   uploadFileData(event: MouseEvent) {
 
-    console.log(this.etudiant);
+    console.log(this.noteJson);
 
-    const propertiesArray = ['matricule', 'noms et prenoms', 'valeur'];
+    const propertiesArray = ['matricule', 'noms et prenoms', 'cc'];
     this.noteJson.forEach((item: any) => {
       // console.log(Object.keys(item).toString().toLowerCase());
       const keys = Object.keys(item);
@@ -136,35 +135,89 @@ export class SansModuleComponent implements OnInit {
       for (const key of keys) {
         convertedObject[key.toLowerCase()] = item[key];
       }
-      for (const prop of keys) {
-        if (propertiesArray.includes(prop.toLowerCase())) {
-          var notes: any = {
-            etudiant: this.findEtudiantByMatricule(convertedObject.matricule.toString()),
-            valeur: convertedObject.valeur,
-            anneeAcademique: this.findTypeAnneeById(Number(this.form.value.annee)),
-            evaluation: this.findTypeEvaluationById(Number(this.form.value.evaluation)),
-            cours: this.findcoursById(Number(this.form.value.cours))
-          }
-
-        }
-      }
-      console.log(notes);
-
-
+      
       // Save datas from files in database
-      const url = `${apiConfig.admin.inscription.create}`;
-    /*   this.AdminService.saveResource(url, notes).subscribe(
-        {
-          next: res => {
-            alert("cool")
-            this.form.reset();
-          },
-          error: err => {
-            alert("error")
+      const url = `${apiConfig.admin.notes.cours}`;
 
-          }
+      if (keys.includes('CC')) {
+        var notes: any = {
+          etudiant: this.findEtudiantByMatricule(convertedObject.matricule.toString()),
+          valeur: convertedObject.cc,
+          anneeAcademique: this.findTypeAnneeById(Number(this.form.value.annee)),
+          evaluation: this.findTypeEvaluationById('CC'),
+          cours: this.findcoursById(Number(this.form.value.cours))
         }
-      ); */
+
+        console.log('cc',notes);
+        this.AdminService.saveResource(url, notes).subscribe(
+          {
+            next: res => {
+           //   alert("cool")
+              this.form.reset();
+            },
+            error: err => {
+              alert("error")
+
+            }
+          }
+        );
+
+      }
+
+      if (keys.includes('TP')) {
+        console.log('tp');
+        var notes: any = {
+          etudiant: this.findEtudiantByMatricule(convertedObject.matricule.toString()),
+          valeur: convertedObject.tp,
+          anneeAcademique: this.findTypeAnneeById(Number(this.form.value.annee)),
+          evaluation: this.findTypeEvaluationById('TP'),
+          cours: this.findcoursById(Number(this.form.value.cours))
+        }
+        this.AdminService.saveResource(url, notes).subscribe(
+          {
+            next: res => {
+           //   alert("cool")
+              this.form.reset();
+            },
+            error: err => {
+              alert("error")
+
+            }
+          }
+        );
+      }
+
+
+      if (keys.includes('TPE')) {
+        console.log('tpe');
+        var notes: any = {
+          etudiant: this.findEtudiantByMatricule(convertedObject.matricule.toString()),
+          valeur: convertedObject.tpe,
+          anneeAcademique: this.findTypeAnneeById(Number(this.form.value.annee)),
+          evaluation: this.findTypeEvaluationById('TPE'),
+          cours: this.findcoursById(Number(this.form.value.cours))
+        }
+        this.AdminService.saveResource(url, notes).subscribe(
+          {
+            next: res => {
+      //        alert("cool")
+              this.form.reset();
+            },
+            error: err => {
+              alert("error")
+
+            }
+          }
+        );
+      }
+
+
+
+
+
+
+
+
     })
 
   }
@@ -176,8 +229,8 @@ export class SansModuleComponent implements OnInit {
   findTypeAnneeById(id: Number) {
     return this.annees.find(item => id === item.id)
   }
-  findTypeEvaluationById(id: Number) {
-    return this.evaluations.find(item => id === item.id)
+  findTypeEvaluationById(code: String) {
+    return this.evaluations.find(item => code === item.code)
   }
   findcoursById(id: Number) {
     return this.cours.find(item => id === item.coursId)
