@@ -10,6 +10,8 @@ import { api as apiConfig } from '../../core/configs/constants';
 import { Router } from '@angular/router';
 import { ServicesService } from '../../core/services/services.service';
 import { Filere } from '../../core/models/filiere';
+import { NotificationService } from '../../core/services/notification.service';
+
 
 @Component({
   selector: 'app-filiere',
@@ -103,7 +105,7 @@ export class FiliereComponent implements OnInit{
 
       allOptions!: Filere[]
 
-  constructor(private adminService: ServicesService,private router: Router) { }
+  constructor(private notification:NotificationService,private adminService: ServicesService,private router: Router) { }
 
   ngOnInit(): void {
     this.getOptions()
@@ -112,7 +114,7 @@ export class FiliereComponent implements OnInit{
 
   update(item: Filere ) {
     const encodedId = encodeURIComponent(item.id+"%"+item.descriptionEnglish+"%"+item.descriptionFrench+"%"+item.code+"%"+item.departement.id);
-    this.router.navigate(['administrator/filiere', encodedId]);
+    this.router.navigate(['administrator/filiere/update/', encodedId]);
   }
 
   remove(arg: Number | undefined) {
@@ -120,11 +122,13 @@ export class FiliereComponent implements OnInit{
     if (arg) {
       this.adminService.deleteResource(url, arg).subscribe({
         next: res => {
-          alert("Suppression effectuée")
+          this.notification.remove()
           this.getOptions()
         },
         error: err => {
-          alert("Erreur de  Suppression")
+          this.notification.remove()
+          this.getOptions()
+          //this.toastr.error("Erreur survenir", 'Error');
         }
 
       })

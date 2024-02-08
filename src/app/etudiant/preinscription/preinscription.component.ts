@@ -4,6 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { ServicesService } from '../../core/services/services.service';
 import { read, utils } from 'xlsx';
 import { api as apiConfig } from '../../core/configs/constants';
+import { NotificationService } from '../../core/services/notification.service';
 
 @Component({
   selector: 'app-preinscription',
@@ -30,12 +31,7 @@ submit() {
   constructor(
     private fb: FormBuilder,
     private AdminService: ServicesService,
-    private router: Router,
-    private route: ActivatedRoute) { }
-
-
-
-
+    private notification:NotificationService,) { }
 
   onSelectFile(events: any) {
     if (events.target.files && events.target.files[0]) {
@@ -92,11 +88,11 @@ submit() {
       this.AdminService.saveResource(url, etudiant).subscribe(
         {
           next: res => {
-            alert("cool")
+            this.notification.record()
             this.form.reset();
           },
           error: err => {
-            alert("error")
+            this.notification.error()
 
           }
         }
@@ -104,7 +100,5 @@ submit() {
     })
 
   }
-
-
 
 }

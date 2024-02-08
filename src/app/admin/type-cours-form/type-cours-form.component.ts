@@ -4,6 +4,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { ServicesService } from '../../core/services/services.service';
 import { api as apiConfig } from '../../core/configs/constants';
 import { TypeCours } from '../../core/models/typeCours';
+import { NotificationService } from '../../core/services/notification.service';
+
 
 @Component({
   selector: 'app-type-cours-form',
@@ -18,19 +20,19 @@ export class TypeCoursFormComponent implements OnInit {
     minlength: 'Ce champ doit contenir au moins {{ requiredLength }} caractères.',
   };
 
-  title = "Nouveau Type de cours"
+  title = "Nouveau Evaluations attendues"
   btnTitle = "Ajouter"
 
   form!: FormGroup
   userId: any;
   name!: string
 
-  constructor(private AdminService: ServicesService, private router: Router, private route: ActivatedRoute) { }
+  constructor(private notification:NotificationService,private AdminService: ServicesService, private router: Router, private route: ActivatedRoute) { }
   ngOnInit(): void {
     this.onForm()
     this.name = this.route.snapshot.params['slug'];
     if (this.name) {
-      this.title = "Mise à  jour type de cours"
+      this.title = "Mise à  jour Evaluations attendues"
       this.btnTitle = "Mise à jour"
       var str = decodeURIComponent(this.name).split('%');
       this.form.setValue(
@@ -59,12 +61,11 @@ export class TypeCoursFormComponent implements OnInit {
         this.AdminService.saveResource(url, typeCours).subscribe(
           {
             next: res => {
-              alert("cool")
+              this.notification.record()
               this.form.reset();
             },
             error: err => {
-              alert("error")
-
+              this.notification.error()
             }
           }
         );
@@ -80,11 +81,12 @@ export class TypeCoursFormComponent implements OnInit {
         this.AdminService.updateResource(url + typeCours.id, typeCours).subscribe(
           {
             next: res => {
-              alert("Mise a jour effectuee avec succese")
+              this.notification.update()
               this.router.navigate(['administrator/typecours']);
             },
             error: err => {
-              alert("error")
+              this.notification.error()
+  
             }
           }
         );

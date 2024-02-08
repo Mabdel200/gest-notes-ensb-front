@@ -1,6 +1,6 @@
 <header class="bg-info" style="background-color: #6e83d3;">
     <div class="container-xl px-5">
-        <h1 class="text-white py-3 mb-0 display-6 text-center">{{title}}</h1>
+        <h1 class="text-white py-3 mb-0 display-6 text-center">Evaluations attendues</h1>
     </div>
 </header>
 <div class="row g-0">
@@ -12,8 +12,15 @@
 
                 <div class="mb-4">
                     <div class="form-group">
-                        <label >Nom</label>
-                        <input type="text"  class="form-control"  formControlName="nom" >
+                        <label>Evaluations attendues</label>
+                        <select class="form-control"  formControlName="nom">
+                            <option value="">Selectionner l'évaluation attendues</option>
+                            <option value="CC_TPE_TP_EE">CC_TPE_TP_EE</option>
+                            <option value="CC_TPE_EE">CC_TPE_EE</option>
+                            <option value="CC_EE">CC_EE</option>
+                        </select>
+
+
                         <div *ngIf="form.get('nom')?.invalid && form.get('nom')?.touched">
                             <small class="text-danger" *ngIf="form.get('nom')?.hasError('required')"> {{ errorMessages.required }} </small>
 

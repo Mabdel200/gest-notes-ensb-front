@@ -12,6 +12,9 @@ import { api as apiConfig } from '../../core/configs/constants';
 import { Credit } from '../../core/models/credit';
 import { ServicesService } from '../../core/services/services.service';
 
+import { NotificationService } from '../../core/services/notification.service';
+
+
 @Component({
   selector: 'app-credit',
   templateUrl: './credit.component.html',
@@ -23,7 +26,7 @@ export class CreditComponent implements OnInit {
 
   allCredits!: Credit[]
 
-  constructor(private adminService: ServicesService, private router: Router) { }
+  constructor(private notification:NotificationService,private adminService: ServicesService, private router: Router) { }
 
   ngOnInit(): void {
     this.getCredits();
@@ -128,7 +131,7 @@ export class CreditComponent implements OnInit {
 
   update(item: Credit) {
     const encodedId = encodeURIComponent(item.id + "%" + item.valeur);
-    this.router.navigate(['administrator/credit', encodedId]);
+    this.router.navigate(['administrator/credit/update/', encodedId]);
   }
 
   remove(arg: Number | undefined) {
@@ -136,11 +139,13 @@ export class CreditComponent implements OnInit {
     if (arg) {
       this.adminService.deleteResource(url, arg).subscribe({
         next: res => {
-          alert("Suppression effectuée")
+          this.notification.remove()
           this.getCredits()
         },
         error: err => {
-          alert("Erreur de  Suppression")
+       this.notification.remove()
+          this.getCredits()
+          //this.toastr.error("Erreur survenir", 'Error');
         }
 
       })

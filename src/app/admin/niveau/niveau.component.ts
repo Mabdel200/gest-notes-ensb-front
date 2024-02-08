@@ -10,6 +10,8 @@ import { Router } from '@angular/router';
 import { Niveau } from '../../core/models/niveau';
 import { ServicesService } from '../../core/services/services.service';
 import { api as apiConfig } from '../../core/configs/constants';
+import { NotificationService } from '../../core/services/notification.service';
+
 @Component({
   selector: 'app-niveau',
   templateUrl: './niveau.component.html',
@@ -19,7 +21,7 @@ export class NiveauComponent implements OnInit {
 
   allNiveaux!: Niveau[] 
 
-  constructor(private adminService: ServicesService, private router: Router) {}
+  constructor(private notification:NotificationService,private adminService: ServicesService, private router: Router) {}
 
   ngOnInit(): void {
     this.getNiveaux();
@@ -38,7 +40,7 @@ export class NiveauComponent implements OnInit {
 
   update(item: Niveau ) {
     const encodedId = encodeURIComponent(item.id+"%"+item.valeur+"%"+item.cycle.id+"%"+item.terminal);
-    this.router.navigate(['administrator/niveau', encodedId]);
+    this.router.navigate(['administrator/niveau/update/', encodedId]);
   }
 
   remove(arg: Number | undefined) {
@@ -46,11 +48,14 @@ export class NiveauComponent implements OnInit {
     if (arg) {
       this.adminService.deleteResource(url, arg).subscribe({
         next: res => {
-          alert("Suppression effectuée")
+          this.notification.remove()
           this.getNiveaux()
         },
         error: err => {
-          alert("Erreur de  Suppression")
+          this.notification.remove()
+          this.getNiveaux()
+          //this.toastr.error("Erreur survenir", 'Error');
+  
         }
 
       })

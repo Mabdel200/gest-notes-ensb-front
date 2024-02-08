@@ -10,6 +10,8 @@ import { read, utils } from 'xlsx';
 import { Module } from '../../core/models/module';
 import { Etudiant } from '../../core/models/etudiant';
 import { Evaluation } from '../../core/models/evaluation';
+import { NotificationService } from '../../core/services/notification.service';
+
 @Component({
   selector: 'app-avec-module',
   templateUrl: './avec-module.component.html',
@@ -34,8 +36,8 @@ export class AvecModuleComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private AdminService: ServicesService,
-    private router: Router,
-    private route: ActivatedRoute) { }
+    private notification:NotificationService
+    ) { }
 
   ngOnInit(): void {
     this.onForm();
@@ -156,84 +158,49 @@ export class AvecModuleComponent implements OnInit {
         convertedObject[key.toLowerCase()] = item[key];
       }
 
+      var notes: any = {
+        etudiant: this.findEtudiantByMatricule(convertedObject.matricule.toString()),
+        valeur: {},
+        anneeAcademique: this.findTypeAnneeById(Number(this.form.value.annee)),
+        evaluation: {},
+        module: this.findModuleById(Number(this.form.value.module))
+      }
 
       // Save datas from files in database
-      const url = `${apiConfig.admin.notes.module}`;
 
-      if (keys.includes('CC')) {
-        var notes: any = {
-          etudiant: this.findEtudiantByMatricule(convertedObject.matricule.toString()),
-          valeur: convertedObject.cc,
-          anneeAcademique: this.findTypeAnneeById(Number(this.form.value.annee)),
-          evaluation: this.findTypeEvaluationById('CC'),
-          module: this.findModuleById(Number(this.form.value.module))
-        }
+      notes.valeur = convertedObject.cc
+      notes.evaluation = this.findTypeEvaluationById('CC')
+      this.save(notes);
 
-        console.log('cc', notes);
-        this.AdminService.saveResource(url, notes).subscribe(
-          {
-            next: res => {
-              //   alert("cool")
-              this.form.reset();
-            },
-            error: err => {
-              alert("error")
+      notes.valeur = convertedObject.tp
+      notes.evaluation = this.findTypeEvaluationById('TP')
+      this.save(notes);
 
-            }
-          }
-        );
-
-      }
-
-      if (keys.includes('TP')) {
-        console.log('tp');
-        var notes: any = {
-          etudiant: this.findEtudiantByMatricule(convertedObject.matricule.toString()),
-          valeur: convertedObject.tp,
-          anneeAcademique: this.findTypeAnneeById(Number(this.form.value.annee)),
-          evaluation: this.findTypeEvaluationById('TP'),
-          module: this.findModuleById(Number(this.form.value.module))
-        }
-        this.AdminService.saveResource(url, notes).subscribe(
-          {
-            next: res => {
-              //   alert("cool")
-              this.form.reset();
-            },
-            error: err => {
-              alert("error")
-
-            }
-          }
-        );
-      }
-
-
-      if (keys.includes('TPE')) {
-        console.log('tpe');
-        var notes: any = {
-          etudiant: this.findEtudiantByMatricule(convertedObject.matricule.toString()),
-          valeur: convertedObject.tpe,
-          anneeAcademique: this.findTypeAnneeById(Number(this.form.value.annee)),
-          evaluation: this.findTypeEvaluationById('TPE'),
-          module: this.findModuleById(Number(this.form.value.module))
-        }
-        this.AdminService.saveResource(url, notes).subscribe(
-          {
-            next: res => {
-              //        alert("cool")
-              this.form.reset();
-            },
-            error: err => {
-              alert("error")
-
-            }
-          }
-        );
-      }
+      notes.valeur = convertedObject.tpe
+      notes.evaluation = this.findTypeEvaluationById('TPE')
+      this.save(notes);
 
     })
 
+  }
+
+
+
+  save(n: any) {
+
+    const url = `${apiConfig.admin.notes.module}`;
+    this.AdminService.saveResource(url, n).subscribe(
+      {
+        next: res => {
+          this.notification.record()
+          this.form.reset();
+        },
+        error: err => {
+          this.notification.error()
+
+        }
+      }
+    );
   }
 
 

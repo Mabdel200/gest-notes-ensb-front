@@ -10,6 +10,8 @@ import { Router } from '@angular/router';
 import { api as apiConfig } from '../../core/configs/constants';
 import { Parcours } from '../../core/models/parcours';
 import { ServicesService } from '../../core/services/services.service';
+import { NotificationService } from '../../core/services/notification.service';
+
 
 @Component({
   selector: 'app-parcours',
@@ -21,7 +23,7 @@ export class ParcoursComponent implements OnInit {
 
 
   allParcourss!: Parcours[]
-  constructor(private adminService: ServicesService, private router: Router) {
+  constructor(private notification:NotificationService, private adminService: ServicesService, private router: Router) {
 
   }
 
@@ -35,7 +37,6 @@ export class ParcoursComponent implements OnInit {
     this.adminService.getResources(url).subscribe(
       (data) => {
         this.allParcourss = data.body;
-        console.log(this.allParcourss);
       },
       (err) => {
         console.log('erreur', err.error.message);
@@ -44,7 +45,7 @@ export class ParcoursComponent implements OnInit {
   }
   update(item: Parcours) {
     const encodedId = encodeURIComponent(item.id + "%" + item.label + "%" + item.niveau.id + "%" + item.option.id);
-    this.router.navigate(['administrator/parcours', encodedId]);
+    this.router.navigate(['administrator/parcours/update/', encodedId]);
   }
 
   remove(arg: Number | undefined) {
@@ -52,11 +53,14 @@ export class ParcoursComponent implements OnInit {
     if (arg) {
       this.adminService.deleteResource(url, arg).subscribe({
         next: res => {
-          alert("Suppression effectuée")
+          this.notification.remove()
           this.getParcourss()
         },
         error: err => {
-          alert("Erreur de  Suppression")
+          this.notification.remove()
+          this.getParcourss()
+          //this.toastr.error("Erreur survenir", 'Error');
+ 
         }
 
       })

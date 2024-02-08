@@ -10,6 +10,8 @@ import { Cycle } from '../../core/models/cycle';
 import { ServicesService } from '../../core/services/services.service';
 import { api as apiConfig } from '../../core/configs/constants';
 import { Router } from '@angular/router';
+import { NotificationService } from '../../core/services/notification.service';
+
 @Component({
   selector: 'app-cycle',
   templateUrl: './cycle.component.html',
@@ -101,7 +103,7 @@ export class CycleComponent implements OnInit {
   }
   allCycles!: Cycle[]
 
-  constructor(private adminService: ServicesService, private router: Router) { }
+  constructor(private notification:NotificationService,private adminService: ServicesService, private router: Router) { }
 
   ngOnInit(): void {
     this.getCycles();
@@ -120,7 +122,7 @@ export class CycleComponent implements OnInit {
 
   update(item: Cycle) {
     const encodedId = encodeURIComponent(item.id + "%" + item.estAffichable + "%" + item.valeur);
-    this.router.navigate(['administrator/cycle', encodedId]);
+    this.router.navigate(['administrator/cycle/update/', encodedId]);
   }
 
   remove(arg: Number | undefined) {
@@ -128,11 +130,13 @@ export class CycleComponent implements OnInit {
     if (arg) {
       this.adminService.deleteResource(url, arg).subscribe({
         next: res => {
-          alert("Suppression effectuée")
+          this.notification.remove()
           this.getCycles()
         },
         error: err => {
-          alert("Erreur de  Suppression")
+          this.notification.remove()
+          this.getCycles()
+          // this.toastr.error("Erreur survenir", 'Error');
         }
 
       })

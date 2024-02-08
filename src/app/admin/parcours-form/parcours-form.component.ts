@@ -5,6 +5,8 @@ import { ServicesService } from '../../core/services/services.service';
 import { api as apiConfig } from '../../core/configs/constants';
 import { Filere } from '../../core/models/filiere';
 import { Niveau } from '../../core/models/niveau';
+import { NotificationService } from '../../core/services/notification.service';
+
 
 @Component({
   selector: 'app-parcours-form',
@@ -29,7 +31,7 @@ export class ParcoursFormComponent implements OnInit {
   btnTitle = "Ajouter"
   name!: string
 
-  constructor(private adminService: ServicesService, private router: Router, private route: ActivatedRoute) { }
+  constructor(private notification:NotificationService, private adminService: ServicesService, private router: Router, private route: ActivatedRoute) { }
   ngOnInit(): void {
     this.onForm()
     this.getNiveaux()
@@ -42,7 +44,7 @@ export class ParcoursFormComponent implements OnInit {
       this.form.setValue(
         {
           niveau: str[1],
-          option:  str[2],
+          option: str[2],
         }
       )
     }
@@ -72,24 +74,24 @@ export class ParcoursFormComponent implements OnInit {
         this.adminService.saveResource(url, parcours).subscribe(
           {
             next: res => {
-              alert("cool")
+              this.notification.record()
               this.form.reset();
             },
             error: err => {
-              alert("error")
+              this.notification.error()
 
             }
           }
         );
       }
       //mise a jour
-      else{
+      else {
         var str = decodeURIComponent(this.name).split('%');
         var parcours: any = {
           // label?: String,
           niveau: this.findNiveauById(Number(this.form.value.niveau)),
           option: this.findOptionById(Number(this.form.value.option)),
-           id: parseInt(str[0])
+          id: parseInt(str[0])
         }
         /*const url = `${apiConfig.admin.parcours.update}`;
         this.adminService.updateResource(url + parcours.id, parcours).subscribe(

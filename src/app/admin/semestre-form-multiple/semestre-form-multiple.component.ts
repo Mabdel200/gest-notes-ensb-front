@@ -4,6 +4,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { ServicesService } from '../../core/services/services.service';
 import { read, utils } from 'xlsx';
 import { api as apiConfig } from '../../core/configs/constants';
+import { NotificationService } from '../../core/services/notification.service';
+
 
 @Component({
   selector: 'app-semestre-form-multiple',
@@ -17,6 +19,7 @@ export class SemestreFormMultipleComponent implements OnInit {
   file?: File;
 
   constructor(
+    private notification:NotificationService,
     private fb: FormBuilder,
     private AdminService: ServicesService,
     private router: Router,
@@ -98,10 +101,10 @@ export class SemestreFormMultipleComponent implements OnInit {
           console.log('response: ', res);
           console.log('ID: ', res.body.id);
           if (res.status === 201) {
-
+            this.notification.record()
           } else {
             this.submitted = false;
-            console.log('echec');
+            this.notification.error()
 
           }
         },
@@ -109,6 +112,7 @@ export class SemestreFormMultipleComponent implements OnInit {
           // this.notify.error(Errors(err.error.message), 'Major Error');
           console.log('erreur', err.error.message);
           // console.log(Errors(err.error.message));
+          this.notification.error()
         }
       );
     })

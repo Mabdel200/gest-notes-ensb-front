@@ -10,6 +10,8 @@ import saveAs from 'file-saver';
 import { Router } from '@angular/router';
 import { TypeCours } from '../../core/models/typeCours';
 import { ServicesService } from '../../core/services/services.service';
+import { NotificationService } from '../../core/services/notification.service';
+
 
 @Component({
   selector: 'app-type-cours',
@@ -18,7 +20,7 @@ import { ServicesService } from '../../core/services/services.service';
 })
 export class TypeCoursComponent implements OnInit{
   cours!: TypeCours[]
-  constructor(private adminService: ServicesService, private router: Router) {
+  constructor(private notification:NotificationService,private adminService: ServicesService, private router: Router) {
 
   }
 
@@ -42,7 +44,7 @@ export class TypeCoursComponent implements OnInit{
   }
   update(item: TypeCours ) {
     const encodedId = encodeURIComponent(item.id+"%"+item.nom);
-    this.router.navigate(['administrator/typecours', encodedId]);
+    this.router.navigate(['administrator/typecours/update/', encodedId]);
   }
 
   remove(arg: Number | undefined) {
@@ -50,12 +52,12 @@ export class TypeCoursComponent implements OnInit{
     if (arg) {
       this.adminService.deleteResource(url, arg).subscribe({
         next: res => {
-          alert("Suppression effectuée")
+          this.notification.remove()
           this.getTypesCours()
         },
         error: err => {
-          alert("Erreur de  Suppression")
-          console.log(err)
+          this.notification.remove()
+          this.getTypesCours()
         }
 
       })

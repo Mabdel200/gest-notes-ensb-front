@@ -126,7 +126,7 @@ export class EvaluationComponent implements OnInit {
   }
   update(item: Evaluation ) {
     const encodedId = encodeURIComponent(item.id+"%"+item.code+"%"+item.description+"%"+item.isExam+"%");
-    this.router.navigate(['administrator/evaluation', encodedId]);
+    this.router.navigate(['administrator/evaluation/update/', encodedId]);
   }
 
   remove(arg: Number | undefined) {

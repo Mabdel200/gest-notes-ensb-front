@@ -53,7 +53,7 @@
                 </div>
                 <div class="mb-4">
                     <div class="form-group">
-                        <label for="type">Type cours</label>
+                        <label for="type">UE</label>
                         <select name="" id="" class="form-control" formControlName="typeCours">
                             <option *ngFor="let item of typeCours" ngValue="{{item.id}}">{{item.nom}} </option>
                         </select>
@@ -69,7 +69,7 @@
                 <div class="mb-4">
                     <div class="form-group">
                         <label for="type">Semestre</label>
-                        <select name="" id="" class="form-control" formControlName="semestre">
+                        <select class="form-control" formControlName="semestre">
                             <option *ngFor="let item of semestre" ngValue="{{item.id}}">{{item.valeur}} </option>
                         </select>
                         <div *ngIf="form.get('semestre')?.invalid && form.get('semestre')?.touched">
@@ -93,7 +93,7 @@
 
                 <div class="form-group d-flex align-items-center  mt-4 mb-0">
                     <button class="btn btn-primary"  routerLink="/administrator/cours/">Annuler</button> &nbsp;
-                    <button class="btn btn-success" type='submit' (click)="uploadFileData($event)">Ajouter</button>
+                    <button class="btn btn-success" type='submit' (click)="uploadFileData()">Ajouter</button>
                 </div>
             </form>
             <!-- Auth card message-->

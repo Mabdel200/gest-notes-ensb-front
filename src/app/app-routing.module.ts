@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthComponent } from './core/pages/auth/auth.component';
+import { DashboardComponent } from './admin/dashboard/dashboard.component';
 
 const routes: Routes = [
   {
@@ -19,10 +20,10 @@ const routes: Routes = [
     path: "notes",
     loadChildren: () => import('./note/note.module').then(m => m.NoteModule)
   },
-  // {
-  //   path: "",
-  //   component: AuthComponent
-  // },
+  {
+    path: "",
+    component: DashboardComponent
+  },
 
 
 ];

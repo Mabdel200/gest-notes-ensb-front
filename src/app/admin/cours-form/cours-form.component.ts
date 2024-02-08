@@ -2,12 +2,14 @@ import { Cours } from './../../core/models/cours';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { NatureUe, api as apiConfig } from  '../../core/configs/constants';
+import { NatureUe, api as apiConfig } from '../../core/configs/constants';
 import { Credit } from '../../core/models/credit';
 import { Departement } from '../../core/models/departement';
 import { Semestre } from '../../core/models/semestre';
 import { TypeCours } from '../../core/models/typeCours';
 import { ServicesService } from '../../core/services/services.service';
+import { NotificationService } from '../../core/services/notification.service';
+
 
 @Component({
   selector: 'app-cours-form',
@@ -28,14 +30,15 @@ export class CoursFormComponent implements OnInit {
   allCredit!: Credit[]
   allSemestre !: Semestre[]
 
-  title = "Nouveau Cours"
+  title = "Nouvelle UE"
   btnTitle = "Ajouter"
   name!: string
 
   submitted = false;
   userId: any;
   allNature: String[] = NatureUe
-  constructor(private adminService: ServicesService, private router: Router, private route: ActivatedRoute) { }
+  constructor(private notification:NotificationService, private adminService: ServicesService, private router: Router, private route: ActivatedRoute) { }
+
   ngOnInit(): void {
     this.getCredit()
     this.getTypeCours()
@@ -44,7 +47,7 @@ export class CoursFormComponent implements OnInit {
     this.onForm()
     this.name = this.route.snapshot.params['slug'];
     if (this.name) {
-      this.title = "Mise à  jour cours"
+      this.title = "Mise à  jour UE"
       this.btnTitle = "Mise à jour"
       var str = decodeURIComponent(this.name).split('%');
       this.form.setValue(
@@ -153,11 +156,11 @@ export class CoursFormComponent implements OnInit {
         this.adminService.saveResource(url, cours).subscribe(
           {
             next: res => {
-              alert("cool")
+              this.notification.record()
               this.form.reset();
             },
             error: err => {
-              alert("error")
+              this.notification.error()
 
             }
           }
@@ -180,12 +183,12 @@ export class CoursFormComponent implements OnInit {
         this.adminService.updateResource(url + cours.coursId, cours).subscribe(
           {
             next: res => {
-              alert("Mise a jour effectuee avec succese")
+              this.notification.update()
               this.router.navigate(['administrator/cours']);
             },
             error: err => {
-              console.log(err)
-              alert("error")
+              this.notification.error()
+
             }
           }
         );

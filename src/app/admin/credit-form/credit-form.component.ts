@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { api as apiConfig } from '../../core/configs/constants';
 import { ServicesService } from '../../core/services/services.service';
 import { Credit } from '../../core/models/credit';
+
+import { NotificationService } from '../../core/services/notification.service';
 
 @Component({
   selector: 'app-credit-form',
@@ -27,7 +29,7 @@ export class CreditFormComponent implements OnInit {
   submitted = false;
   userId: any;
 
-  constructor(private fb: FormBuilder, private adminService: ServicesService, private router: Router, private route: ActivatedRoute) { }
+  constructor(private notification:NotificationService, private adminService: ServicesService, private router: Router, private route: ActivatedRoute) { }
   ngOnInit(): void {
     this.onForm();
     this.name = this.route.snapshot.params['slug'];
@@ -56,17 +58,19 @@ export class CreditFormComponent implements OnInit {
       }
 
       // Save datas create user in database
+
       if (this.name == null) {
         const url = `${apiConfig.admin.credit.create}`;
         this.adminService.saveResource(url, credit).subscribe(
           {
             next: res => {
-              alert("cool")
+              this.notification.record()
               this.form.reset();
 
             },
             error: err => {
-              alert("error")
+              this.notification.error()
+
 
             }
           }
@@ -81,12 +85,13 @@ export class CreditFormComponent implements OnInit {
         this.adminService.updateResource(url + credit.id, credit).subscribe(
           {
             next: res => {
-              alert("Mise a jour effectuee avec succese")
+              this.notification.update()
+
               this.router.navigate(['administrator/credit']);
             },
             error: err => {
-              console.log(err)
-              alert("error")
+              this.notification.error()
+
             }
           }
         );

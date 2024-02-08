@@ -226,23 +226,23 @@
                       <ng-container *ngFor="let note of listeEtudiantOfParcours; let i = index">
                         <tr>
                           <td>{{ i + 1 }}</td>
-                          <td>{{ note.matricule }}</td>
-                          <td>{{ note.nom }}</td>
+                          <td><b>{{ note.matricule }}</b></td>
+                          <td><b>{{ note.nom }}</b> </td>
                            <!-- Note TPE -->
-                           <td>{{ getNoteValue(note, 'TPE') }}</td>
+                           <td><b>{{ getNoteValue(note, 'TPE') }}</b></td>
                            <!-- Note CC -->
-                           <td>{{ getNoteValue(note, 'CC') }}</td> 
+                           <td><b>{{ getNoteValue(note, 'CC') }}</b></td> 
                             <!-- Note TP -->
-                            <td>{{ getNoteValue(note, 'TP') }}</td>
+                            <td><b>{{ getNoteValue(note, 'TP') }}</b></td>
                             <!-- Moyenne CC/30 -->
-                            <td>{{ note.ccSurTrente }}</td>
+                            <td><b>{{ note.ccSurTrente }}</b></td>
                             <!-- Examen /70 -->
-                            <td>{{ getNoteValue(note, 'EE') }}</td>
+                            <td><b>{{ getNoteValue(note, 'EE') }}</b></td>
                             <!-- <td>{{ note.notes[3].valeur}}</td> -->
-                            <td>{{ note.moyenneSurCent}}</td>
-                            <td>{{ note.mgp}}</td>
-                            <td>{{ note.decision}}</td>
-                            <td>{{ note.grade}}</td>
+                            <td><b>{{ note.moyenneSurCent}}</b></td>
+                            <td><b>{{ note.mgp}}</b></td>
+                            <td><b>{{ note.decision}}</b></td>
+                            <td><b>{{ note.grade}}</b></td>
                                 
                         </tr>
                       </ng-container>

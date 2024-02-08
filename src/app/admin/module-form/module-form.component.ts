@@ -6,6 +6,8 @@ import { NatureUe, api as apiConfig } from '../../core/configs/constants';
 import { Cours } from '../../core/models/cours';
 import { Credit } from '../../core/models/credit';
 import { Module } from '../../core/models/module';
+import { NotificationService } from '../../core/services/notification.service';
+
 
 @Component({
   selector: 'app-module-form',
@@ -23,13 +25,13 @@ export class ModuleFormComponent implements OnInit {
   form!: FormGroup
   allCredit!: Credit[]
   allCours!: Cours[]
-  title = "Nouvea module"
+  title = "Nouveau EC"
   btnTitle = "Ajouter"
   name!: string
   submitted = false;
   userId: any;
   allNature: String[] = NatureUe
-  constructor(private adminService: ServicesService, private router: Router, private route: ActivatedRoute) { }
+  constructor(private notification:NotificationService, private adminService: ServicesService, private router: Router, private route: ActivatedRoute) { }
   ngOnInit(): void {
     this.getCredit()
     this.getCours()
@@ -37,7 +39,7 @@ export class ModuleFormComponent implements OnInit {
 
     this.name = this.route.snapshot.params['slug'];
     if (this.name) {
-      this.title = "Mise à  jour module"
+      this.title = "Mise à  jour EC"
       this.btnTitle = "Mise à jour"
       var str = decodeURIComponent(this.name).split('%');
       this.form.setValue(
@@ -102,17 +104,15 @@ export class ModuleFormComponent implements OnInit {
           credit: this.findCreditById(this.form.value.credit),
         }
 
-        console.log(module)
         const url = `${apiConfig.admin.module.create}`;
         this.adminService.saveResource(url, module).subscribe(
           {
             next: res => {
-              alert("cool")
+              this.notification.record()
               this.form.reset();
             },
             error: err => {
-              alert("error")
-              console.log(err)
+              this.notification.error()
 
             }
           }
@@ -132,12 +132,11 @@ export class ModuleFormComponent implements OnInit {
         this.adminService.updateResource(url + module.id, module).subscribe(
           {
             next: res => {
-              alert("Mise a jour effectuee avec succese")
+              this.notification.update()
               this.router.navigate(['administrator/module']);
             },
             error: err => {
-              console.log(err)
-              alert("error")
+              this.notification.error()
             }
           }
         );

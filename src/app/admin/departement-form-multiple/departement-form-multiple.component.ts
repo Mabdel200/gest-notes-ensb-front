@@ -6,6 +6,9 @@ import { api as apiConfig } from '../../core/configs/constants';
 import { ServicesService } from '../../core/services/services.service';
 import { Departement } from '../../core/models/departement';
 
+import { NotificationService } from '../../core/services/notification.service';
+
+
 @Component({
   selector: 'app-departement-form-multiple',
   templateUrl: './departement-form-multiple.component.html',
@@ -17,6 +20,7 @@ export class DepartementFormMultipleComponent {
   file?: File;
 
   constructor(
+    private notification:NotificationService,
     private fb: FormBuilder,
     private AdminService: ServicesService,
     private router: Router,
@@ -48,15 +52,20 @@ export class DepartementFormMultipleComponent {
     console.log(this.departementJson);
 
     var departement: Departement;
-    const propertiesArray = ['code', 'englishdescription', 'frenchdescription'];
+    const propertiesArray = ['code', 'description(fr)', 'description(en)'];
     this.departementJson.forEach((item: any) => {
       // console.log(Object.keys(item).toString().toLowerCase());
-      for (const prop of Object.keys(item)) {
+      const keys = Object.keys(item);
+      const convertedObject: any = {};
+      for (const key of keys) {
+        convertedObject[key.toLowerCase()] = item[key];
+      }
+      for (const prop of keys) {
         if (propertiesArray.includes(prop.toLowerCase())) {
           departement = {
-            code: item.CODE,
-            englishDescription: item.ENGLISHDESCRIPTION,
-            frenchDescription: item.FRENCHDESCRIPTION,
+            code: convertedObject.code,
+            englishDescription: convertedObject['description(en)'],
+            frenchDescription: convertedObject['description(fr)'],
           }
 
           // console.log(formData.getAll);
@@ -68,13 +77,14 @@ export class DepartementFormMultipleComponent {
         {
           next: res => {
 
-            alert("cool")
+            this.notification.record()
 
 
           },
           error: err => {
 
-            alert("error")
+            this.notification.error()
+  
 
           }
         }

@@ -1,6 +1,6 @@
 <header class="bg-info" style="background-color: #6e83d3;">
     <div class="container-xl px-5">
-        <h1 class="text-white py-3 mb-0 display-6 text-center">Note d'un module</h1>
+        <h1 class="text-white py-3 mb-0 display-6 text-center">Note pour un EC</h1>
     </div>
 </header>
 <div class="row g-0">
@@ -25,21 +25,7 @@
                 </div>
                 <div class="mb-4">
                     <div class="form-group">
-                        <label for="type">Cours</label>
-                        <select name="" id="" class="form-control" formControlName="cours">
-                            <option *ngFor="let item of cours" ngValue="{{item.coursId}}">{{item.intitule}} </option>
-                        </select>
-                        <div *ngIf="form.get('cours')?.invalid && form.get('cours')?.touched">
-                            <small class="text-danger" *ngIf="form.get('cours')?.hasError('required')"> {{
-                                errorMessages.required }} </small>
-
-                        </div>
-
-                    </div>
-                </div>
-                <div class="mb-4">
-                    <div class="form-group">
-                        <label for="type">Module</label>
+                        <label for="type">EC</label>
                         <select name="" id="" class="form-control" formControlName="module">
                             <option *ngFor="let item of modules" ngValue="{{item.id}}">{{item.intitule}} </option>
                         </select>

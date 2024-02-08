@@ -9,6 +9,7 @@ import { read, utils } from 'xlsx';
 import { ServicesService } from '../../core/services/services.service';
 import { api as apiConfig } from '../../core/configs/constants';
 import { Etudiant } from '../../core/models/etudiant';
+import { NotificationService } from '../../core/services/notification.service';
 
 @Component({
   selector: 'app-anonymat-form',
@@ -28,8 +29,7 @@ export class AnonymatFormComponent implements OnInit {
     minlength: 'Ce champ doit contenir au moins {{ requiredLength }} caractères.',
   };
   noteJson: any = [];
-  constructor(private AdminService: ServicesService, private router: Router,
-    private route: ActivatedRoute) { }
+  constructor(private AdminService: ServicesService, private notification:NotificationService,) { }
 
   ngOnInit(): void {
     this.onForm();
@@ -140,10 +140,11 @@ export class AnonymatFormComponent implements OnInit {
       this.AdminService.saveResource(url + count, notes).subscribe(
         {
           next: res => {
-            //   alert("cool")
+            this.notification.record()
+            this.form.reset();
           },
           error: err => {
-            alert("error")
+            this.notification.error()
 
           }
         }

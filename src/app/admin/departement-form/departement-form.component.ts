@@ -4,6 +4,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { api as apiConfig } from '../../core/configs/constants';
 import { ServicesService } from '../../core/services/services.service';
 import { Departement } from '../../core/models/departement';
+import { NotificationService } from '../../core/services/notification.service';
+
 
 @Component({
   selector: 'app-departement-form',
@@ -27,7 +29,7 @@ export class DepartementFormComponent implements OnInit {
 
   userId: any;
 
-  constructor(private fb: FormBuilder, private AdminService: ServicesService, private router: Router, private route: ActivatedRoute) { }
+  constructor(private notification:NotificationService, private fb: FormBuilder, private AdminService: ServicesService, private router: Router, private route: ActivatedRoute) { }
   ngOnInit(): void {
 
     this.onForm();
@@ -44,6 +46,7 @@ export class DepartementFormComponent implements OnInit {
         }
       )
     }
+ 
   }
 
   onForm() {
@@ -67,14 +70,13 @@ export class DepartementFormComponent implements OnInit {
         this.AdminService.saveResource(url, departement).subscribe(
           {
             next: res => {
-
-              alert("cool")
+              this.notification.record()
               this.form.reset();
 
             },
             error: err => {
 
-              alert("error")
+              this.notification.error()
 
             }
           }
@@ -93,11 +95,13 @@ export class DepartementFormComponent implements OnInit {
         this.AdminService.updateResource(url + departement.id, departement).subscribe(
           {
             next: res => {
-              alert("Mise a jour effectuee avec succese")
+              this.notification.update()
+  
               this.router.navigate(['administrator/departement']);
             },
             error: err => {
-              alert("error")
+              this.notification.error()
+ 
             }
           }
         );

@@ -72,7 +72,8 @@ import { DataTablesModule } from 'angular-datatables';
     FiliereFormMultipleComponent,
     ModuleFormMultipleComponent,
     EtudiantListeComponent,
-    PvListeComponent
+    PvListeComponent,
+    
   ],
   imports: [
     CommonModule,

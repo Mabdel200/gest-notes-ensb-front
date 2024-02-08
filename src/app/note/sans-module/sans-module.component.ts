@@ -8,6 +8,8 @@ import { Cours } from '../../core/models/cours';
 import { Etudiant } from '../../core/models/etudiant';
 import { Evaluation } from '../../core/models/evaluation';
 import { ServicesService } from '../../core/services/services.service';
+import { log } from 'node:console';
+import { NotificationService } from '../../core/services/notification.service';
 @Component({
   selector: 'app-sans-module',
   templateUrl: './sans-module.component.html',
@@ -31,8 +33,7 @@ export class SansModuleComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private AdminService: ServicesService,
-    private router: Router,
-    private route: ActivatedRoute) { }
+    private notification:NotificationService) { }
 
   ngOnInit(): void {
     this.onForm();
@@ -55,7 +56,6 @@ export class SansModuleComponent implements OnInit {
     this.AdminService.getResources(url).subscribe(
       (data) => {
         this.etudiant = data.body;
-        console.log(this.etudiant);
       },
       (err) => {
         console.log('erreur', err.error.message);
@@ -132,91 +132,32 @@ export class SansModuleComponent implements OnInit {
       // console.log(Object.keys(item).toString().toLowerCase());
       const keys = Object.keys(item);
       const convertedObject: any = {};
+
       for (const key of keys) {
         convertedObject[key.toLowerCase()] = item[key];
       }
-      
+
       // Save datas from files in database
-      const url = `${apiConfig.admin.notes.cours}`;
-
-      if (keys.includes('CC')) {
-        var notes: any = {
-          etudiant: this.findEtudiantByMatricule(convertedObject.matricule.toString()),
-          valeur: convertedObject.cc,
-          anneeAcademique: this.findTypeAnneeById(Number(this.form.value.annee)),
-          evaluation: this.findTypeEvaluationById('CC'),
-          cours: this.findcoursById(Number(this.form.value.cours))
-        }
-
-        console.log('cc',notes);
-        this.AdminService.saveResource(url, notes).subscribe(
-          {
-            next: res => {
-           //   alert("cool")
-              this.form.reset();
-            },
-            error: err => {
-              alert("error")
-
-            }
-          }
-        );
-
-      }
-
-      if (keys.includes('TP')) {
-        console.log('tp');
-        var notes: any = {
-          etudiant: this.findEtudiantByMatricule(convertedObject.matricule.toString()),
-          valeur: convertedObject.tp,
-          anneeAcademique: this.findTypeAnneeById(Number(this.form.value.annee)),
-          evaluation: this.findTypeEvaluationById('TP'),
-          cours: this.findcoursById(Number(this.form.value.cours))
-        }
-        this.AdminService.saveResource(url, notes).subscribe(
-          {
-            next: res => {
-           //   alert("cool")
-              this.form.reset();
-            },
-            error: err => {
-              alert("error")
-
-            }
-          }
-        );
+      var notes: any = {
+        etudiant: this.findEtudiantByMatricule(convertedObject.matricule.toString()),
+        valeur: {},
+        anneeAcademique: this.findTypeAnneeById(Number(this.form.value.annee)),
+        evaluation: {},
+        cours: this.findcoursById(Number(this.form.value.cours))
       }
 
 
-      if (keys.includes('TPE')) {
-        console.log('tpe');
-        var notes: any = {
-          etudiant: this.findEtudiantByMatricule(convertedObject.matricule.toString()),
-          valeur: convertedObject.tpe,
-          anneeAcademique: this.findTypeAnneeById(Number(this.form.value.annee)),
-          evaluation: this.findTypeEvaluationById('TPE'),
-          cours: this.findcoursById(Number(this.form.value.cours))
-        }
-        this.AdminService.saveResource(url, notes).subscribe(
-          {
-            next: res => {
-      //        alert("cool")
-              this.form.reset();
-            },
-            error: err => {
-              alert("error")
+      notes.valeur = convertedObject.cc
+      notes.evaluation = this.findTypeEvaluationById('CC')
+      this.save(notes);
 
-            }
-          }
-        );
-      }
+      notes.valeur = convertedObject.tp
+      notes.evaluation = this.findTypeEvaluationById('TP')
+      this.save(notes);
 
-
-
-
-
-
-
+      notes.valeur = convertedObject.tpe
+      notes.evaluation = this.findTypeEvaluationById('TPE')
+      this.save(notes);
 
     })
 
@@ -224,7 +165,22 @@ export class SansModuleComponent implements OnInit {
 
 
 
+  save(n: any) {
 
+    const url = `${apiConfig.admin.notes.cours}`;
+    this.AdminService.saveResource(url, n).subscribe(
+      {
+        next: res => {
+          this.notification.record()
+          this.form.reset();
+        },
+        error: err => {
+          this.notification.error()
+
+        }
+      }
+    );
+  }
 
   findTypeAnneeById(id: Number) {
     return this.annees.find(item => id === item.id)

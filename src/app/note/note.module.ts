@@ -7,6 +7,7 @@ import { SansModuleComponent } from './sans-module/sans-module.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NoteExamenComponent } from './note-examen/note-examen.component';
 import { AnonymatFormComponent } from './anonymat-form/anonymat-form.component';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { AnonymatFormComponent } from './anonymat-form/anonymat-form.component';
     CommonModule,
     NoteRoutingModule,
     ReactiveFormsModule,
+    ToastrModule.forRoot({ timeOut: 6000 }),
   ]
 })
 export class NoteModule { }

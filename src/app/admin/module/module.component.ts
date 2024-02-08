@@ -10,6 +10,8 @@ import { Module } from '../../core/models/module';
 import { api as apiConfig } from '../../core/configs/constants';
 import { Router } from '@angular/router';
 import { ServicesService } from '../../core/services/services.service';
+import { NotificationService } from '../../core/services/notification.service';
+
 
 @Component({
   selector: 'app-module',
@@ -104,7 +106,7 @@ export class ModuleComponent implements OnInit {
 
   // end region
   allModules!: Module[]
-  constructor(private adminService: ServicesService, private router: Router) {
+  constructor(private notification:NotificationService,private adminService: ServicesService, private router: Router) {
 
   }
 
@@ -124,10 +126,11 @@ export class ModuleComponent implements OnInit {
       }
     );
   }
+
   update(item: Module) {
     const encodedId = encodeURIComponent(item.id + "%" + item.code + "%" + item.cours.coursId + "%" + item.credit.id +
       "%" + item.intitule + "%" );
-    this.router.navigate(['administrator/module', encodedId]);
+    this.router.navigate(['administrator/module/update/', encodedId]);
   }
 
   remove(arg: Number | undefined) {
@@ -135,11 +138,14 @@ export class ModuleComponent implements OnInit {
     if (arg) {
       this.adminService.deleteResource(url, arg).subscribe({
         next: res => {
-          alert("Suppression effectuée")
+          this.notification.remove()
           this.getModules()
         },
         error: err => {
-          alert("Erreur de  Suppression")
+          this.notification.remove()
+          this.getModules()
+          //this.toastr.error("Erreur survenir", 'Error');
+  
         }
 
       })

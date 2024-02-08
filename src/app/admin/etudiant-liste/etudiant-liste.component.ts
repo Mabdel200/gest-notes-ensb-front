@@ -168,13 +168,18 @@ submit() {
       // Utilisation de l'observable
       this.getParcoursObservable().subscribe(
         (parcoursData) => {
-          console.log("parcours :", parcoursData.body.id);
-          const idParcour = parcoursData.body.id || 0;
-          console.log(idParcour, " = idParcours");
-
-          const url = `${apiConfig.admin.etudiant.getAllByCours}`;
-
-          this.AdminService.getResource(url, idParcour).subscribe(
+          const formValue = this.form.controls;
+          // console.log("parcours :", parcoursData.body.id);
+          const parcour = parcoursData.body.label || '';
+          console.log(parcour, " = labelParcours");
+          const annee: number = formValue['annee'].value ? +formValue['annee'].value : 0;
+          const url = apiConfig.admin.etudiant.getAllByCoursAndAnnee(
+            annee,
+            parcour
+          );
+          console.log(url);
+          
+          this.AdminService.getResourceMany(url, {}).subscribe(
             (data) => {
               this.listeEtudiantOfParcours = data.body;
               console.log(this.listeEtudiantOfParcours);
@@ -185,7 +190,7 @@ submit() {
           );
         }
       );
-    }, 100); // Ajoutez un délai pour vous assurer que l'émission a eu lieu
+    }, 1); // Ajoutez un délai pour vous assurer que l'émission a eu lieu
   }
 }  // end region
 

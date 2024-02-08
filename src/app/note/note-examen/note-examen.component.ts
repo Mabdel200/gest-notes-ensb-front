@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { read, utils } from 'xlsx';
 import { api as apiConfig } from '../../core/configs/constants';
 import { ServicesService } from '../../core/services/services.service';
+import { NotificationService } from '../../core/services/notification.service';
 @Component({
   selector: 'app-note-examen',
   templateUrl: './note-examen.component.html',
@@ -13,7 +14,7 @@ export class NoteExamenComponent implements OnInit {
   noteJson: any = [];
   constructor(
     private AdminService: ServicesService,
-    private router: Router,
+    private notification:NotificationService
   ) { }
   ngOnInit(): void {
     throw new Error('Method not implemented.');
@@ -62,11 +63,12 @@ export class NoteExamenComponent implements OnInit {
       this.AdminService.saveResource(url + convertedObject.anonymat + '/note?note=' + convertedObject.valeur,notes).subscribe(
         {
           next: res => {
-            //   alert("cool")
+            this.notification.record()
+          
           },
           error: err => {
-            alert("error")
-
+            this.notification.error()
+  
           }
         }
       );

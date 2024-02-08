@@ -19,16 +19,17 @@ import saveAs from 'file-saver';
   templateUrl: './annee-academique.component.html',
   styleUrls: ['./annee-academique.component.css']
 })
+
 export class AnneeAcademiqueComponent implements OnInit {
 
   anneeAcademiques: any = [];
  // userId: string | null;
 
   constructor(
-    private fb: FormBuilder,
+ 
     private AdminService: ServicesService,
     private router: Router,
-    private route: ActivatedRoute) { }
+  ) { }
 
   ngOnInit(): void {
     this.getAllAnneeAca();

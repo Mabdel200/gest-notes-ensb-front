@@ -9,23 +9,23 @@
 
             <!-- Login submission form-->
             <form class="mb-5">
-                <div class="mb-4">
+                <!-- <div class="mb-4">
                     <div class="form-group">
-                        <label for="type">Module</label>
+                        <label for="type">EC</label>
                         <select name="" id="" class="form-control" formControlName="module_id">
                             <option  *ngFor="let item of module" ngValue="{{item.id}}">{{item.code}} </option>
                         </select>
-                        <!-- <div *ngIf="formCours.get('type_cours_id')?.invalid && formCours.get('type_cours_id')?.touched">
+                        <div *ngIf="formCours.get('type_cours_id')?.invalid && formCours.get('type_cours_id')?.touched">
                             <small class="text-danger" *ngIf="formCours.get('type_cours_id')?.hasError('required')"> {{
                                 errorMessages.required }} </small>
 
-                        </div> -->
+                        </div>
 
                     </div>
-                </div>
+                </div> -->
                 <div class="mb-4">
                     <div class="form-group">
-                        <label for="type">Cours</label>
+                        <label for="type">UE</label>
                         <select name="" id="" class="form-control" formControlName="cours_id">
                             <option  *ngFor="let item of cours" ngValue="{{item.id}}">{{item.code}} </option>
                         </select>

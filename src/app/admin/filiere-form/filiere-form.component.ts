@@ -4,6 +4,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { api as apiConfig } from '../../core/configs/constants';
 import { Departement } from '../../core/models/departement';
 import { ServicesService } from '../../core/services/services.service';
+import { NotificationService } from '../../core/services/notification.service';
+
 
 @Component({
   selector: 'app-filiere-form',
@@ -28,7 +30,7 @@ export class FiliereFormComponent implements OnInit {
   submitted = false;
   userId: any;
 
-  constructor(private adminService: ServicesService, private router: Router, private route: ActivatedRoute) { }
+  constructor(private notification:NotificationService,private adminService: ServicesService, private router: Router, private route: ActivatedRoute) { }
   ngOnInit(): void {
     this.onForm()
     this.getDepartemnt()
@@ -72,12 +74,11 @@ export class FiliereFormComponent implements OnInit {
         this.adminService.saveResource(url, option).subscribe(
           {
             next: res => {
-              alert("cool")
+              this.notification.record()
               this.form.reset();
             },
             error: err => {
-              alert("error")
-
+              this.notification.error()
             }
           }
         );
@@ -96,11 +97,11 @@ export class FiliereFormComponent implements OnInit {
         this.adminService.updateResource(url + option.id, option).subscribe(
           {
             next: res => {
-              alert("Mise a jour effectuee avec succese")
+              this.notification.update()
               this.router.navigate(['administrator/filiere']);
             },
             error: err => {
-              alert("error")
+              this.notification.error()
             }
           }
         );

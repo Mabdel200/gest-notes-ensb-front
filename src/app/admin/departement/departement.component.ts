@@ -10,6 +10,8 @@ import { Departement } from '../../core/models/departement';
 import { ServicesService } from '../../core/services/services.service';
 import { api as apiConfig } from '../../core/configs/constants';
 import { Router } from '@angular/router';
+import { NotificationService } from '../../core/services/notification.service';
+
 
 @Component({
   selector: 'app-departement',
@@ -104,10 +106,9 @@ export class DepartementComponent implements OnInit {
 
   
   // end region
-  
   allDepartements!: Departement[]
 
-  constructor(private adminService: ServicesService, private router: Router) { }
+  constructor(private notification:NotificationService,private adminService: ServicesService, private router: Router) { }
 
   ngOnInit(): void {
     this.getDepartements();
@@ -124,21 +125,29 @@ export class DepartementComponent implements OnInit {
     })
   }
 
+  // update(item: Departement) {
+  //   const decodedId = `${item.id}%${item.code}%${item.englishDescription}%${item.frenchDescription}`;
+  //   this.router.navigate(['administrator/departement/update/', decodedId]);
+  // }
+
   update(item: Departement) {
     const encodedId = encodeURIComponent(item.id+"%"+item.code+"%"+item.englishDescription+"%"+item.frenchDescription);
-    this.router.navigate(['administrator/departement', encodedId]);
+    this.router.navigate(['administrator/departement/update/', encodedId]);
   }
-
+  
   remove(arg: Number | undefined) {
     const url = `${apiConfig.admin.departement.delete}`;
     if (arg) {
       this.adminService.deleteResource(url, arg).subscribe({
         next: res => {
-          alert("Suppression effectuée")
+          this.notification.remove()
           this.getDepartements()
         },
         error: err => {
-          alert("Erreur de  Suppression")
+          this.notification.remove()
+          this.getDepartements()
+          //this.toastr.error("Erreur survenir", 'Error');
+  
         }
 
       })

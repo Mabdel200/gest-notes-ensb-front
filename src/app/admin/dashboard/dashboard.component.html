@@ -13,49 +13,92 @@
                 <div class="card-body px-4">
                     <div class="d-flex justify-content-between align-items-center mb-2">
                         <div class="me-2">
-                            <div class="display-5 text-white">5</div>
-                            <div class="card-text">PVs non traités</div>
+                            <div class="display-5 text-white">{{countDepartement}}</div>
+                            <div class="card-text">Nombre de Département</div>
                         </div>
-                        <div class="icon-circle bg-white-50 text-primary"><i class="material-icons">download</i></div>
+                        <div class="icon-circle bg-white-50 text-primary">
+                            <i class="material-icons">location_city</i>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+        <!-- ue -->
         <div class="col-xxl-3 col-md-6 mb-5">
             <div class="card card-raised bg-warning text-white">
                 <div class="card-body px-4">
                     <div class="d-flex justify-content-between align-items-center mb-2">
                         <div class="me-2">
-                            <div class="display-5 text-white">50</div>
-                            <div class="card-text">UE</div>
+                            <div class="display-5 text-white">{{countUE}}</div>
+                            <div class="card-text text-black">Nombre d'Unité d'enseignement (UE)</div>
                         </div>
-                        <div class="icon-circle bg-white-50 text-warning"><i class="material-icons">storefront</i></div>
+                        <div class="icon-circle bg-white-50 text-warning"><i class="material-icons">school</i>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+        <!-- student -->
         <div class="col-xxl-3 col-md-6 mb-5">
             <div class="card card-raised bg-secondary text-white">
                 <div class="card-body px-4">
                     <div class="d-flex justify-content-between align-items-center mb-2">
                         <div class="me-2">
-                            <div class="display-5 text-white">20</div>
-                            <div class="card-text">Etudiants inscrits</div>
+                            <div class="display-5 text-white">{{countEtudiant}}</div>
+                            <div class="card-text">Nombre d'étudiants inscrits</div>
                         </div>
                         <div class="icon-circle bg-white-50 text-secondary"><i class="material-icons">people</i></div>
                     </div>
                 </div>
             </div>
         </div>
+    
+        <!-- Parcours -->
+        <div class="col-xxl-3 col-md-6 mb-5">
+            <div class="card card-raised bg-success text-white">
+                <div class="card-body px-4">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <div class="me-2">
+                            <div class="display-5 text-white">{{countParcours}}</div>
+                            <div class="card-text">Nombre de Parcours</div>
+                        </div>
+                        <div class="icon-circle bg-white-50 text-info"><i class="material-icons">timeline</i>
+                        </div>
+                    </div>
+                  
+                </div>
+            </div>
+        </div>
+        <!-- Annee -->
         <div class="col-xxl-3 col-md-6 mb-5">
             <div class="card card-raised bg-info text-white">
                 <div class="card-body px-4">
                     <div class="d-flex justify-content-between align-items-center mb-2">
                         <div class="me-2">
-                            <div class="display-5 text-white">17</div>
-                            <div class="card-text">Requetes non traités</div>
+                            <div class="display-5 text-white">{{countAnnee}}</div>
+                            <div class="card-text">Années actives</div>
                         </div>
-                        <div class="icon-circle bg-white-50 text-info"><i class="material-icons">devices</i></div>
+                        <div class="icon-circle bg-white-50 text-info"><i class="material-icons">event</i>
+                        </div>
+                    </div>
+                  
+                </div>
+            </div>
+        </div>
+        <div class="col-xxl-3 col-md-6 mb-5">
+            <div class="card card-raised text-success" style="background-color: #9ad0f5;">
+                <div class="card-body px-4">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <div class="me-2">
+                            <div class="display-5 text-black">17 %</div>
+                            <div class="card-text text-black"><b>Taux de Reussite Global</b> </div>
+                        </div>
+                        <div class="icon-circle bg-white-50 text-info">
+                            <i class="material-icons">celebration</i>
+                        </div>
+                        <div class="icon-circle bg-white-50 text-warning">
+                            <i class="material-icons">star</i>
+                          </div>
                     </div>
                   
                 </div>
@@ -66,38 +109,24 @@
 
     <div class="card card-raised">
         <div class="card-header bg-primary text-white px-4">
-            <div class="d-flex justify-content-between align-items-center">
-                <div class="me-4">
-                    <h2 class="card-title text-white mb-0">Revu des evaluations </h2>
-                    <div class="card-subtitle">Details et Historique</div>
-                </div>
-                <div class="d-flex gap-2">
-                    <button class="btn btn-lg btn-text-white btn-icon mdc-ripple-upgraded" type="button"><i class="material-icons">download</i></button>
-                    <button class="btn btn-lg btn-text-white btn-icon mdc-ripple-upgraded" type="button"><i class="material-icons">print</i></button>
-                </div>
-            </div>
+           <div class="d-flex justify-content-between align-items-center">
+              <div class="me-4">
+                 <h2 class="card-title text-white mb-0">Taux de réussite global</h2>
+                 <div class="card-subtitle">Il s'agit du taux de reussite pour chaque departement en fonction d'une année académique.</div>
+              </div>
+           </div>
         </div>
         <div class="card-body p-4">
-            <!-- Simple DataTables example-->
-            <div class="datatable-wrapper datatable-loading no-footer sortable searchable fixed-columns"><div class="datatable-top">
-            <div class="datatable-dropdown">
-                    <label>
-                        <select class="datatable-selector"><option value="5">5</option><option value="10" selected="">10</option><option value="15">15</option><option value="20">20</option><option value="25">25</option></select> entries per page
-                    </label>
-                </div>
-            <div class="datatable-search">
-                    <input class="datatable-input" placeholder="Search..." type="search" title="Search within table" aria-controls="datatablesSimple">
-                </div>
-            </div>
-            <div class="datatable-container">
-                <table id="datatablesSimple" class="datatable-table">
-                    <thead>
-                        <tr>
-                            <th data-sortable="true" style="width: 26.845637583892618%;"><a href="#" class="datatable-sorter">Name</a></th><th data-sortable="true" style="width: 10.290827740492169%;"><a href="#" class="datatable-sorter">Ext.</a></th><th data-sortable="true" style="width: 28.523489932885905%;"><a href="#" class="datatable-sorter">City</a></th><th data-sortable="true" style="width: 17.337807606263983%;"><a href="#" class="datatable-sorter">Start Date</a></th><th data-sortable="true" style="width: 17.002237136465325%;"><a href="#" class="datatable-sorter">Completion</a></th></tr></thead><tbody><tr data-index="0"><td>Unity Pugh</td><td>9958</td><td>Curicó</td><td>2005/02/11</td><td>37%</td></tr><tr data-index="1"><td>Theodore Duran</td><td>8971</td><td>Dhanbad</td><td>1999/04/07</td><td>97%</td></tr><tr data-index="2"><td>Kylie Bishop</td><td>3147</td><td>Norman</td><td>2005/09/08</td><td>63%</td></tr><tr data-index="3"><td>Willow Gilliam</td><td>3497</td><td>Amqui</td><td>2009/29/11</td><td>30%</td></tr><tr data-index="4"><td>Blossom Dickerson</td><td>5018</td><td>Kempten</td><td>2006/11/09</td><td>17%</td></tr><tr data-index="5"><td>Elliott Snyder</td><td>3925</td><td>Enines</td><td>2006/03/08</td><td>57%</td></tr><tr data-index="6"><td>Castor Pugh</td><td>9488</td><td>Neath</td><td>2014/23/12</td><td>93%</td></tr><tr data-index="7"><td>Pearl Carlson</td><td>6231</td><td>Cobourg</td><td>2014/31/08</td><td>100%</td></tr><tr data-index="8"><td>Deirdre Bridges</td><td>1579</td><td>Eberswalde-Finow</td><td>2014/26/08</td><td>44%</td></tr><tr data-index="9"><td>Daniel Baldwin</td><td>6095</td><td>Moircy</td><td>2000/11/01</td><td>33%</td></tr></tbody></table></div>
-            <div class="datatable-bottom">
-            <div class="datatable-info">Showing 1 to 10 of 100 entries</div>
-            <nav class="datatable-pagination"><ul class="datatable-pagination-list"><li class="datatable-pagination-list-item datatable-hidden datatable-disabled"><a data-page="1" class="datatable-pagination-list-item-link">‹</a></li><li class="datatable-pagination-list-item datatable-active"><a data-page="1" class="datatable-pagination-list-item-link">1</a></li><li class="datatable-pagination-list-item"><a data-page="2" class="datatable-pagination-list-item-link">2</a></li><li class="datatable-pagination-list-item"><a data-page="3" class="datatable-pagination-list-item-link">3</a></li><li class="datatable-pagination-list-item"><a data-page="4" class="datatable-pagination-list-item-link">4</a></li><li class="datatable-pagination-list-item"><a data-page="5" class="datatable-pagination-list-item-link">5</a></li><li class="datatable-pagination-list-item"><a data-page="6" class="datatable-pagination-list-item-link">6</a></li><li class="datatable-pagination-list-item"><a data-page="7" class="datatable-pagination-list-item-link">7</a></li><li class="datatable-pagination-list-item datatable-ellipsis datatable-disabled"><a class="datatable-pagination-list-item-link">…</a></li><li class="datatable-pagination-list-item"><a data-page="10" class="datatable-pagination-list-item-link">10</a></li><li class="datatable-pagination-list-item"><a data-page="2" class="datatable-pagination-list-item-link">›</a></li></ul></nav>
-            </div></div>
+            <!-- Chart.js Chart -->
+            <canvas id="myChart" width="400" height="200"></canvas>
         </div>
-    </div>
+       
+        <!-- <div class="card-body p-4"> -->
+            <!-- Chart.js Pie chart -->
+            <!-- <canvas id="myPieChart"></canvas> -->
+        <!-- <div> -->
+            
+         
+     </div>
+     
 </div>

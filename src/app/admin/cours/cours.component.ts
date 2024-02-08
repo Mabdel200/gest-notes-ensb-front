@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { api as apiConfig } from '../../core/configs/constants';
-import { ActivatedRoute } from '@angular/router';
 import { ServicesService } from '../../core/services/services.service';
 // Export
 import * as XLSX from 'xlsx';
@@ -13,6 +11,8 @@ import { Workbook } from 'exceljs';
 import saveAs from 'file-saver';
 import { Cours } from '../../core/models/cours';
 
+import { NotificationService } from '../../core/services/notification.service';
+
 @Component({
   selector: 'app-cours',
   templateUrl: './cours.component.html',
@@ -22,15 +22,15 @@ export class CoursComponent implements OnInit {
 
   cours!: Cours [];
   constructor(
-    private fb: FormBuilder,
     private AdminService: ServicesService,
     private router: Router,
-    private route: ActivatedRoute) { }
+    private notification:NotificationService) { }
 
   ngOnInit(): void {
     this.getAllCours();
   }
-
+  
+  
 
   getAllCours() {
     const url = `${apiConfig.admin.cours.getAll}`;
@@ -133,7 +133,7 @@ export class CoursComponent implements OnInit {
     const encodedId = encodeURIComponent(item.coursId+"%"+item.code+"%"+item.credit.id+"%"
     +item.departement.id+"%"+item.intitule+"%"+item.natureUE+"%"+item.semestre.id
     +"%"+item.typecours.id);
-    this.router.navigate(['administrator/cours', encodedId]);
+    this.router.navigate(['administrator/cours/update/', encodedId]);
   }
 
   remove(arg: Number | undefined) {
@@ -141,11 +141,13 @@ export class CoursComponent implements OnInit {
     if (arg) {
       this.AdminService.deleteResource(url, arg).subscribe({
         next: res => {
-          alert("Suppression effectuée")
+          this.notification.remove()
           this.getAllCours()
         },
         error: err => {
-          alert("Erreur de  Suppression")
+          this.notification.remove()
+          this.getAllCours()
+       //   this.toastr.error("Erreur survenir", 'Error');
         }
 
       })

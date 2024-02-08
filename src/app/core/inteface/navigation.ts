@@ -15,36 +15,23 @@ export const navAdmin: Menu[] = [
         subMenu: [
             // Groupe Administration
             {
-                label: "Département",
-                icon: "business",
-                routerlink: "administrator/departement/"
-            },
-            {
                 label: "Année académique",
                 icon: "event",
                 routerlink: "administrator/anneeacademique/"
             },
+            {
+                label: "Département",
+                icon: "business",
+                routerlink: "administrator/departement/"
+            },
+          
 
             // Groupe Cours
-            {
-                label: "Type de cours",
-                icon: "school",
-                routerlink: "administrator/typecours/"
-            },
-            {
-                label: "Cours",
-                icon: "class",
-                routerlink: "administrator/cours/"
-            },
+           
             {
                 label: "Filière",
                 icon: "folder_special",
                 routerlink: "administrator/filiere/"
-            },
-            {
-                label: "Parcours",
-                icon: "timeline",
-                routerlink: "administrator/parcours/"
             },
             {
                 label: "Cycle",
@@ -56,6 +43,13 @@ export const navAdmin: Menu[] = [
                 icon: "trending_up",
                 routerlink: "administrator/niveau/"
             },
+            {
+                label: "Parcours",
+                icon: "timeline",
+                routerlink: "administrator/parcours/"
+            },
+          
+          
 
             // Groupe Evaluation
             {
@@ -64,15 +58,28 @@ export const navAdmin: Menu[] = [
                 routerlink: "administrator/semestre/"
             },
             {
-                label: "Module",
-                icon: "extension",
-                routerlink: "administrator/module/"
-            },
-            {
                 label: "Crédit",
                 icon: "credit_card",
                 routerlink: "administrator/credit/"
             },
+            {
+                label: "Evaluations attendues",
+                icon: "school",
+                routerlink: "administrator/typecours/"
+            },
+          
+            {
+                label: "UE (Unité d’enseignement) ",
+                icon: "class",
+                routerlink: "administrator/cours/"
+            },
+            {
+                label: "EC (Enseignements complémentaires)",
+                icon: "extension",
+                routerlink: "administrator/module/"
+            },
+           
+          
             {
                 label: "Évaluation",
                 icon: "assessment",
@@ -106,15 +113,16 @@ export const navAdmin: Menu[] = [
         expandable: true,
         subMenu: [
             {
-                label: "Pour un module",
-                icon: "article",
-                routerlink: "notes/avecmodule/"
-            },
-            {
-                label: "Pour un cours",
+                label: "Pour une UE",
                 icon: "description",
                 routerlink: "notes/module/"
             },
+            {
+                label: "Pour un EC",
+                icon: "article",
+                routerlink: "notes/avecmodule/"
+            },
+           
             {
                 label: "Anonymat",
                 icon: "person_outline",
@@ -138,7 +146,7 @@ export const navAdmin: Menu[] = [
                 routerlink: "administrator/etudiant/liste/"
             },
             {
-                label: "PV(s) Notes",
+                label: "PV pour une UE",
                 icon: "note",
                 routerlink: "administrator/pv/liste/"
             },

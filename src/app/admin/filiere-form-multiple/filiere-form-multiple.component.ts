@@ -6,6 +6,8 @@ import { ActivatedRoute } from '@angular/router';
 import { ServicesService } from '../../core/services/services.service';
 import { read, utils } from 'xlsx';
 import { Departement } from '../../core/models/departement';
+import { NotificationService } from '../../core/services/notification.service';
+
 
 
 @Component({
@@ -21,6 +23,7 @@ export class FiliereFormMultipleComponent implements OnInit {
   form!: FormGroup;
 
   constructor(
+    private notification:NotificationService,
     private fb: FormBuilder,
     private AdminService: ServicesService,
     private router: Router,
@@ -73,7 +76,7 @@ export class FiliereFormMultipleComponent implements OnInit {
 
     console.log(this.filiereJson);
     var option: any;
-    const propertiesArray = ['code', 'frenchdescription', 'englishdescription'];
+    const propertiesArray = ['code', 'description(fr)', 'description(en)'];
 
     if (this.form.valid) {
       this.filiereJson.forEach((item: any) => {
@@ -88,8 +91,8 @@ export class FiliereFormMultipleComponent implements OnInit {
           if (propertiesArray.includes(prop.toLowerCase())) {
 
             option = {
-              descriptionEnglish: convertedObject.englishDescription,
-              descriptionFrench: convertedObject.frenchdescription,
+              descriptionEnglish: convertedObject['description(en)'],
+              descriptionFrench: convertedObject['description(fr)'],
               code: convertedObject.code,
               departement: this.findDepartement(Number(this.form.value.departement)),
             }
@@ -106,10 +109,10 @@ export class FiliereFormMultipleComponent implements OnInit {
         this.AdminService.saveResource(url, option).subscribe(
           {
             next: res => {
-              alert("cool")
+              this.notification.record()
             },
             error: err => {
-              alert("error")
+              this.notification.error()
 
             }
           }

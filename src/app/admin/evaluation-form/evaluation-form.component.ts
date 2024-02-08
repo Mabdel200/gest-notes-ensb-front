@@ -5,6 +5,8 @@ import { TYPE_EVALUATION, api as apiConfig } from '../../core/configs/constants'
 import { ServicesService } from '../../core/services/services.service';
 import { Evaluation } from '../../core/models/evaluation';
 import { TypeCours } from '../../core/models/typeCours';
+import { NotificationService } from '../../core/services/notification.service';
+
 
 @Component({
   selector: 'app-evaluation-form',
@@ -20,10 +22,10 @@ export class EvaluationFormComponent {
   };
 
   form!: FormGroup
-  cours!:TypeCours[]
+  cours!: TypeCours[]
   title = "Nouvelle evaluation"
   btnTitle = "Ajouter"
-  name! :string
+  name!: string
 
 
 
@@ -33,7 +35,7 @@ export class EvaluationFormComponent {
 
 
 
-  constructor(private adminService: ServicesService, private router: Router, private route: ActivatedRoute) { }
+  constructor(private notification:NotificationService, private adminService: ServicesService, private router: Router, private route: ActivatedRoute) { }
   ngOnInit(): void {
     this.onForm()
     this.name = this.route.snapshot.params['slug'];
@@ -43,9 +45,9 @@ export class EvaluationFormComponent {
       var str = decodeURIComponent(this.name).split('%');
       this.form.setValue(
         {
-          code : str[1],
-          description :  str[2],
-         // estExamen : str[3]
+          code: str[1],
+          description: str[2],
+          // estExamen : str[3]
         }
       )
     }
@@ -72,42 +74,43 @@ export class EvaluationFormComponent {
         this.adminService.saveResource(url, evaluation).subscribe(
           {
             next: res => {
-              alert("cool")
+              this.notification.record()
               this.form.reset();
             },
             error: err => {
-              console.log(Error)
-              alert("error")
+              this.notification.error()
             }
           }
-        ); 
+        );
       }
       //Mise ajour
-      else{
+      else {
         var str = decodeURIComponent(this.name).split('%');
         var evaluation: Evaluation = {
           code: this.form.value.code,
           description: this.form.value.description,
-           id: parseInt(str[0])
+          id: parseInt(str[0])
         }
         const url = `${apiConfig.admin.evaluation.update}`;
         this.adminService.updateResource(url + evaluation.id, evaluation).subscribe(
           {
             next: res => {
-              alert("Mise a jour effectuee avec succese")
+              this.notification.update()
+  
               this.router.navigate(['administrator/evaluation']);
             },
             error: err => {
-              alert("error")
+              this.notification.error()
+  
             }
           }
         );
       }
 
-      
+
 
     }
   }
 
- 
+
 }

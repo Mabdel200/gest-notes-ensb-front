@@ -27,7 +27,6 @@ import { SemestreFormMultipleComponent } from './semestre-form-multiple/semestre
 import { ModuleFormMultipleComponent } from './module-form-multiple/module-form-multiple.component';
 import { EtudiantListeComponent } from './etudiant-liste/etudiant-liste.component';
 import { PvListeComponent } from './pv-liste/pv-liste.component';
-import { NotesListeComponent } from './notes-liste/notes-liste.component';
 import { AnneeAcademiqueFormComponent } from './annee-academique-form/annee-academique-form.component';
 import { AnneeAcademiqueComponent } from './annee-academique/annee-academique.component';
 import { CycleFormComponent } from './cycle-form/cycle-form.component';
@@ -58,7 +57,12 @@ const routes: Routes = [
       {
         path: "enregisrement/multiple",
         component: DepartementFormMultipleComponent
-      }
+      },
+      {
+        path: "update/:slug", //update
+        component: DepartementFormComponent
+      },
+
     ]
   },
   {
@@ -71,7 +75,11 @@ const routes: Routes = [
       {
         path: "nouveau",
         component: AnneeAcademiqueFormComponent
-      }
+      },
+      {
+        path: "update/:slug", //update
+        component: AnneeAcademiqueFormComponent
+      },
     ]
   },
   {
@@ -88,7 +96,11 @@ const routes: Routes = [
       {
         path: "enregisrement/multiple",
         component: TypeCoursFormMultipleComponent
-      }
+      },
+      {
+        path: "update/:slug", //update
+        component: TypeCoursFormComponent
+      },
     ]
   },
   {
@@ -105,7 +117,11 @@ const routes: Routes = [
       {
         path: "enregisrement/multiple",
         component: FiliereFormMultipleComponent
-      }
+      },
+      {
+        path: "update/:slug", //update
+        component: FiliereFormComponent
+      },
     ]
   },
   {
@@ -122,7 +138,11 @@ const routes: Routes = [
       {
         path: "enregisrement/multiple",
         component: CycleFormMultipleComponent
-      }
+      },
+      {
+        path: "update/:slug", //update
+        component: CycleFormComponent
+      },
     ]
   },
   {
@@ -139,7 +159,11 @@ const routes: Routes = [
       {
         path: "enregisrement/multiple",
         component: EvaluationFormMultipleComponent
-      }
+      },
+      {
+        path: "update/:slug", //update
+        component: EvaluationFormComponent
+      },
     ]
   },
   {
@@ -157,7 +181,11 @@ const routes: Routes = [
       {
         path: "enregisrement/multiple",
         component: NiveauFormMultipleComponent
-      }
+      },
+      {
+        path: "update/:slug", //update
+        component: NiveauFormComponent
+      },
     ]
   },
   {
@@ -174,7 +202,11 @@ const routes: Routes = [
       {
         path: "enregisrement/multiple",
         component: ParcoursFormMultipleComponent
-      }
+      },
+      {
+        path: "update/:slug", //update
+        component: ParcoursFormComponent
+      },
     ]
   },
   {
@@ -191,7 +223,11 @@ const routes: Routes = [
       {
         path: "enregisrement/multiple",
         component: SemestreFormMultipleComponent
-      }
+      },
+      {
+        path: "update/:slug", //update
+        component: SemestreFormComponent
+      },
     ]
   },
   {
@@ -208,7 +244,12 @@ const routes: Routes = [
       {
         path: "enregisrement/multiple",
         component: CoursFormMultipleComponent
-      }
+      },
+      {
+        path: "update/:slug", //update
+        component: CoursFormComponent
+      },
+
     ]
   },
   {
@@ -221,7 +262,11 @@ const routes: Routes = [
       {
         path: "nouveau",
         component: CreditFormComponent
-      }
+      },
+      {
+        path: "update/:slug", //update
+        component: CreditFormComponent
+      },
     ]
   },
   {
@@ -238,7 +283,11 @@ const routes: Routes = [
       {
         path: "enregisrement/multiple",
         component: ModuleFormMultipleComponent
-      }
+      },
+      {
+        path: "update/:slug", //update
+        component: ModuleFormComponent
+      },
     ]
   },
   // region abdel
@@ -266,20 +315,20 @@ const routes: Routes = [
       
     ]
   },
-  {
-    path: "notes",
-    children: [
-      {
-        path: "",
-        component: NotesListeComponent
-      },
-      {
-        path: "liste",
-        component: NotesListeComponent
-      },
+  // {
+  //   path: "notes",
+  //   children: [
+  //     {
+  //       path: "",
+  //       component: NotesListeComponent
+  //     },
+  //     {
+  //       path: "liste",
+  //       component: NotesListeComponent
+  //     },
       
-    ]
-  }
+  //   ]
+  // }
 ]
 
 @NgModule({

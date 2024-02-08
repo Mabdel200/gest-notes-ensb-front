@@ -4,6 +4,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { api as apiConfig } from '../../core/configs/constants';
 import { Cycle } from '../../core/models/cycle';
 import { ServicesService } from '../../core/services/services.service';
+import { NotificationService } from '../../core/services/notification.service';
+
 
 @Component({
   selector: 'app-cycle-form',
@@ -28,6 +30,7 @@ export class CycleFormComponent implements OnInit {
   userId: any;
 
   constructor(
+    private notification:NotificationService,
     private fb: FormBuilder,
     private AdminService: ServicesService,
     private router: Router,
@@ -55,52 +58,56 @@ export class CycleFormComponent implements OnInit {
   }
 
   submit() {
-    
-        if (this.form.valid) {
-          this.submitted = true;
-          var cycle: Cycle = {
-            valeur: this.form.value.valeur,
-            estAffichable: this.form.value.estAffichable,
-          }
-    
-          // operation d'insertion
-          if (this.name == null) {
-            const url = `${apiConfig.admin.cycle.create}`;
-            this.AdminService.saveResource(url, cycle).subscribe(
-              {
-                next: res => {
-                  alert("cool")
-                  this.form.reset();
-                },
-                error: err => {
-                  alert("error")
-                }
-              }
-            );
-          }
-          //opertion de mise ajour
-          else {
-            var str = decodeURIComponent(this.name).split('%');
-            var cycle: Cycle = {
-              valeur :  this.form.value.valeur,
-              estAffichable: this.form.value.estAffichable,
-              id: parseInt(str[0])
+
+    if (this.form.valid) {
+      this.submitted = true;
+      var cycle: Cycle = {
+        valeur: this.form.value.valeur,
+        estAffichable: this.form.value.estAffichable,
+      }
+
+      // operation d'insertion
+      if (this.name == null) {
+        const url = `${apiConfig.admin.cycle.create}`;
+        this.AdminService.saveResource(url, cycle).subscribe(
+          {
+            next: res => {
+              this.notification.record()
+              this.form.reset();
+            },
+            error: err => {
+
+              this.notification.error()
+
             }
-            const url = `${apiConfig.admin.cycle.update}`;
-            this.AdminService.updateResource(url + cycle.id, cycle).subscribe(
-              {
-                next: res => {
-                  alert("Mise a jour effectuee avec succese")
-                  this.router.navigate(['administrator/cycle']);
-                },
-                error: err => {
-                  alert("error")
-                }
-              }
-            );
           }
-    
+        );
+      }
+      //opertion de mise ajour
+      else {
+        var str = decodeURIComponent(this.name).split('%');
+        var cycle: Cycle = {
+          valeur: this.form.value.valeur,
+          estAffichable: this.form.value.estAffichable,
+          id: parseInt(str[0])
         }
-        
+        const url = `${apiConfig.admin.cycle.update}`;
+        this.AdminService.updateResource(url + cycle.id, cycle).subscribe(
+          {
+            next: res => {
+              this.notification.update()
+              this.router.navigate(['administrator/cycle']);
+            },
+            error: err => {
+
+              this.notification.error()
+
+            }
+          }
+        );
+      }
+
+    }
+
   }
 }

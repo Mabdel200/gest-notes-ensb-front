@@ -9,6 +9,8 @@ import jsPDF from 'jspdf'
 import html2canvas from 'html2canvas';
 import { Workbook } from 'exceljs';
 import saveAs from 'file-saver';
+import { NotificationService } from '../../core/services/notification.service';
+
 
 @Component({
   selector: 'app-semestre',
@@ -21,7 +23,7 @@ export class SemestreComponent implements OnInit {
 
 
   allSemestres!: Semestre[]
-  constructor(private adminService: ServicesService, private router: Router) {
+  constructor(private notification: NotificationService, private adminService: ServicesService, private router: Router) {
 
   }
 
@@ -43,9 +45,9 @@ export class SemestreComponent implements OnInit {
       }
     );
   }
-  update(item: Semestre ) {
-    const encodedId = encodeURIComponent(item.id+"%"+item.valeur+"%"+item.niveau.id);
-    this.router.navigate(['administrator/semestre', encodedId]);
+  update(item: Semestre) {
+    const encodedId = encodeURIComponent(item.id + "%" + item.valeur + "%" + item.niveau.id);
+    this.router.navigate(['administrator/semestre/update/', encodedId]);
   }
 
   remove(arg: Number | undefined) {
@@ -53,11 +55,14 @@ export class SemestreComponent implements OnInit {
     if (arg) {
       this.adminService.deleteResource(url, arg).subscribe({
         next: res => {
-          alert("Suppression effectuée")
+          this.notification.remove()
           this.getSemestres()
         },
         error: err => {
-          alert("Erreur de  Suppression")
+          // this.toastr.error("Erreur survenir", 'Error');
+          this.notification.remove()
+          this.getSemestres()
+
         }
 
       })
@@ -65,10 +70,10 @@ export class SemestreComponent implements OnInit {
   }
 
 
- //================== region exportation =================================
- public fileName = 'ExcelSheet.xlsx';
-  
- // Export to Excel
+  //================== region exportation =================================
+  public fileName = 'ExcelSheet.xlsx';
+
+  // Export to Excel
   exportexcel() {
     // Create a new workbook
     const workbook = new Workbook();
@@ -126,25 +131,25 @@ export class SemestreComponent implements OnInit {
 
     // Check if body is null
     if (!dataToExport) {
-        console.error('Body element is null.');
-        return;
+      console.error('Body element is null.');
+      return;
     }
 
     html2canvas(dataToExport, { scale: 2 }).then(canvas => {
-        let imgWidth = 100 * 2; // Multiplier par un facteur pour une meilleure résolution
-        let pageHeight = 100 * 2; // Multiplier par un facteur pour une meilleure résolution
-        var imgHeight = canvas.height * imgWidth / canvas.width;
-        var heightLeft = imgHeight;
+      let imgWidth = 100 * 2; // Multiplier par un facteur pour une meilleure résolution
+      let pageHeight = 100 * 2; // Multiplier par un facteur pour une meilleure résolution
+      var imgHeight = canvas.height * imgWidth / canvas.width;
+      var heightLeft = imgHeight;
 
-         // Ajuster les marges pour obtenir une symétrie
-         let marginLeft = (210 - imgWidth) / 2; // Ajuster selon la largeur de la page A4 (210 mm)
-         let marginRight = marginLeft;
+      // Ajuster les marges pour obtenir une symétrie
+      let marginLeft = (210 - imgWidth) / 2; // Ajuster selon la largeur de la page A4 (210 mm)
+      let marginRight = marginLeft;
 
-        const contentDataURL = canvas.toDataURL('image/png', 1.0); // Ajouter une résolution DPI de 1.0
+      const contentDataURL = canvas.toDataURL('image/png', 1.0); // Ajouter une résolution DPI de 1.0
 
-        let pdf = new jsPDF('p', 'mm', 'a4');
-        pdf.addImage(contentDataURL, 'PNG', marginLeft, 0, imgWidth, imgHeight);
-        pdf.save('ListeEtudiants.pdf');
+      let pdf = new jsPDF('p', 'mm', 'a4');
+      pdf.addImage(contentDataURL, 'PNG', marginLeft, 0, imgWidth, imgHeight);
+      pdf.save('ListeEtudiants.pdf');
     });
   }
 

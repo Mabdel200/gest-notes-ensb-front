@@ -107,6 +107,7 @@ export const api = {
       getOneByMatricule: 'findEtudiantByMatricule/', //?matricule=value ,
       getAllByDepartement: 'findAllEtudiantByDepart', //?code=value ,
       getAllByCours: 'findAllEtudiantByParcours',
+      getAllByCoursAndAnnee: (annee: number, label: string) => `findAllEtudiantByParcours/annee/${annee}/parcours?label=${label}`,
       update: 'updateEtudiant/',
       delete: 'deleteEtudiant /'
     },
@@ -176,6 +177,19 @@ export const api = {
       cours: 'addNoteCours',
       module: 'addNoteModule',
       examen: 'addNoteExamen/anonymat/',
+    },
+    statistique: {
+      countAllYears: 'findAllActifAnneeAca',
+      countAllDept: 'findAllActifDepartement',
+      countAllStudent: 'findAllActifEtudiant',
+      countAllStudentByDept: 'findAllActifEtudiantDepartement',
+      countAllStudentByCours: 'findAllActifEtudiantParcours',
+      countAllUE: 'findAllActifCours',
+      countAllUEByDept: 'findAllActifCoursDepartement',
+      countAllParcours: 'findAllActifParcours',
+      countAllCoursByDept: 'findAllActifParcoursDepartement',
+      countTauxReuste: 'findPassedStats', //taux de reussite global by departmt
+  
     }
   
   },

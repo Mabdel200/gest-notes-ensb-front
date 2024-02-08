@@ -7,6 +7,8 @@ import { Etudiant } from '../../core/models/etudiant';
 import { Parcours } from '../../core/models/parcours';
 import { ServicesService } from '../../core/services/services.service';
 import { read, utils } from 'xlsx';
+import { NotificationService } from '../../core/services/notification.service';
+
 @Component({
   selector: 'app-inscription',
   templateUrl: './inscription.component.html',
@@ -28,10 +30,9 @@ export class InscriptionComponent implements OnInit {
   };
 
   constructor(
-    private fb: FormBuilder,
     private AdminService: ServicesService,
-    private router: Router,
-    private route: ActivatedRoute) { }
+    private notification:NotificationService,
+    ) { }
 
   ngOnInit(): void {
     this.onForm();
@@ -140,11 +141,11 @@ export class InscriptionComponent implements OnInit {
       this.AdminService.saveResource(url, etudiant).subscribe(
         {
           next: res => {
-            alert("cool")
+            this.notification.record()
             this.form.reset();
           },
           error: err => {
-            alert("error")
+            this.notification.error()
 
           }
         }

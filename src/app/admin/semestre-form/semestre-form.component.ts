@@ -5,6 +5,7 @@ import { ServicesService } from '../../core/services/services.service';
 import { api as apiConfig } from '../../core/configs/constants';
 import { Niveau } from '../../core/models/niveau';
 import { Semestre } from '../../core/models/semestre';
+import { NotificationService } from '../../core/services/notification.service';
 
 @Component({
   selector: 'app-semestre-form',
@@ -33,7 +34,7 @@ export class SemestreFormComponent implements OnInit {
   submitted = false;
   userId: any;
 
-  constructor(private adminService: ServicesService, private router: Router, private route: ActivatedRoute) { }
+  constructor(private notification:NotificationService,private adminService: ServicesService, private router: Router, private route: ActivatedRoute) { }
   ngOnInit(): void {
     this.onForm()
     this.getNiveaux()
@@ -65,12 +66,11 @@ export class SemestreFormComponent implements OnInit {
         this.adminService.saveResource(url, semestre).subscribe(
           {
             next: res => {
-              alert("cool")
+              this.notification.record()
               this.form.reset();
             },
             error: err => {
-              alert("error")
-
+              this.notification.error()
             }
           }
         );
@@ -86,13 +86,11 @@ export class SemestreFormComponent implements OnInit {
         this.adminService.updateResource(url + semestre.id, semestre).subscribe(
           {
             next: res => {
-              alert("Mise a jour effectuee avec succese")
+              this.notification.update()
               this.router.navigate(['administrator/semestre']);
             },
             error: err => {
-
-              console.log(err)
-              alert("error")
+              this.notification.error()
             }
           }
         );

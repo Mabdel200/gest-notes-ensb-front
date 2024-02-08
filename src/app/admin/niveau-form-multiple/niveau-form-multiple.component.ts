@@ -5,6 +5,8 @@ import { api as apiConfig } from '../../core/configs/constants';
 import { ActivatedRoute } from '@angular/router';
 import { ServicesService } from '../../core/services/services.service';
 import { read, utils } from 'xlsx';
+import { NotificationService } from '../../core/services/notification.service';
+
 
 @Component({
   selector: 'app-niveau-form-multiple',
@@ -18,6 +20,7 @@ export class NiveauFormMultipleComponent implements OnInit {
   file?: File;
 
   constructor(
+    private notification:NotificationService,
     private fb: FormBuilder,
     private AdminService: ServicesService,
     private router: Router,
@@ -93,17 +96,16 @@ export class NiveauFormMultipleComponent implements OnInit {
           console.log('response: ', res);
           console.log('ID: ', res.body.id);
           if (res.status === 201) {
-
+            this.notification.record()
           } else {
             this.submitted = false;
             console.log('echec');
+            this.notification.error()
 
           }
         },
         (err) => {
-          // this.notify.error(Errors(err.error.message), 'Major Error');
-          console.log('erreur', err.error.message);
-          // console.log(Errors(err.error.message));
+          this.notification.error()
         }
       );
     })
