@@ -5,6 +5,9 @@ import { ServicesService } from '../../core/services/services.service';
 Chart.register(...registerables);// Importe la version de Chart.js compatible avec TypeScript
 import { api as apiConfig } from "../../core/configs/constants";
 import { Departement } from '../../core/models/departement';
+// Verfier le canvas
+import { isPlatformBrowser } from '@angular/common';
+import { PLATFORM_ID, Inject } from '@angular/core';
 
 
 @Component({
@@ -27,7 +30,7 @@ export class DashboardComponent  implements AfterViewInit, OnInit {
   countDepartement:any ;
   tauxReussite:any ;
   
-  constructor(private el: ElementRef, private AdminService: ServicesService,) {}
+  constructor(private el: ElementRef, private AdminService: ServicesService, @Inject(PLATFORM_ID) private platformId: Object) {}
 
   ngOnInit(): void {
     this.getAllAnneeAca();
@@ -161,61 +164,65 @@ export class DashboardComponent  implements AfterViewInit, OnInit {
 
 
   createLinearChart() {
-    const canvas = this.el.nativeElement.querySelector('#myChart') as HTMLCanvasElement;
-    console.log(this.allDepartements,"departem")
-    if (canvas) {
-      const ctx: CanvasRenderingContext2D | null = canvas.getContext('2d');
-      if (ctx) {
-        this.chart = new Chart(ctx, {
-          type: 'bar',
-          data: {
-            labels: this.anneeAcademiques.map((annee: { code: any }) => annee.code),
-            datasets: this.allDepartements.map((departement: { code: any }) => ({
-              label: departement.code,
-              data: [10], // Mettez ici les données spécifiques au département si nécessaire
-              borderWidth: 1,
-            })),
-          },
-          options: {
-            scales: {
-              y: {
-                beginAtZero: true,
+    if (isPlatformBrowser(this.platformId)) {
+      const canvas = this.el.nativeElement.querySelector('#myChart') as HTMLCanvasElement;
+      console.log(this.allDepartements,"departem")
+      if (canvas) {
+        const ctx: CanvasRenderingContext2D | null = canvas.getContext('2d');
+        if (ctx) {
+          this.chart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+              labels: this.anneeAcademiques.map((annee: { code: any }) => annee.code),
+              datasets: this.allDepartements.map((departement: { code: any }) => ({
+                label: departement.code,
+                data: [10], // Mettez ici les données spécifiques au département si nécessaire
+                borderWidth: 1,
+              })),
+            },
+            options: {
+              scales: {
+                y: {
+                  beginAtZero: true,
+                },
               },
             },
-          },
-        });
+          });
+        } else {
+          console.error('Unable to get 2D context for the canvas.');
+        }
       } else {
-        console.error('Unable to get 2D context for the canvas.');
+        console.error('Canvas element with ID "myChart" not found.');
       }
-    } else {
-      console.error('Canvas element with ID "myChart" not found.');
     }
+   
   }
 
-  createPieChart() {
-    const canvasPie = this.el.nativeElement.querySelector('#myPieChart') as HTMLCanvasElement;
-    if (canvasPie) {
-      const ctx: CanvasRenderingContext2D | null = canvasPie.getContext('2d');
-      if (ctx) {
-        this.chart = new Chart(ctx, {
-          type: 'pie',
-          data: {
-            labels: this.anneeAcademiques.map((annee: { label: any; }) => annee.label),
-            datasets: [
-              {
-                data: [12, 19, 3, 5, 2, 3],
-                backgroundColor: ['red', 'blue', 'yellow', 'green', 'purple', 'orange'],
-              },
-            ],
-          },
-        });
-      } else {
-        console.error('Unable to get 2D context for the canvas.');
-      }
-    } else {
-      console.error('Canvas element with ID "myPieChart" not found.');
-    }
-  }
+  
+  // createPieChart() {
+  //   const canvasPie = this.el.nativeElement.querySelector('#myPieChart') as HTMLCanvasElement;
+  //   if (canvasPie) {
+  //     const ctx: CanvasRenderingContext2D | null = canvasPie.getContext('2d');
+  //     if (ctx) {
+  //       this.chart = new Chart(ctx, {
+  //         type: 'pie',
+  //         data: {
+  //           labels: this.anneeAcademiques.map((annee: { label: any; }) => annee.label),
+  //           datasets: [
+  //             {
+  //               data: [12, 19, 3, 5, 2, 3],
+  //               backgroundColor: ['red', 'blue', 'yellow', 'green', 'purple', 'orange'],
+  //             },
+  //           ],
+  //         },
+  //       });
+  //     } else {
+  //       console.error('Unable to get 2D context for the canvas.');
+  //     }
+  //   } else {
+  //     console.error('Canvas element with ID "myPieChart" not found.');
+  //   }
+  // }
 
   ngAfterViewInit(): void {
     //  cette méthode est vide si tout est traité dans ngOnInit
