@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ServicesService } from "../../core/services/services.service";
 import { ActivatedRoute, Router } from "@angular/router";
@@ -35,6 +35,7 @@ export class AnneeAcademiqueComponent implements OnInit {
     this.getAllAnneeAca();
    // this.userId = sessionStorage.getItem('userId');
   }
+
 
   
   getAllAnneeAca() {
