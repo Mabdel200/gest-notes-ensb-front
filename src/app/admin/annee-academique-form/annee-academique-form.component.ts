@@ -30,8 +30,8 @@ export class AnneeAcademiqueFormComponent implements OnInit {
 
   createForm() {
     this.formAnneeAcademique = new FormGroup({
-      debut: new FormControl(Validators.required),
-      fin: new FormControl(Validators.required),
+      debut: new FormControl('', Validators.required),
+      fin: new FormControl('', Validators.required),
     });
   }
 

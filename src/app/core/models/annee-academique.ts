@@ -1,7 +1,7 @@
 export interface AnneeAcademique {
     id?: Number,
-    debut: Date,
-    fin: Date,
+    debut: string,
+    fin: string,
     numeroDebut?: Number
     code? : String
 }
