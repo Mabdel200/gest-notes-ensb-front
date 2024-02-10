@@ -26,7 +26,7 @@
                 <div class="mb-4">
                     <div class="form-group">
                         <label for="type">UE</label>
-                        <select name="" id="" class="form-control" formControlName="cours_id">
+                        <select name="" id="" class="form-control" name="cours_id">
                             <option  *ngFor="let item of cours" ngValue="{{item.id}}">{{item.code}} </option>
                         </select>
                         <!-- <div *ngIf="formCours.get('type_cours_id')?.invalid && formCours.get('type_cours_id')?.touched">
@@ -40,7 +40,7 @@
                 <div class="mb-4">
                     <div class="form-group">
                         <label for="type">Credit</label>
-                        <select name="" id="" class="form-control" formControlName="type_cours_id">
+                        <select name="" id="" class="form-control" name="type_cours_id">
                             <option  *ngFor="let item of credit" ngValue="{{item.id}}">{{item.valeur}}</option>
                         </select>
                         <!-- <div *ngIf="formCours.get('type_cours_id')?.invalid && formCours.get('type_cours_id')?.touched">

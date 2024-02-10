@@ -51,8 +51,12 @@ export class CoursFormMultipleComponent implements OnInit {
 
   onForm() {
     this.form = new FormGroup({
-      departement: new FormControl('', [Validators.required])
-
+      departement: new FormControl('', [Validators.required]),
+      parcours: new FormControl('', [Validators.required]),
+      credit: new FormControl('', [Validators.required]),
+      typeCours: new FormControl('', [Validators.required]),
+      semestre: new FormControl('', [Validators.required]),
+      
     })
   }
 

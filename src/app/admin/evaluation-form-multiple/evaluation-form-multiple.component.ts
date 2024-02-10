@@ -19,10 +19,7 @@ export class EvaluationFormMultipleComponent implements OnInit {
 
   
   constructor(
-    private fb: FormBuilder,
-    private AdminService: ServicesService,
-    private router: Router,
-    private route: ActivatedRoute) { }
+    private AdminService: ServicesService,) { }
 
   ngOnInit(): void {
     this.getAllTypesCours();
