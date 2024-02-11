@@ -168,15 +168,17 @@ export class AvecModuleComponent implements OnInit {
 
       // Save datas from files in database
 
-      notes.valeur = convertedObject.cc
+
+ 
+      notes.valeur = convertedObject.cc?convertedObject.cc:null;
       notes.evaluation = this.findTypeEvaluationById('CC')
       this.save(notes);
 
-      notes.valeur = convertedObject.tp
+      notes.valeur = convertedObject.tp?convertedObject.tp:null;
       notes.evaluation = this.findTypeEvaluationById('TP')
       this.save(notes);
 
-      notes.valeur = convertedObject.tpe
+      notes.valeur = convertedObject.tpe?convertedObject.tpe:null;
       notes.evaluation = this.findTypeEvaluationById('TPE')
       this.save(notes);
 
@@ -189,6 +191,8 @@ export class AvecModuleComponent implements OnInit {
   save(n: any) {
 
     const url = `${apiConfig.admin.notes.module}`;
+    
+    console.log(n);
     this.AdminService.saveResource(url, n).subscribe(
       {
         next: res => {

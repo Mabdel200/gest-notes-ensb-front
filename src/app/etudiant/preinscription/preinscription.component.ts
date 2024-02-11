@@ -57,7 +57,7 @@ submit() {
 
     console.log(this.preinscriptionJson);
 
-    const propertiesArray = ['email', 'date de naissance', 'genre', 'lieu de naissance', 'matricule', 'noms et prenoms', 'region', 'numero telephone'];
+    const propertiesArray = ['email', 'date de naissance', 'genre', 'lieu de naissance', 'matricule', 'noms et prenoms', 'region','nationalite', 'type', 'numero telephone'];
     this.preinscriptionJson.forEach((item: any) => {
       // console.log(Object.keys(item).toString().toLowerCase());
       const keys = Object.keys(item);
@@ -71,10 +71,12 @@ submit() {
             email: convertedObject.email,
             dateDeNaissance: convertedObject['date de naissance'],
             genre: convertedObject.genre === 'F' ? 0 : 1,
+            type: convertedObject.type === 'regulier' ? 'ER' : convertedObject.type === 'etranger' ? 'ET' : 'AL',
             lieuDeNaissance: convertedObject['lieu de naissance'],
             matricule: convertedObject.matricule,
             nom: convertedObject['noms et prenoms'],
             region: convertedObject.region,
+            nationalite: convertedObject.nationalite,
             numeroTelephone: convertedObject['numero telephone']
           }
 

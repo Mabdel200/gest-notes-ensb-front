@@ -148,19 +148,23 @@ export class SansModuleComponent implements OnInit {
         cours: this.findcoursById(Number(this.form.value.cours))
       }
 
-      console.log("notes is :",notes);
+      // console.log("notes is :",convertedObject);
       
 
 
-      notes.valeur = convertedObject.cc
+      notes.valeur = convertedObject.cc?convertedObject.cc:null;
       notes.evaluation = this.findTypeEvaluationById('CC')
+      console.log(notes);
+      
       this.save(notes);
 
-      notes.valeur = convertedObject.tp
+      notes.valeur = convertedObject.tp?convertedObject.tp:null;
+      // notes.valeur = convertedObject.tp
       notes.evaluation = this.findTypeEvaluationById('TP')
       this.save(notes);
 
-      notes.valeur = convertedObject.tpe
+      notes.valeur = convertedObject.tpe?convertedObject.tpe:null;
+      // notes.valeur = convertedObject.tpe
       notes.evaluation = this.findTypeEvaluationById('TPE')
       this.save(notes);
 
