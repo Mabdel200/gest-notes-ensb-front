@@ -37,6 +37,8 @@ export class CoursComponent implements OnInit {
     this.AdminService.getResources(url).subscribe(
       (data) => {
         this.cours = data.body;
+        console.log(this.cours);
+        
       },
       (err) => {
         console.log('erreur', err.error.message);

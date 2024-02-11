@@ -1,6 +1,6 @@
 <header class="bg-info" style="background-color: #6e83d3;">
     <div class="container-xl px-5">
-        <h1 class="text-white py-3 mb-0 display-6 text-center">Evaluations attendues</h1>
+        <h1 class="text-white py-3 mb-0 display-6 text-center">Ajouter une UE</h1>
     </div>
 </header>
 <div class="row g-0">
@@ -38,7 +38,7 @@
                     <div class="form-group">
                         <label for="type">Departement</label>
                         <select id="" class="form-control" formControlName="departement">
-                            <option *ngFor="let item of allDepartement" [ngValue]="item.id"> {{item.frenchDescription}}
+                            <option *ngFor="let item of allDepartement" [ngValue]="item.id"> {{item.code}}
                             </option>
 
                         </select>

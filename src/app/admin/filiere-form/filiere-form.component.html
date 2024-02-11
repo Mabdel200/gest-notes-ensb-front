@@ -47,7 +47,7 @@
                     <div class="form-group">
                         <label for="type">Departement </label>
                         <select name="" id="" class="form-control" formControlName="departement">
-                            <option *ngFor="let item of allDepartements" [ngValue]="item.id">{{item.frenchDescription}} </option>
+                            <option *ngFor="let item of allDepartements" [ngValue]="item.id">{{item.code}} </option>
                         </select>
                         <div *ngIf="form.get('departement')?.invalid && form.get('departement')?.touched">
                             <small class="text-danger" *ngIf="form.get('departement')?.hasError('required')"> {{

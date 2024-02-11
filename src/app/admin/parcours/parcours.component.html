@@ -75,10 +75,11 @@
                     </thead>
                     <tbody>
                         <tr *ngFor="let item of allParcourss; let i =  index">
+                           
                             <td>{{i + 1}}</td>
                             <td>{{item.label}}</td>
                             <td>{{item.niveau.valeur}}</td>
-                            <td>{{item.option.descriptionFrench}}</td>
+                            <td>{{item.option.code}}</td>
                             <td class="text-success">   
                                 <button class="btn btn-danger" (click)="remove(item.id)"> <i class="fa fa-trash"></i></button>
                             </td>

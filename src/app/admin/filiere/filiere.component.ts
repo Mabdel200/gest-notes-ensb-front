@@ -18,7 +18,16 @@ import { NotificationService } from '../../core/services/notification.service';
   templateUrl: './filiere.component.html',
   styleUrls: ['./filiere.component.css']
 })
+
 export class FiliereComponent implements OnInit{
+  
+  allOptions: any = [];
+  
+  constructor( 
+    private notification:NotificationService,
+    private adminService: ServicesService,
+    private router: Router) { }
+
      //================== region exportation =================================
      public fileName = 'ExcelSheet.xlsx';
   
@@ -103,46 +112,50 @@ export class FiliereComponent implements OnInit{
       }
       // end region
 
-      allOptions!: Filere[]
-
-  constructor(private notification:NotificationService,private adminService: ServicesService,private router: Router) { }
-
-  ngOnInit(): void {
-    this.getOptions()
-  }
-
-
-  update(item: Filere ) {
-    const encodedId = encodeURIComponent(item.id+"%"+item.descriptionEnglish+"%"+item.descriptionFrench+"%"+item.code+"%"+item.departement.id);
-    this.router.navigate(['administrator/filiere/update/', encodedId]);
-  }
-
-  remove(arg: Number | undefined) {
-    const url = `${apiConfig.admin.option.delete}`;
-    if (arg) {
-      this.adminService.deleteResource(url, arg).subscribe({
-        next: res => {
-          this.notification.remove()
-          this.getOptions()
-        },
-        error: err => {
-          this.notification.remove()
-          this.getOptions()
-          //this.toastr.error("Erreur survenir", 'Error');
-        }
-
-      })
-    }
-  }
-  getOptions() {
-    const url = `${apiConfig.admin.option.getAll}`;
-    this.adminService.getResources(url).subscribe(
-      (data) => {
-        this.allOptions = data.body;
-      },
-      (err) => {
-        console.log('erreur', err.error.message);
+  
+      getAllFilieres() {
+        this.allOptions = [];
+        const url = `${apiConfig.admin.option.getAll}`;
+        this.adminService.getResources(url).subscribe(
+          (data) => {
+            this.allOptions = data.body;
+            console.log(this.allOptions);
+          },
+          (err) => {
+            console.log('erreur', err);
+          }
+        );
       }
-    );
-  }
+    
+   
+
+      ngOnInit(): void {
+        this.getAllFilieres();
+      }
+
+
+      update(item: Filere ) {
+        const encodedId = encodeURIComponent(item.id+"%"+item.descriptionEnglish+"%"+item.descriptionFrench+"%"+item.code+"%"+item.departement.id);
+        this.router.navigate(['administrator/filiere/update/', encodedId]);
+      }
+
+      remove(arg: Number | undefined) {
+        const url = `${apiConfig.admin.option.delete}`;
+        if (arg) {
+          this.adminService.deleteResource(url, arg).subscribe({
+            next: res => {
+              this.notification.remove()
+              this.getAllFilieres()
+            },
+            error: err => {
+              this.notification.remove()
+              this.getAllFilieres()
+              //this.toastr.error("Erreur survenir", 'Error');
+            }
+
+          })
+        }
+      }
+
+
 }

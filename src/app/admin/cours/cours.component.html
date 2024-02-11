@@ -81,18 +81,36 @@
                         <tbody>
                             <tr *ngFor="let item of cours; let i = index">
                                 <td>{{i+1}}</td>
-                                <td>{{item.code}}</td>
-                                <td>{{item.intitule}}</td>
+                                <td><b>{{item.code}}</b></td>
+                                <td><b>{{item.intitule}} </b></td>
                                 <td>{{item.natureUE}}</td>
-                                <td>{{item.departement.frenchDescription}}</td>
-                                <td>{{item.credit.valeur}}</td>
-                                <td>{{item.typecours.nom}}</td>
-                                <td class="text-success">
+                                <!-- Departement -->
+                                <ng-container *ngIf="item.departement; else nonDefinieDepartement">
+                                    <td>{{ item.departement.code }}</td>
+                                  </ng-container>
+                                  <ng-template #nonDefinieDepartement>
+                                    <td>non défini</td>
+                                  </ng-template>
+                                  <!-- Credit -->
+                                  <ng-container *ngIf="item.credit; else nonDefinieCredit">
+                                    <td>{{ item.credit.valeur }}</td>
+                                  </ng-container>
+                                  <ng-template #nonDefinieCredit>
+                                    <td>non défini</td>
+                                  </ng-template>
+                                <!-- Evaluation attend -->
+                                <ng-container *ngIf="item.typecours; else nonDefinieTypeCours">
+                                    <td>{{ item.typecours.nom }}</td>
+                                  </ng-container>
+                                  <ng-template #nonDefinieTypeCours>
+                                    <td>non défini</td>
+                                  </ng-template>
+                                 <td class="text-success">
                                     <button class="btn btn-primary" (click)="update(item)"> <i
                                             class="fa fa-pencil"></i></button> &nbsp;
                                     <button class="btn btn-danger" (click)="remove(item.coursId)"> <i
                                             class="fa fa-trash"></i></button>
-                                </td>
+                                 </td>
                             </tr>
                         </tbody>
                     </table>

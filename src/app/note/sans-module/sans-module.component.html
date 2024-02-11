@@ -12,7 +12,7 @@
                 <div class="mb-4">
                     <div class="form-group">
                         <label for="type">Annee academique</label>
-                        <select name="" id="" class="form-control" formControlName="annee">
+                        <select class="form-control" formControlName="annee">
                             <option *ngFor="let item of annees" ngValue="{{item.id}}">{{item.numeroDebut}} </option>
                         </select>
                         <div *ngIf="form.get('annee')?.invalid && form.get('annee')?.touched">
@@ -26,7 +26,7 @@
                 <div class="mb-4">
                     <div class="form-group">
                         <label for="type">UE</label>
-                        <select name="" id="" class="form-control" formControlName="cours">
+                        <select class="form-control" formControlName="cours">
                             <option *ngFor="let item of cours" ngValue="{{item.coursId}}">{{item.intitule}} </option>
                         </select>
                         <div *ngIf="form.get('cours')?.invalid && form.get('cours')?.touched">

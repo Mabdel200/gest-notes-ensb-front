@@ -139,12 +139,17 @@ export class SansModuleComponent implements OnInit {
 
       // Save datas from files in database
       var notes: any = {
-        etudiant: this.findEtudiantByMatricule(convertedObject.matricule.toString()),
+        etudiant: this.findEtudiantByMatricule(
+          convertedObject.matricule ? convertedObject.matricule.toString() : ''
+        ),
         valeur: {},
         anneeAcademique: this.findTypeAnneeById(Number(this.form.value.annee)),
         evaluation: {},
         cours: this.findcoursById(Number(this.form.value.cours))
       }
+
+      console.log("notes is :",notes);
+      
 
 
       notes.valeur = convertedObject.cc
