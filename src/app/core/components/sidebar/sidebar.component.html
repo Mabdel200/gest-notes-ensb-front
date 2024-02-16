@@ -19,26 +19,44 @@
                 <!-- Drawer section heading (Interface)-->
                 <div class="drawer-menu-heading">Administration</div>
                 <div *ngFor="let i of adminNavigation" style="cursor: pointer;">
-                    <a class="nav-link collapsed mdc-ripple-upgraded" [routerLink]="i.routerlink"
-                        data-bs-toggle="collapse" [attr.data-bs-target]="'#' + i.label" aria-expanded="false"
-                        [attr.aria-controls]="i.label">
-                        <div class="nav-link-icon"><i class="material-icons">{{i.icon}}</i></div>
-                        {{i.label}}
-                        <div *ngIf="i.expandable" class="drawer-collapse-arrow"><i
-                                class="material-icons">expand_more</i></div>
+                    <a class="nav-link collapsed mdc-ripple-upgraded"
+                      [routerLink]="i.routerlink"
+                      data-bs-toggle="collapse"
+                      [attr.data-bs-target]="'#' + i.label"
+                      aria-expanded="false"
+                      [attr.aria-controls]="i.label"
+                      [ngClass]="{ 'active': menuState.currentMenu === i }"
+                      (click)="menuState.updateCurrentMenu(i)">
+                      <div class="nav-link-icon">
+                        <i class="material-icons">{{i.icon}}</i>
+                    </div>
+                      {{i.label}}
+                      <div *ngIf="i.expandable" class="drawer-collapse-arrow"><i class="material-icons">expand_more</i></div>
                     </a>
-
-                    <div class="collapse" *ngIf="i.subMenu?.length!=0" [id]="i.label" aria-labelledby="headingOne"
-                        data-bs-parent="#drawerAccordion">
-                        <nav class="drawer-menu-nested nav">
-                            <a *ngFor="let j of i.subMenu" class="nav-link mdc-ripple-upgraded"
-                                [routerLink]="j.routerlink">
-                                <div class="nav-link-icon"><i class="material-icons">{{j.icon}}</i></div>
-                                {{j.label}}
-                            </a>
-                        </nav>
+                  
+                    <div class="collapse" *ngIf="i.subMenu?.length != 0" [id]="i.label" aria-labelledby="headingOne" data-bs-parent="#drawerAccordion">
+                      <nav class="drawer-menu-nested nav">
+                        <a *ngFor="let j of i.subMenu" class="nav-link mdc-ripple-upgraded"
+                          [routerLink]="j.routerlink"
+                          [ngClass]="{ 'active': menuState.currentMenu === j }"
+                          (click)="menuState.updateCurrentMenu(j)"
+                          [class.bg-success]="menuState.currentMenu === j"  
+                          [class.text-white]="menuState.currentMenu === j"
+                          
+                          >  
+                          <div class="nav-link-icon">
+                            <i class="material-icons"
+                                [ngClass]="{ 'text-white': menuState.currentMenu === j }">
+                                 {{j.icon}}
+                             </i>
+                          </div>
+                          {{j.label}}
+                        </a>
+                      </nav>
                     </div>
                 </div>
+                  
+                  
 
 
 
