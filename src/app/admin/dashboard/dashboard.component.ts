@@ -40,7 +40,7 @@ export class DashboardComponent  implements AfterViewInit, OnInit {
     this.getCountUE();
     this.getCountParcours();
     this.getCountDepartement();
-    // this.getTauxReussite();
+    this.getTauxReussite();
    
   }
 
@@ -116,19 +116,19 @@ export class DashboardComponent  implements AfterViewInit, OnInit {
     );
   }
 
-  // getTauxReussite() {
-  //   this.tauxReussite = [];
-  //   const url = `${apiConfig.admin.statistique.countTauxReuste}`;
-  //   this.AdminService.getResources(url).subscribe(
-  //     (data) => {
-  //       this.tauxReussite = data.body;
-  //       console.log(this.tauxReussite);
-  //     },
-  //     (err) => {
-  //       console.log('erreur', err.error.message);
-  //     }
-  //   );
-  // }
+  getTauxReussite() {
+    this.tauxReussite = [];
+    const url = `${apiConfig.admin.statistique.getGlobalStat}`;
+    this.AdminService.getResources(url).subscribe(
+      (data) => {
+        this.tauxReussite = data.body;
+        console.log(this.tauxReussite);
+      },
+      (err) => {
+        console.log('erreur', err.error.message);
+      }
+    );
+  }
 
   // Logic to put data  chart
   getAllAnneeAca() {

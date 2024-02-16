@@ -179,6 +179,7 @@ export const api = {
       examen: 'addNoteExamen/anonymat/',
     },
     statistique: {
+      getGlobalStat:'findGloalStat',
       countAllYears: 'findAllActifAnneeAca',
       countAllDept: 'findAllActifDepartement',
       countAllStudent: 'findAllActifEtudiant',

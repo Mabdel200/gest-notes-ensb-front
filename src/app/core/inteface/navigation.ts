@@ -123,11 +123,11 @@ export const navAdmin: Menu[] = [
                 routerlink: "notes/avecmodule/"
             },
            
-            {
-                label: "Anonymat",
-                icon: "person_outline",
-                routerlink: "notes/anonymat/"
-            },
+            // {
+            //     label: "Anonymat",
+            //     icon: "person_outline",
+            //     routerlink: "notes/anonymat/"
+            // },
             {
                 label: "Examen",
                 icon: "assignment",
