@@ -89,9 +89,8 @@ export class ParcoursFormComponent implements OnInit {
         var str = decodeURIComponent(this.name).split('%');
         var parcours: any = {
           // label?: String,
-          niveau: this.findNiveauById(Number(this.form.value.niveau)),
           option: this.findOptionById(Number(this.form.value.option)),
-          id: parseInt(str[0])
+           id: parseInt(str[0])
         }
         /*const url = `${apiConfig.admin.parcours.update}`;
         this.adminService.updateResource(url + parcours.id, parcours).subscribe(

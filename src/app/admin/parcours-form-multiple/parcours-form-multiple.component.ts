@@ -113,7 +113,6 @@ export class ParcoursFormMultipleComponent implements OnInit {
           console.log('response: ', res);
           console.log('ID: ', res.body.id);
           if (res.status === 201) {
-
           } else {
             this.submitted = false;
             console.log('echec');

@@ -45,7 +45,6 @@ export class AnonymatFormComponent implements OnInit {
       cours: new FormControl('', [Validators.required]),
     })
   }
-
   getAllcours() {
     this.cours = [];
     const url = `${apiConfig.admin.cours.getAll}`;

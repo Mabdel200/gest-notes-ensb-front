@@ -42,7 +42,6 @@ export class ServicesService {
     return this.http.get<any[]>(urlWithParams, httpOptions);
   }
 
-
   private buildUrlWithParams(url: string, params: any): string {
     let urlWithParams = this.host + url;
 

@@ -9,7 +9,7 @@ export const environment = {
     // apiUrl: 'http://localhost:8080/',
 
     //============in production
-     apiUrl: 'https://gestion-note-ensb-production.up.railway.app/',
+     apiUrl: 'https://ens-manager-backend-production.up.railway.app/',
 
   };
   

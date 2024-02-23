@@ -58,7 +58,6 @@ export class CreditFormComponent implements OnInit {
       }
 
       // Save datas create user in database
-
       if (this.name == null) {
         const url = `${apiConfig.admin.credit.create}`;
         this.adminService.saveResource(url, credit).subscribe(
