@@ -244,7 +244,7 @@ export class PvListeComponent implements OnInit{
         parcours
       );
     
-      // console.log(url);
+      console.log(url);
 
       this.AdminService.getResourceMany(url, {}).subscribe(
         (data) => {
@@ -349,7 +349,7 @@ export class PvListeComponent implements OnInit{
 
         let pdf = new jsPDF('p', 'mm', 'a4');
         pdf.addImage(contentDataURL, 'PNG', marginLeft, 0, imgWidth, imgHeight);
-        pdf.save('ListeEtudiants.pdf');
+        pdf.save('PvUE.pdf');
     });
   }
 

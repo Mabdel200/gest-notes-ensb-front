@@ -1,7 +1,7 @@
 <div class="container-xl p-5">
     <div class="row justify-content-between align-items-center mb-5">
         <div class="col flex-shrink-0 mb-5 mb-md-0">
-            <h1 class="display-4 mb-0">Procès Verbal</h1>
+            <h1 class="display-4 mb-0">Procès Verbal pour une UE</h1>
             <div class="text-muted">Liste des étdudiants</div>
         </div>
 
@@ -60,7 +60,7 @@
                                     <label for="type">UE</label>
                                     <select class="form-control" formControlName="cours">
                                         <option value="">Sélectionner une UE</option>
-                                        <option *ngFor="let cours of listeCoursDept" [value]="cours.code">{{ cours.code }}</option>
+                                        <option *ngFor="let cours of listeCoursDept" [value]="cours.code">{{ cours.code }} - {{cours.intitule}}</option>
                                     </select>
                                 </div>
                                 <div *ngIf="form.get('cours')?.invalid && form.get('cours')?.touched">
@@ -134,12 +134,9 @@
                 <div class="me-4">
                     <h2 class="card-title text-white mb-0">
                         <button class="btn btn-text-white" type="button" routerLink="/administrator/etudiant/nouveau">
-                            <i class="material-icons">add</i> Nouveau
-                        </button> 
-                        &nbsp;&nbsp;
-                        <button class="btn btn-text-white" type="button" routerLink="/administrator/etudiant/enregisrement/multiple">
-                            <i class="material-icons">library_add</i> Ajout multiple
+                            <i class="material-icons">group</i> Liste des étudiants 
                         </button>
+                        &nbsp;&nbsp;
                     </h2>
                     <div class="card-subtitle"></div>
                 </div>
@@ -189,15 +186,16 @@
                             </b></td>
                         </tr>
                         <tr  class="align-middle">
-                            <td colspan="2" class="text-center align-middle" ><b style="margin-left:-27%;" *ngIf="listeEtudiantOfParcours">Unité : {{listeEtudiantOfParcours[0].code}} {{listeEtudiantOfParcours[0].intitule}}</b></td>
-                            <td colspan="2" class="text-center align-middle"><b *ngIf="listeEtudiantOfParcours">Crédit UE :  {{listeEtudiantOfParcours[0].credit}}</b></td>
+                         
+                            <td colspan="2" class="text-center align-middle" ><b style="margin-left:-47%;" *ngIf="listeEtudiantOfParcours">Unité : {{listeEtudiantOfParcours.code}} {{listeEtudiantOfParcours.intitule}}</b></td>
+                            <td colspan="2" class="text-center align-middle"><b *ngIf="listeEtudiantOfParcours">Crédit UE :  {{listeEtudiantOfParcours.credit}}</b></td>
                         </tr>
                         <tr  class="align-middle">
-                            <td colspan="1" class=" text-center align-middle"><b *ngIf="listeEtudiantOfParcours">Filière : {{listeEtudiantOfParcours[0].label}}</b></td>
-                            <td colspan="2" class=" text-center align-middle"><b style="margin-left: 50%;" *ngIf="listeEtudiantOfParcours">Session : S{{listeEtudiantOfParcours[0].session}}</b></td>
+                            <td colspan="1" class=" text-center align-middle"><b *ngIf="listeEtudiantOfParcours">Filière : {{listeEtudiantOfParcours.label}}</b></td>
+                            <td colspan="2" class=" text-center align-middle"><b style="margin-left: 50%;" *ngIf="listeEtudiantOfParcours">Session : S{{listeEtudiantOfParcours.session}}</b></td>
                         </tr>
                         <tr class="align-middle">
-                            <td colspan="3" class="text-info text-center align-middle"><b *ngIf="listeEtudiantOfParcours">Année académique : {{listeEtudiantOfParcours[0].anneeAcademique}} </b></td>
+                            <td colspan="3" class="text-info text-center align-middle"><b *ngIf="listeEtudiantOfParcours">Année académique : {{listeEtudiantOfParcours.anneeAcademique}} </b></td>
                         </tr>
                     </tbody>
                 </table>
@@ -222,10 +220,12 @@
                       </tr>
                     </thead>
                     <tbody *ngIf="listeEtudiantOfParcours">
-                      <ng-container *ngFor="let note of listeEtudiantOfParcours; let i = index">
-                        <tr>
+            
+                      <ng-container *ngFor="let note of listeEtudiantOfParcours.pvCoursResponseDtoList; let i = index">
+                        <tr>  
                           <td>{{ i + 1 }}</td>
                           <td><b>{{ note.matricule }}</b></td>
+                      
                           <td><b>{{ note.nom }}</b> </td>
                            <!-- Note TPE -->
                            <td><b>{{ getNoteValue(note, 'TPE') }}</b></td>

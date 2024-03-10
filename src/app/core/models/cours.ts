@@ -12,5 +12,5 @@ export interface Cours {
     departement: Departement,
     credit: Credit,
     typecours: TypeCours,
-    semestre : Semestre
+    semestre : Semestre,
 }

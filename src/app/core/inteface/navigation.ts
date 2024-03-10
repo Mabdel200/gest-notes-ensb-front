@@ -91,71 +91,117 @@ export const navAdmin: Menu[] = [
     // Region Abdel
   
     {
-        label: "Étudiant",
+        label: "Gestion-étudiants",
         icon: "school",
         expandable: true,
         subMenu: [
             {
                 label: "Préinscription",
                 icon: "perm_contact_calendar",
-                routerlink: "etudiant/preinscription/"
-            },
-            {
-                label: "Inscription",
-                icon: "person_add",
-                routerlink: "etudiant/inscription/"
-            },
-        ]
-    },
-    {
-        label: "Listes",
-        icon: "assignment",
-        expandable: true,
-        subMenu: [
-            {
-                label: "Étudiants",
-                icon: "school",
-                routerlink: "administrator/etudiant/liste/"
-            },
-            {
-                label: "PV pour une UE",
-                icon: "note",
-                routerlink: "administrator/pv/liste/"
+                routerlink: "etudiant/listepreinscription/"
             },
             // {
-            //     label: "PV(s) Modules",
-            //     icon: "description",
-            //     routerlink: "administrator/notes/liste/"
-            // },
-
+            //     label: "Nouvelle Pre",
+            //     icon: "perm_contact_calendar",
+            //     routerlink: "etudiant/nouveaupreinscription/"
+            // },  
+            {
+                label: "Inscription ",
+                icon: "person_add",
+                routerlink: "administrator/etudiant/liste"
+            },
+            // {
+            //     label: "Nouvelle Insc",
+            //     icon: "person_add",
+            //     routerlink: "etudiant/nouveauinscription/"
+            // },  
         ]
     },
+   
     {
-        label: "Notes",
+        label: "Gestion-notes",
         icon: "assessment",
         expandable: true,
         subMenu: [
             {
                 label: "Pour une UE",
                 icon: "description",
-                routerlink: "notes/module/"
+                routerlink: "notes/nouvelle/"
             },
             {
                 label: "Pour un EC",
                 icon: "article",
-                routerlink: "notes/avecmodule/"
+                routerlink: "notes/nouvelleec/"
             },
            
-            // {
-            //     label: "Anonymat",
-            //     icon: "person_outline",
-            //     routerlink: "notes/anonymat/"
-            // },
             {
                 label: "Examen",
                 icon: "assignment",
                 routerlink: "notes/examen/"
             },
+            // {
+            //     label: "Nouvelle",
+            //     icon: "assignment",
+            //     routerlink: "notes/nouvelle/"
+            // },
+            // {
+            //     label: "Nouvelle EC",
+            //     icon: "assignment",
+            //     routerlink: "notes/nouvelleec/"
+            // },
+            {
+                label: "Liste-notes-UE",
+                icon: "assignment",
+                routerlink: "notes/listenote/"
+            },
+            {
+                label: "Liste-notes-EC",
+                icon: "assignment",
+                routerlink: "administrator/notes/listenotesec/"
+            },
+        ]
+    },
+    {
+        label: "Procès-verbaux",
+        icon: "assignment",
+        expandable: true,
+        subMenu: [
+            // {
+            //     label: "Étudiants",
+            //     icon: "school",
+            //     routerlink: "administrator/etudiant/liste/"
+            // },
+            // {
+            //     label: "Préinscription",
+            //     icon: "perm_contact_calendar",
+            //     routerlink: "etudiant/listepreinscription/"
+            // },
+            // {
+            //     label: "Inscription",
+            //     icon: "perm_contact_calendar",
+            //     routerlink: "etudiant/listeinscription/"
+            // },
+            {
+                label: "PV pour une UE",
+                icon: "note",
+                routerlink: "administrator/pv/liste/"
+            },
+            {
+                label: "PV pour un EC",
+                icon: "description",
+                routerlink: "administrator/pv/ec/"
+            },
+            {
+                label: "PV semestrielle",
+                icon: "description",
+                routerlink: "administrator/pv/semestre/"
+            },
+            // {
+            //     label: "PV Grand-Jury",
+            //     icon: "description",
+            //     routerlink: "administrator/pv/grandjury/"
+            // },
+
         ]
     },
     

@@ -1,2 +1,231 @@
+<div class="container-xl p-5">
+    <div class="row justify-content-between align-items-center mb-5">
+        <div class="col flex-shrink-0 mb-5 mb-md-0">
+            <h1 class="display-4 mb-0">Note pour un EC</h1>
+            <div class="text-muted">Liste des notes</div>
+        </div>
 
-<p class="text-center mt-3"><b>Bientot Disponible !!</b></p>
+    </div>
+
+
+    <!-- region filtrage du parcours des etudiants a afficher -->
+    <div class="card card-raised">
+        <div class="card-header bg-success text-white px-2">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="me-4">
+                    <h2 class="card-title text-white mb-0">
+                        <button class="btn text-white" type="button">
+                            <i class="material-icons">group</i> De quel parcours s'agit-il ?
+                        </button>
+                    </h2>
+                    <div class="card-subtitle"></div>
+                </div>
+            </div>
+        </div>
+        <div class="card-body p-4">
+            <div class="row g-0">
+                <div style="margin-left: 15%;" class="col-lg-7 col-md-7">
+                    <div class="card-body p-5">
+
+                        <!-- Login submission form-->
+                        <form class="mb-5" [formGroup]="form" (ngSubmit)="submit()">
+
+                            <div class="mb-4">
+                                <div class="form-group">
+                                    <label for="type">Année académique</label>
+                                    <select class="form-control" formControlName="annee">
+                                        <option value="">Sélectionner </option>
+                                        <option *ngFor="let annee of listeAnnees" [value]="annee.numeroDebut">{{
+                                            annee.code}}</option>
+                                    </select>
+                                    <div *ngIf="form.get('annee')?.invalid && form.get('annee')?.touched">
+                                        <small class="text-danger" *ngIf="form.get('annee')?.hasError('required')"> {{
+                                            errorMessages.required }} </small>
+            
+                                    </div>
+                                </div>
+                            </div>
+        
+                            <div class="mb-4">
+                                <div class="form-group">
+                                    <label for="type">Département </label>
+                                    <select class="form-control"  name="departement" formControlName="departement">
+                                        <option value="">Sélectionner</option>
+                                        <option *ngFor="let departement of listeDepartements" [value]="departement.code">{{ departement.code }}</option>
+                                    </select>
+                                </div>
+                                <div *ngIf="form.get('departement')?.invalid && form.get('departement')?.touched">
+                                    <small class="text-danger" *ngIf="form.get('departement')?.hasError('required')"> {{ errorMessages.required }} </small>
+                                </div>
+                            </div>
+                            <div class="mb-4">
+                                <div class="form-group">
+                                    <label for="type">Parcours </label>
+                                    <select class="form-control" name="parcours" formControlName="parcours">
+                                        <option value="">Sélectionner</option>
+                                        <option *ngFor="let parcour of listeParcours" [value]="parcour.label">{{
+                                            parcour.label }}</option>
+                                    </select>
+                                </div>
+                                <div *ngIf="form.get('parcours')?.invalid && form.get('parcours')?.touched">
+                                    <small class="text-danger" *ngIf="form.get('parcours')?.hasError('required')"> {{
+                                        errorMessages.required }} </small>
+                                </div>
+                            </div>
+                        <div class="mb-4">
+                            <div class="form-group" >
+                                <label for="type">UE</label>
+                                <select class="form-control" formControlName="cours">
+                                    <option value="">Sélectionner une UE</option>
+                                    <option *ngFor="let cours of listeCoursDept" [value]="cours.code">{{ cours.code }}</option>
+                                </select>
+                            </div>
+                            <div *ngIf="form.get('cours')?.invalid && form.get('cours')?.touched">
+                                <small class="text-danger" *ngIf="form.get('cours')?.hasError('required')"> {{ errorMessages.required }} </small>
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <div class="form-group" >
+                                <label for="type">EC</label>
+                                <select class="form-control" formControlName="module">
+                                    <option value="">Sélectionner un EC</option>
+                                    <option *ngFor="let module of listeModulesCours" [value]="module.code">{{ module.code }} - {{module.intitule}}</option>
+                                </select>
+                            </div>
+                            <div *ngIf="form.get('module')?.invalid && form.get('module')?.touched">
+                                <small class="text-danger" *ngIf="form.get('module')?.hasError('required')"> {{ errorMessages.required }} </small>
+                            </div>
+                        </div>
+
+
+
+                        <div class="mb-4">
+                            <div class="form-group" >
+                                <label for="type">Type evaluation </label>
+                                <select class="form-control" formControlName="type">
+                                    <option value="">Sélectionner un type</option>
+                                    <option *ngFor="let item of evaluations" [value]="item.code">{{ item.code }}</option>
+                                </select>
+                            </div>
+                            <div *ngIf="form.get('type')?.invalid && form.get('type')?.touched">
+                                <small class="text-danger" *ngIf="form.get('type')?.hasError('required')"> {{ errorMessages.required }} </small>
+                            </div>
+                        </div>
+                            
+                        <div class="form-group d-flex align-items-center justify-content-between mt-4 mb-0">
+                            <button class="btn btn-success" type='submit'>Rechercher</button>
+                        </div>
+                    </form>
+                        <!-- Auth card message-->
+
+                </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end region -->
+
+
+    <div class="card card-raised">
+        <div class="card-header bg-success text-white px-4">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="me-4">
+                    <div class="card-subtitle"></div>
+                </div>
+            </div>
+        </div>
+        <div class="card-body p-4">
+            <div class="datatable-container">
+
+                <button (click)="captureScreen()" class="btn btn-primary mb-3 ml-3" style="margin-left: 10px;">
+                    <i class="material-icons">picture_as_pdf</i> PDF
+                  </button>
+                <div id="contentToConvert" class="container">
+                    <!-- Table header -->
+                    <table id="data-header" class="display table" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th class="border-0">
+                                    <div class="card p-4 mb-5 text-center" style="margin-top: -10rem;">
+                                        <p class="mb-0"><b>REPUBLIQUE DU CAMEROUN</b></p>
+                                        <p ><b><i>Paix-Travail-Patrie</i></b></p>
+                                        <p><b>UNIVERSITE DE BERTOUA</b></p>
+                                        <p><b>ECOLE NORMALE SUPERIEURE</b></p>
+                                    </div>
+                                </th>
+                                <th class="align-middle">
+                                    <div class="card-body text-center p-5">
+                                        <img class="img-fluid" src="assets/images/logo_ensb.png" alt="image" style="max-width: 9rem;">
+                                    </div>
+                                </th>
+                                <th class="border-0">
+                                    <div  class="card p-4 mb-5 text-center" style="margin-top: -10rem;">
+                                        <p class="mb-0"><b>REPUBLIC OF CAMEROON</b></p>
+                                        <p ><b><i>Peace-Work-Fatherland</i></b> </p>
+                                        <p><b>UNIVERSITY OF BERTOUA</b> </p>
+                                        <p><b>HIGHER NORMAL SCHOOL</b></p>
+                                    </div>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="align-middle">
+                                <td colspan="3" class="text-info text-center align-middle"><b> LISTE DES NOTES DE L&#39;ELEMENT CONSTITUTIF
+                                </b></td>
+                            </tr>
+                            <tr  class="align-middle">
+                                <td colspan="2" class="text-center align-middle" ><b  style="margin-left: 50%;" *ngIf="listeEtudiantOfParcours">EC : {{singleModule}} </b></td>
+                            </tr>
+                            <tr  class="align-middle">
+                                <td colspan="2" class=" text-center align-middle"><b style="margin-left: 50%;" *ngIf="listeEtudiantOfParcours">Evaluation : {{singleEva}}</b></td>
+                            </tr>
+                            <tr class="align-middle">
+                                <td colspan="3" class="text-info text-center align-middle"><b *ngIf="listeEtudiantOfParcours">Parcours : {{singleParcours}} </b></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <!--  Table of Student -->
+                    <table id="table-data" class="table table-striped table-bordered table-sm row-border hover"
+                        datatable>
+                        <thead>
+                            <tr>
+                                <th><b>N°</b></th>
+                                <th><b>Matricule</b></th>
+                                <th><b>Noms & Prenoms</b></th>
+                                <!-- <th><b>Parcrours</b></th>
+                                <th><b>UE</b></th>
+                                <th><b>Evaluation</b></th> -->
+                                <th><b>Note de {{singleEva}}</b></th>
+                                <th><b>Actions</b></th>
+                                
+                            </tr>
+                        </thead>
+                        <tbody  *ngIf="listeEtudiantOfParcours">
+                            <ng-container *ngFor="let note of listeEtudiantOfParcours; let i = index">
+                                <tr>  
+                                  <td>{{ i + 1 }}</td>
+                                  <td>{{ note.matricule }}</td>
+                                  <td>{{ note.nom}}</td>
+                                  <!-- <td>{{ singleParcours}}</td>
+                                  <td>{{ singleCours}}</td>
+                                  <td>{{ singleEva}}</td> -->
+                                  <td>{{ note.valeur }}</td>
+                                  <td class="text-success">
+                                    <button class="btn btn-primary" (click)="update(note)"> <i  class="fa fa-pencil"></i></button> &nbsp;
+                                  </td>
+                               
+                                </tr>
+                              </ng-container>
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>

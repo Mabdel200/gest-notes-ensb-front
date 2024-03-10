@@ -1,0 +1,112 @@
+<header class="bg-info" style="background-color: #6e83d3;">
+    <div class="container-xl px-5">
+        <h1 class="text-white py-3 mb-0 display-6 text-center">{{title}}</h1>
+    </div>
+</header>
+<div class="row g-0">
+    <div style="margin-left: 15%;" class="col-lg-7 col-md-7">
+        <div class="card-body p-5">
+
+            <form class="mb-5" [formGroup]="form" (ngSubmit)="submit()">
+
+                <div class="mb-4">
+                    <div class="form-group">
+                        <label>Nom(s) et Prenom(s) *</label>
+                        <input type="text" class="form-control" formControlName="nom">
+                        <div *ngIf="form.get('nom')?.invalid && form.get('nom')?.touched">
+                            <small class="text-danger" *ngIf="form.get('nom')?.hasError('required')"> {{
+                                errorMessages.required }} </small>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <div class="form-group">
+                        <label>Date de naissance *</label>
+                        <input type="date" class="form-control" formControlName="dateDeNaissance">
+                        <div *ngIf="form.get('dateDeNaissance')?.invalid && form.get('dateDeNaissance')?.touched">
+                            <small class="text-danger" *ngIf="form.get('dateDeNaissance')?.hasError('required')"> {{
+                                errorMessages.required }} </small>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <div class="form-group">
+                        <label>Lieu de naissance *</label>
+                        <input type="text" class="form-control" formControlName="lieuDeNaissance">
+                        <div *ngIf="form.get('lieuDeNaissance')?.invalid && form.get('lieuDeNaissance')?.touched">
+                            <small class="text-danger" *ngIf="form.get('lieuDeNaissance')?.hasError('required')"> {{
+                                errorMessages.required }} </small>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <div class="form-group">
+                        <label>Email *</label>
+                        <input type="text" class="form-control" formControlName="email">
+                        <div *ngIf="form.get('email')?.invalid && form.get('email')?.touched">
+                            <small class="text-danger" *ngIf="form.get('email')?.hasError('required')"> {{
+                                errorMessages.required }} </small>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <div class="form-group">
+                        <label>Region *</label>
+                        <input type="text" class="form-control" formControlName="region">
+                        <div *ngIf="form.get('region')?.invalid && form.get('region')?.touched">
+                            <small class="text-danger" *ngIf="form.get('region')?.hasError('required')"> {{
+                                errorMessages.required }} </small>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <div class="form-group">
+                        <label>Telephone *</label>
+                        <input type="text" class="form-control" formControlName="numeroTelephone">
+                        <div *ngIf="form.get('numeroTelephone')?.invalid && form.get('numeroTelephone')?.touched">
+                            <small class="text-danger" *ngIf="form.get('numeroTelephone')?.hasError('required')"> {{
+                                errorMessages.required }} </small>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <div class="form-group">
+                        <label>Nationalité *</label>
+                        <input type="text" class="form-control" formControlName="nationalite">
+                        <div *ngIf="form.get('nationalite')?.invalid && form.get('nationalite')?.touched">
+                            <small class="text-danger" *ngIf="form.get('nationalite')?.hasError('required')"> {{
+                                errorMessages.required }} </small>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <div class="form-group">
+                        <label for="type">Genre</label>
+                        <select class="form-control" formControlName="genre">
+                            <option value="Masculin">M </option>
+                            <option value="Feminin">F </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <div class="form-group">
+                        <label for="type">Type</label>
+                        <select class="form-control" formControlName="type">
+                            <option value="AL">Auditeur Libre</option>
+                            <option value="ET">Etudiant Etranger</option>
+                            <option value="ER">Etudiant Regulier</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group d-flex align-items-center  mt-4 mb-0">
+                    <button class="btn btn-primary"  routerLink="/etudiant/listepreinscription/">Annuler</button> &nbsp;
+                    <button class="btn btn-success" type='submit' [disabled]="form.invalid">{{btnTitle}}</button>
+                </div>
+            </form>
+            <!-- Auth card message-->
+
+        </div>
+
+    </div>
+</div>

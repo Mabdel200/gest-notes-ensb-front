@@ -1,0 +1,153 @@
+<div class="container-xl p-5">
+    <div class="row justify-content-between align-items-center mb-5">
+        <div class="col flex-shrink-0 mb-5 mb-md-0">
+            <h1 class="display-4 mb-0">Inscription</h1>
+            <div class="text-muted">Liste des étudiants</div>
+        </div>
+
+    </div>
+
+
+    <!-- region filtrage du parcours des etudiants a afficher -->
+    <div class="card card-raised">
+        <div class="card-header bg-success text-white px-2">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="me-4">
+                    <h2 class="card-title text-white mb-0">
+                        <button class="btn text-white" type="button">
+                            <i class="material-icons">group</i> De quel parcours s'agit-il ?
+                        </button>
+                    </h2>
+                    <div class="card-subtitle"></div>
+                </div>
+            </div>
+        </div>
+        <div class="card-body p-4">
+            <div class="row g-0">
+                <div style="margin-left: 15%;" class="col-lg-7 col-md-7">
+                    <div class="card-body p-5">
+
+                        <!-- Login submission form-->
+                        <form class="mb-5" [formGroup]="form" (ngSubmit)="submit()">
+                            <div class="mb-4">
+                                <div class="form-group">
+                                    <label for="type">Département </label>
+                                    <select class="form-control" (change)="onDepartementChange()" name="departement"
+                                        formControlName="departement">
+                                        <option value="">Sélectionner</option>
+                                        <option *ngFor="let departement of listeDepartements"
+                                            [value]="departement.code">{{ departement.code }}</option>
+                                    </select>
+                                </div>
+                                <div *ngIf="form.get('departement')?.invalid && form.get('departement')?.touched">
+                                    <small class="text-danger" *ngIf="form.get('departement')?.hasError('required')"> {{
+                                        errorMessages.required }} </small>
+                                </div>
+                            </div>
+
+                            <div class="mb-4">
+                                <div class="form-group">
+                                    <label for="type">Parcours </label>
+                                    <select class="form-control" name="parcours" formControlName="parcours">
+                                        <option value="">Sélectionner</option>
+                                        <option *ngFor="let parcour of listeParcours" [value]="parcour.label">{{
+                                            parcour.label }}</option>
+                                    </select>
+                                </div>
+                                <div *ngIf="form.get('parcours')?.invalid && form.get('parcours')?.touched">
+                                    <small class="text-danger" *ngIf="form.get('parcours')?.hasError('required')"> {{
+                                        errorMessages.required }} </small>
+                                </div>
+                            </div>
+
+                            <div class="mb-4">
+                                <div class="form-group">
+                                    <label for="type">Année académique</label>
+                                    <select class="form-control" formControlName="annee">
+                                        <option value="">Sélectionner </option>
+                                        <option *ngFor="let annee of listeAnnees" [value]="annee.numeroDebut">{{
+                                            annee.code}}</option>
+                                    </select>
+                                    <div *ngIf="form.get('annee')?.invalid && form.get('annee')?.touched">
+                                        <small class="text-danger" *ngIf="form.get('annee')?.hasError('required')"> {{
+                                            errorMessages.required }} </small>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group d-flex align-items-center justify-content-between mt-4 mb-0">
+                                <button class="btn btn-success" type='submit'>Rechercher</button>
+                            </div>
+                        </form>
+                        <!-- Auth card message-->
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end region -->
+
+
+    <div class="card card-raised">
+        <div class="card-header bg-success text-white px-4">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="me-4">
+                    <div class="card-subtitle"></div>
+                </div>
+            </div>
+        </div>
+        <div class="card-body p-4">
+            <div class="datatable-container">
+
+
+                <div id="contentToConvert" class="container">
+                    <!-- Table header -->
+
+
+
+                    <!--  Table of Student -->
+                    <table id="table-data" class="table table-striped table-bordered table-sm row-border hover"
+                        datatable>
+                        <thead>
+                            <tr>
+                                <th>N°</th>
+                                <th>Matricule</th>
+                                <th>Noms & Prenoms</th>
+                                <th>Genre</th>
+                                <th>Date Naissance</th>
+                                <th>Lieu de Naissance</th>
+                                <th>Email</th>
+                                <th>Tel</th>
+                                <th>Parcours</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of etudiant ;let i = index ;">
+                                <td>{{i+1}}</td>
+                                <td>{{item.matricule}}</td>
+                                <td>{{item.nom}}</td>
+                                <td>{{item.genre}}</td>
+                                <td>{{item.dateDeNaissance}}</td>
+                                <td>{{item.lieuDeNaissance}}</td>
+                                <td>{{item.email}}</td>
+                                <td>{{item.numeroTelephone}}</td>
+                                <td>{{""}}</td>
+                                <td class="text-success">
+                                    <button class="btn btn-primary" (click)="update(item)"> <i  class="fa fa-pencil"></i></button> &nbsp;
+                                </td>
+                            </tr>
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>

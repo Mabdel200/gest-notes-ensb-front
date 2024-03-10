@@ -9,6 +9,9 @@ import { Semestre } from '../../core/models/semestre';
 import { TypeCours } from '../../core/models/typeCours';
 import { ServicesService } from '../../core/services/services.service';
 import { NotificationService } from '../../core/services/notification.service';
+import { Parcours } from '../../core/models/parcours';
+import { takeUntil, debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
 
 @Component({
@@ -29,6 +32,8 @@ export class CoursFormComponent implements OnInit {
   allDepartement!: Departement[]
   allCredit!: Credit[]
   allSemestre !: Semestre[]
+  allParcours!: Parcours[]
+  listeParcoursToSave!: any[];
 
   title = "Nouvelle UE"
   btnTitle = "Ajouter"
@@ -38,13 +43,42 @@ export class CoursFormComponent implements OnInit {
   userId: any;
   allNature: String[] = NatureUe
   constructor(private notification:NotificationService, private adminService: ServicesService, private router: Router, private route: ActivatedRoute) { }
+  
+  onForm() {
+    this.form = new FormGroup({
+      intitule: new FormControl('', [Validators.required],),
+      natureUe: new FormControl('', [Validators.required]),
+      departement: new FormControl('', [Validators.required]),
+      credit: new FormControl('', [Validators.required]),
+      typeCours: new FormControl('', [Validators.required]),
+      semestre: new FormControl('', [Validators.required]),
+      parcours: new FormControl('', [Validators.required]),
+
+    })
+  }
 
   ngOnInit(): void {
+    this.onForm()
     this.getCredit()
     this.getTypeCours()
     this.getDepartement()
     this.getSemestres()
-    this.onForm()
+  
+
+    // To managed State of parcours by Depart
+    this.form.controls['departement'].valueChanges
+    .pipe(
+      takeUntil(this.unsubscribe$),  
+      debounceTime(100),  
+      distinctUntilChanged() 
+    )
+    .subscribe((selectedDepartementValue) => {
+      const selectedDepartementCode = selectedDepartementValue !== null ? selectedDepartementValue : '';
+      // Call function for state change
+      this.getAllParcoursDept(selectedDepartementCode);
+    });
+
+
     this.name = this.route.snapshot.params['slug'];
     if (this.name) {
       this.title = "Mise à  jour UE"
@@ -64,17 +98,6 @@ export class CoursFormComponent implements OnInit {
     }
   }
 
-  onForm() {
-    this.form = new FormGroup({
-      intitule: new FormControl('', [Validators.required],),
-      natureUe: new FormControl('', [Validators.required]),
-      departement: new FormControl('', [Validators.required]),
-      credit: new FormControl('', [Validators.required]),
-      typeCours: new FormControl('', [Validators.required]),
-      semestre: new FormControl('', [Validators.required]),
-
-    })
-  }
 
   getSemestres() {
     const url = `${apiConfig.admin.semestre.getAll}`;
@@ -91,6 +114,7 @@ export class CoursFormComponent implements OnInit {
   findSemestreById(id: Number): Semestre {
     return this.allSemestre.find(item => id === item.id)!
   }
+
   getCredit() {
     const url = `${apiConfig.admin.credit.getAll}`;
     this.adminService.getResources(url).subscribe(
@@ -106,6 +130,7 @@ export class CoursFormComponent implements OnInit {
   findCreditById(id: Number): Credit {
     return this.allCredit.find(item => id === item.id)!
   }
+
   getDepartement() {
     const url = `${apiConfig.admin.departement.getAll}`;
     this.adminService.getResources(url).subscribe(
@@ -118,9 +143,32 @@ export class CoursFormComponent implements OnInit {
     );
   }
 
-  findDepartementById(id: Number): Departement {
-    return this.allDepartement.find(item => id === item.id)!
+  findDepartementByCode(code: String): Departement {
+    return this.allDepartement.find(item => code === item.code)!
   }
+
+  //========= Parcours ===========================
+  getAllParcoursDept(departementCode: string) {
+    this.allParcours = [];
+    const url = apiConfig.admin.parcours.getAllByDept(departementCode);
+    console.log(url);
+    // Utilisez directement le départementCode dans l'URL généré
+    this.adminService.getResourceMany(url, {}).subscribe(
+      (data) => {
+        this.allParcours = data.body;
+        console.log(this.allParcours);
+      },
+      (err) => {
+        console.log('erreur', err.error.message);
+      }
+    );
+  }
+
+  findParcoursById(id: Number): Parcours {
+    return this.allParcours.find(item => id === item.id)!
+  }
+
+  // =========== Type Cours ======================
   getTypeCours() {
     const url = `${apiConfig.admin.typeCours.getAll}`;
     this.adminService.getResources(url).subscribe(
@@ -136,23 +184,39 @@ export class CoursFormComponent implements OnInit {
   findTypeCoursById(id: Number): TypeCours {
     return this.allTypeCours.find(item => id === item.id)!
   }
+
+  // Detruit les observables
+  private unsubscribe$ = new Subject<void>();
+
+  ngOnDestroy(): void {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
+  }
+
+
   submit() {
 
     if (this.form.valid) {
 
+      let listeParcoursTable : any = [
+        this.findParcoursById(this.form.value.parcours),
+      ]
+       
       // Save datas create user in database
       if (this.name == null) {
-
-        var cours: Cours = {
+       
+        var cours: any = {
           natureUE: this.form.value.natureUe,
           intitule: this.form.value.intitule,
-          departement: this.findDepartementById(this.form.value.departement),
+          departement: this.findDepartementByCode(this.form.value.departement),
           credit: this.findCreditById(this.form.value.credit),
           typecours: this.findTypeCoursById(this.form.value.typeCours),
           semestre: this.findSemestreById(this.form.value.semestre),
+          parcours: listeParcoursTable
         }
-
+        console.log("cours", cours)
         const url = `${apiConfig.admin.cours.create}`;
+
         this.adminService.saveResource(url, cours).subscribe(
           {
             next: res => {
@@ -170,10 +234,10 @@ export class CoursFormComponent implements OnInit {
       else {
 
         var str = decodeURIComponent(this.name).split('%');
-        var cours: Cours = {
+        var cours: any = {
           natureUE: this.form.value.natureUe,
           intitule: this.form.value.intitule,
-          departement: this.findDepartementById(this.form.value.departement),
+          departement: this.findDepartementByCode(this.form.value.departement),
           credit: this.findCreditById(this.form.value.credit),
           typecours: this.findTypeCoursById(this.form.value.typeCours),
           semestre: this.findSemestreById(this.form.value.semestre),

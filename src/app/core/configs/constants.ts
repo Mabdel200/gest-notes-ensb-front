@@ -129,6 +129,7 @@ export const api = {
       create: 'addModule',
       getAll: 'findAllModule',
       getOne: 'findModuleById/',
+      getAllModsByCours: (code: string) => `findModuleByCode?code=${code}`,
       getAllByCours: 'findModuleByCode/',//?code=value ,
       update: 'updateModule/',
       delete: 'deleteModule/'
@@ -173,10 +174,22 @@ export const api = {
       delete: 'deleteTypeCours/'
     },
     notes: {
+      // region pv
       getPVCours: (session: number, annee: number, code : string, label:string) => `findPVCours/session/${session}/annee/${annee}/cours?code=${code}&label=${label}`,
+      getPVCoursSansEE: ( annee: number, code : string, label:string) => `findPVCours/annee/${annee}/cours?code=${code}&label=${label}`,
+      getPVModule: (annee: number, module : string, label:string) => `findPVModule/annee/${annee}/module?code=${module}&label=${label}`,
+      getPVSemestre: (annee: number, cycle:number, label:string) => `findPVSemestriel/anneeAca/${annee}/cycle/${cycle}/parcours?label=${label}`,
+      getPVAnnuel: ( annee: number, label:string) => `findPVAnnuel/anneeAca/${annee}/parcours?label=${label}`,
+      getPVGrandJury: (cycle: number, code : string) => `findPVGrandJury/cycle/${cycle}/option?code=${code}`,
+      // region liste notes
+      getListNotesUE: (annee: number, codeEva: number, codeUE:string, label: string) => `findListeNoteEtudiantFromParcours/annee/${annee}/evaluation/${codeEva}/codeUE?code=${codeUE}&label=${label}`,
+      getListNotesEC: (annee: number, codeEva: number, codeEC:string, label: string) => `findListeNoteEtudiantFromParcours/annee/${annee}/evaluation/${codeEva}/codeEC?code=${codeEC}&label=${label}`,
+      // region post notes
       cours: 'addNoteCours',
       module: 'addNoteModule',
       examen: 'addNoteExamen/anonymat/',
+      update: 'updateNote/',
+    
     },
     statistique: {
       getGlobalStat:'findGloalStat',

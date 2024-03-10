@@ -14,8 +14,15 @@
                 <div class="me-4">
                     <h2 class="card-title text-white mb-0">
                         <button class="btn text-white" type="button" >
-                            <i class="material-icons">group</i> De quel parcours s'agit-il ?
+                            <i class="material-icons">group</i> Filtrer les étudiants d'un parcours.
+                        </button>&nbsp;&nbsp;
+                        <button class="btn btn-text-white" type="button" routerLink="/etudiant/nouveauinscription">
+                            <i class="material-icons">add</i> Nouvelle 
                         </button> 
+                        &nbsp;&nbsp;
+                        <button class="btn btn-text-white" type="button" routerLink="/etudiant/inscription">
+                            <i class="material-icons">library_add</i> Ajout multiple 
+                        </button>
                     </h2>
                     <div class="card-subtitle"></div>
                 </div>
@@ -107,13 +114,10 @@
             <div class="d-flex justify-content-between align-items-center">
                 <div class="me-4">
                     <h2 class="card-title text-white mb-0">
-                        <button class="btn btn-text-white" type="button" routerLink="/administrator/etudiant/nouveau">
-                            <i class="material-icons">add</i> Nouveau
+                        <button class="btn btn-text-white" type="button" routerLink="/etudiant/nouveauinscription">
+                            <i class="material-icons">group</i> Liste des etudiants inscrits
                         </button> 
-                        &nbsp;&nbsp;
-                        <button class="btn btn-text-white" type="button" routerLink="/administrator/etudiant/enregisrement/multiple">
-                            <i class="material-icons">library_add</i> Ajout multiple
-                        </button>
+                     
                     </h2>
                     <div class="card-subtitle"></div>
                 </div>
@@ -159,7 +163,7 @@
                     </thead>
                     <tbody>
                         <tr class="align-middle">
-                            <td colspan="3" class="text-info text-center align-middle"><b>LISTE DES ETUDIANTS </b></td>
+                            <td colspan="3" class="text-info text-center align-middle"><b>LISTE DES ETUDIANTS INSCRITS </b></td>
                         </tr>
                     </tbody>
                 </table>

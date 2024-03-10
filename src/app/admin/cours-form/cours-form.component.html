@@ -24,7 +24,7 @@
                 <div class="mb-4">
                     <div class="form-group">
                         <label for="type">Nature UE</label>
-                        <select id="" class="form-control" formControlName="natureUe">
+                        <select class="form-control" formControlName="natureUe">
                             <option *ngFor="let item of allNature;let i = index" [ngValue]="i"> {{item}}
                         </select>
                     </div>
@@ -37,10 +37,9 @@
                 <div class="mb-4">
                     <div class="form-group">
                         <label for="type">Departement</label>
-                        <select id="" class="form-control" formControlName="departement">
-                            <option *ngFor="let item of allDepartement" [ngValue]="item.id"> {{item.code}}
+                        <select class="form-control" formControlName="departement">
+                            <option *ngFor="let item of allDepartement" [ngValue]="item.code"> {{item.code}}
                             </option>
-
                         </select>
                     </div>
                     <div *ngIf="form.get('departement')?.invalid && form.get('departement')?.touched">
@@ -51,8 +50,23 @@
                 </div>
                 <div class="mb-4">
                     <div class="form-group">
+                        <label for="type">Parcours</label>
+                        <select  class="form-control" formControlName="parcours">
+                            <option *ngFor="let item of allParcours" [ngValue]="item.id"> {{item.label}}
+                            </option>
+
+                        </select>
+                    </div>
+                    <div *ngIf="form.get('parcours')?.invalid && form.get('parcours')?.touched">
+                        <small class="text-danger" *ngIf="form.get('parcours')?.hasError('required')"> {{
+                            errorMessages.required }} </small>
+
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <div class="form-group">
                         <label for="type">Semestre</label>
-                        <select id="" class="form-control" formControlName="semestre">
+                        <select class="form-control" formControlName="semestre">
                             <option *ngFor="let item of allSemestre" [ngValue]="item.id"> {{item.valeur}}  </option>
                         </select>
                     </div>
@@ -65,7 +79,7 @@
                 <div class="mb-4">
                     <div class="form-group">
                         <label for="type">Credit</label>
-                        <select id="" class="form-control" formControlName="credit">
+                        <select  class="form-control" formControlName="credit">
                             <option *ngFor="let item of allCredit" [ngValue]="item.id"> {{item.valeur}} </option>
                         </select>
                     </div>
@@ -78,7 +92,7 @@
                 <div class="mb-4">
                     <div class="form-group">
                         <label for="type">Evaluations attendues</label>
-                        <select id="" class="form-control" formControlName="typeCours">
+                        <select  class="form-control" formControlName="typeCours">
                             <option *ngFor="let item of allTypeCours" [ngValue]="item.id"> {{item.nom}} </option>
 
                         </select>

@@ -6,12 +6,21 @@ import { PreinscriptionComponent } from './preinscription/preinscription.compone
 import { InscriptionComponent } from './inscription/inscription.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
+import { NouveauPreinscriptionComponent } from './nouveau-preinscription/nouveau-preinscription.component';
+import { NouveauInscriptionComponent } from './nouveau-inscription/nouveau-inscription.component';
+import { ListesInscriptionComponent } from './listes-inscription/listes-inscription.component';
+import { ListesPreinscriptionComponent } from './listes-preinscription/listes-preinscription.component';
 
 @NgModule({
   declarations: [
     PreinscriptionComponent,
-    InscriptionComponent
-  ],
+    InscriptionComponent,
+    NouveauPreinscriptionComponent,
+    NouveauInscriptionComponent,
+    ListesInscriptionComponent,
+    ListesPreinscriptionComponent,
+ 
+  ], 
   imports: [
     CommonModule,
     EtudiantRoutingModule,

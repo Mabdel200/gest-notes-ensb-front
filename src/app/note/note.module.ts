@@ -8,6 +8,11 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { NoteExamenComponent } from './note-examen/note-examen.component';
 import { AnonymatFormComponent } from './anonymat-form/anonymat-form.component';
 import { ToastrModule } from 'ngx-toastr';
+import { ListNoteComponent } from './list-note/list-note.component';
+import { FormNoteComponent } from './form-note/form-note.component';
+import { FormNoteEcComponent } from './form-note-ec/form-note-ec.component';
+import { UpdateNoteEcComponent } from './update-note-ec/update-note-ec.component';
+import { UpdateNoteUeComponent } from './update-note-ue/update-note-ue.component';
 
 @NgModule({
   declarations: [
@@ -15,6 +20,11 @@ import { ToastrModule } from 'ngx-toastr';
     SansModuleComponent,
     NoteExamenComponent,
     AnonymatFormComponent,
+    ListNoteComponent,
+    FormNoteComponent,
+    FormNoteEcComponent,
+    UpdateNoteUeComponent,
+    UpdateNoteEcComponent,
   ],
   imports: [
     CommonModule,

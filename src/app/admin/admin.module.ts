@@ -39,6 +39,10 @@ import { EtudiantListeComponent } from './etudiant-liste/etudiant-liste.componen
 import { PvListeComponent } from './pv-liste/pv-liste.component';
 // Add Module DataTable 
 import { DataTablesModule } from 'angular-datatables';
+import { PvEcComponent } from './pv-ec/pv-ec.component';
+import { PvSemestreComponent } from './pv-semestre/pv-semestre.component';
+import { PvJuryComponent } from './pv-jury/pv-jury.component';
+import { NotesListeComponent } from './notes-liste/notes-liste.component';
 
 @NgModule({
   declarations: [
@@ -73,6 +77,10 @@ import { DataTablesModule } from 'angular-datatables';
     ModuleFormMultipleComponent,
     EtudiantListeComponent,
     PvListeComponent,
+    PvEcComponent,
+    PvSemestreComponent,
+    PvJuryComponent,
+    NotesListeComponent,
     
   ],
   imports: [

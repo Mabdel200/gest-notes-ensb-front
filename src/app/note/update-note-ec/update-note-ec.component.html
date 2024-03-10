@@ -1,0 +1,87 @@
+<header class="bg-info" style="background-color: #6e83d3;">
+    <div class="container-xl px-5">
+        <div class="row align-items-center">
+            <div class="col-md-6">
+                <h1 class="text-white py-3 mb-0 display-6" style="margin-left: 34%;">Mettre a jour une note pour un EC
+                </h1>
+            </div>
+            <div class="col-md-6 d-flex justify-content-end align-items-center">
+                <hr class="my-0 mx-3" style="height: 40px; border-width: 2px;">
+
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+<div class="row g-0">
+    <div style="margin-left: 15%;" class="col-lg-7 col-md-7">
+        <div class="card-body p-5">
+
+            <!-- Login submission form-->
+            <form class="mb-5" [formGroup]="form" (ngSubmit)="submit()">
+
+                <div class="mb-4">
+                    <div class="form-group">
+                        <label for="type">Année académique</label>
+                        {{anneeAca}}
+
+                    </div>
+                </div>
+
+                <div class="mb-4">
+                    <div class="form-group">
+                        <label for="type">Parcours </label>
+
+                        {{parcours}}
+
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <div class="form-group">
+                        <label for="type">UE</label>
+                        {{codeUE}}
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <div class="form-group">
+                        <label for="type">EC</label>
+                        {{codeUE}}
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <div class="form-group">
+                        <label for="type">Type evaluation </label>
+                        {{codeEva}}
+                    </div>
+                </div>
+
+                <div class="mb-4">
+                    <div class="form-group">
+                        <label for="type">Etudiant </label>
+                        {{matricule + " " + nom}}
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <div class="form-group">
+                        <label>Note</label>
+                        <input type="number" class="form-control" formControlName="valeur">
+                        <div *ngIf="form.get('valeur')?.invalid && form.get('valeur')?.touched">
+                            <small class="text-danger" *ngIf="form.get('valeur')?.hasError('required')"> {{
+                                errorMessages.required }} </small>
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="form-group d-flex align-items-center justify-content-between mt-4 mb-0">
+                    <button class="btn btn-success" type='submit'>Mettre a jour</button>
+                </div>
+            </form>
+            <!-- Auth card message-->
+
+        </div>
+
+    </div>
+</div>

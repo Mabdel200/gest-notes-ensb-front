@@ -8,5 +8,6 @@ export interface Etudiant {
     region: String,
     numeroTelephone: String,
     genre: Number
-    type:Number
+    type:any,
+    nationalite?:String
 }

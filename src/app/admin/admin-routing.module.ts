@@ -37,6 +37,10 @@ import { FiliereFormComponent } from './filiere-form/filiere-form.component';
 import { FiliereComponent } from './filiere/filiere.component';
 import { TypeCoursFormComponent } from './type-cours-form/type-cours-form.component';
 import { TypeCoursComponent } from './type-cours/type-cours.component';
+import { PvEcComponent } from './pv-ec/pv-ec.component';
+import { PvSemestreComponent } from './pv-semestre/pv-semestre.component';
+import { PvJuryComponent } from './pv-jury/pv-jury.component';
+import { NotesListeComponent } from './notes-liste/notes-liste.component';
 
 const routes: Routes = [
   {
@@ -312,23 +316,31 @@ const routes: Routes = [
         path: "liste",
         component: PvListeComponent
       },
+      {
+        path: "ec",
+        component: PvEcComponent
+      },
+      {
+        path: "semestre",
+        component: PvSemestreComponent
+      },
+      {
+        path: "grandjury",
+        component: PvJuryComponent
+      },
       
     ]
   },
-  // {
-  //   path: "notes",
-  //   children: [
-  //     {
-  //       path: "",
-  //       component: NotesListeComponent
-  //     },
-  //     {
-  //       path: "liste",
-  //       component: NotesListeComponent
-  //     },
+  {
+    path: "notes",
+    children: [
+      {
+        path: "listenotesec",
+        component: NotesListeComponent
+      },
       
-  //   ]
-  // }
+    ]
+  }
 ]
 
 @NgModule({
